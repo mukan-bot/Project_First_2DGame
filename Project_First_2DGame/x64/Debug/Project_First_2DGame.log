@@ -1,0 +1,9 @@
+﻿  camera.cpp
+  debugproc.cpp
+  main.cpp
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(229,2): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(253,2): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+  renderer.cpp
+  sprite.cpp
+  コードを生成中...
+  Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
