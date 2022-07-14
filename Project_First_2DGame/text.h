@@ -7,11 +7,16 @@
 
 
 // マクロ定義
+
+#define TEXT_MAX	(40)	//最大文字数
+
+
+//構造体定義
 struct TEXT
 {
 	XMFLOAT3	pos;		// ポリゴンの座標
 	float		w, h;		// 幅と高さ
-	int			texNo;		// 使用しているテクスチャ番号
+	bool		use;
 };
 
 
@@ -20,4 +25,4 @@ struct TEXT
 
 
 // プロトタイプ宣言
-
+void SetText(float x, float y, char[TEXT_MAX]);

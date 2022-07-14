@@ -151,7 +151,6 @@
     <ClInclude Include="text.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sprite.h" />
-    <ClInclude Include="title.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
@@ -160,7 +159,6 @@
     <ClCompile Include="text.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="sprite.cpp" />
-    <ClCompile Include="title.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

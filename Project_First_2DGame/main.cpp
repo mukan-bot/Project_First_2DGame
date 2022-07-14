@@ -208,7 +208,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//ライトを有効化
 	SetLightEnable(FALSE);
 
-	InitTITLE();
+
 	return S_OK;
 }
 
@@ -220,7 +220,7 @@ void Uninit(void) {
 	//レンダラーの終了処理
 	UninitRenderer();
 
-	UninitTITLE();
+
 }
 
 //更新処理
@@ -233,7 +233,8 @@ void Update(void) {
 	default:
 		break;
 	}
-	UpdateTITLE();
+
+
 }
 
 //描画処理
@@ -258,7 +259,6 @@ void Draw(void) {
 	default:
 		break;
 	}
-	DrawTITLE();
 
 	//バックバッファ、フロントバッファ入れ替え
 	Present();
