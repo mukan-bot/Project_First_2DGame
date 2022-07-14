@@ -2,6 +2,8 @@
 #include "renderer.h"
 #include "camera.h"
 
+#include "title.h"
+
 
 //マクロ定義
 #define CLASS_NAME "AppClass"
@@ -248,9 +250,11 @@ void Draw(void) {
 	SetLightEnable(FALSE);
 
 	switch (g_Mode){
+
 	default:
 		break;
 	}
+	Draw
 
 	//バックバッファ、フロントバッファ入れ替え
 	Present();
