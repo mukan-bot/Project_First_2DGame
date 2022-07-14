@@ -11,7 +11,7 @@ static ID3D11Buffer* g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/map.png",
+	"data/TEXTURE/test.png",
 };
 
 
@@ -143,24 +143,6 @@ void DrawTITLE(void)
 	}
 
 
-	// 空を描画
-	{
-		// テクスチャ設定
-		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[1]);
-
-		// １枚のポリゴンの頂点とテクスチャ座標を設定
-		//float	tx = (g_TITLE.pos.x - g_TITLE.old_pos.x) * ((float)SCREEN_WIDTH / TEXTURE_WIDTH);
-		//g_TITLE.scrl += tx * 0.001f;
-		g_TITLE.scrl += 0.001f;
-
-		SetSpriteLTColor(g_VertexBuffer,
-			0.0f, 0.0f, SCREEN_WIDTH, SKY_H,
-			g_TITLE.scrl, 0.0f, 1.0f, 1.0f,
-			XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-
-		// ポリゴン描画
-		GetDeviceContext()->Draw(4, 0);
-	}
 
 	{
 		// テクスチャ設定

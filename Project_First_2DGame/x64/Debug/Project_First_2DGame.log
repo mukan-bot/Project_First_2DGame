@@ -1,7 +1,2 @@
-﻿  main.cpp
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(231,2): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(260,2): error C2146: 構文エラー: ';' が、識別子 'Present' の前に必要です。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(257,2): warning C4551: 関数呼び出しに引数リストがありません。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(256,2): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
-  title.cpp
-  コードを生成中...
+﻿  polygon.cpp
+  Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

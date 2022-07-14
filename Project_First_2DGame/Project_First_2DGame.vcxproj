@@ -148,6 +148,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="text.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="title.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="text.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="title.cpp" />
