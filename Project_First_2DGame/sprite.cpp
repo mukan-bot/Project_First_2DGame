@@ -113,9 +113,7 @@ void SetSpriteLeftTop(ID3D11Buffer* buf, float X, float Y, float Width, float He
 
 
 
-void SetSpriteColor(ID3D11Buffer* buf, float X, float Y, float Width, float Height,
-	float U, float V, float UW, float VH,
-	XMFLOAT4 color)
+void SetSpriteColor(ID3D11Buffer* buf, float X, float Y, float Width, float Height,float U, float V, float UW, float VH,XMFLOAT4 color)
 {
 	D3D11_MAPPED_SUBRESOURCE msr;
 	GetDeviceContext()->Map(buf, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);

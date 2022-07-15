@@ -109,6 +109,7 @@ void SetFogEnable(BOOL flag);
 void SetFog(FOG* fog);
 
 void DebugTextOut(char* text, int x, int y);
+void Text_Out(char* text, int x, int y);
 
 void SetFuchi(int flag);
 void SetShaderCamera(XMFLOAT3 pos);

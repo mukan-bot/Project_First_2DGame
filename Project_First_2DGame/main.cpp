@@ -1,8 +1,7 @@
 #include "main.h"
 #include "renderer.h"
 #include "camera.h"
-
-#include "polygon.h"
+#include "text.h"
 
 
 //マクロ定義
@@ -208,6 +207,8 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//ライトを有効化
 	SetLightEnable(FALSE);
 
+	//テキストの初期化
+	Init_text();
 
 	return S_OK;
 }
@@ -220,7 +221,8 @@ void Uninit(void) {
 	//レンダラーの終了処理
 	UninitRenderer();
 
-
+	//テキストの終了処理
+	Uninit_text();
 }
 
 //更新処理
@@ -228,11 +230,11 @@ void Update(void) {
 
 	//カメラ更新
 	UpdateCamera();
-
 	switch (g_Mode) {
 	default:
 		break;
 	}
+	//UpdateText();
 
 
 }
@@ -259,7 +261,7 @@ void Draw(void) {
 	default:
 		break;
 	}
-
+	Draw_text();
 	//バックバッファ、フロントバッファ入れ替え
 	Present();
 }

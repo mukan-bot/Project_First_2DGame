@@ -15,7 +15,7 @@ static ID3D11Buffer* g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/test.png",
+	"data/TEXTURE/text_img1.png",
 };
 
 
@@ -27,7 +27,7 @@ static TEXT	g_TEXT[TEXT_MAX];
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT InitPlayer(void)
+HRESULT Init_text(void)
 {
 	ID3D11Device* pDevice = GetDevice();
 
@@ -57,7 +57,7 @@ HRESULT InitPlayer(void)
 		g_TEXT[i].pos = XMFLOAT3(400.0f, 400.0f, 0.0f);	// 中心点から表示
 		g_TEXT[i].w = TEXTURE_WIDTH;
 		g_TEXT[i].h = TEXTURE_HEIGHT;
-		g_TEXT[i].use = FALSE;
+		g_TEXT[i].use = TRUE;
 	}
 	return S_OK;
 }
@@ -65,7 +65,7 @@ HRESULT InitPlayer(void)
 //=============================================================================
 // 終了処理
 //=============================================================================
-void UninitPlayer(void)
+void Uninit_text(void)
 {
 
 	if (g_VertexBuffer)
@@ -89,10 +89,8 @@ void UninitPlayer(void)
 
 
 
-//=============================================================================
 // 描画処理
-//=============================================================================
-void DrawPlayer(void)
+void Draw_text(void)
 {
 	// 頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
@@ -109,21 +107,31 @@ void DrawPlayer(void)
 	MATERIAL material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	SetMaterial(material)
-		;
+	SetMaterial(material);
+
 	for (int i = 0; i < TEXT_MAX; i++) {
 		if (g_TEXT[i].use) {
-
 
 			// テクスチャ設定
 			GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[0]);
 
 
+			// １枚のポリゴンの頂点とテクスチャ座標を設定
+			SetSpriteColor(g_VertexBuffer, g_TEXT[i].px, g_TEXT[i].py, g_TEXT[i].pw, g_TEXT[i].ph, g_TEXT[i].tx, g_TEXT[i].ty, g_TEXT[i].tw, g_TEXT[i].th,XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+
+			// ポリゴン描画
+			GetDeviceContext()->Draw(4, 0);
 
 
 		}
 	}
 }
 
+
+
+void Settext(float x, float y, char text[]) {
+	
+
+}
 
 
