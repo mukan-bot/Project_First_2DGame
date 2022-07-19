@@ -3,8 +3,8 @@
 
 // ƒ}ƒNƒ’è‹`
 
-#define TEXTURE_WIDTH				(200/2)	// ƒLƒƒƒ‰ƒTƒCƒY
-#define TEXTURE_HEIGHT				(200/2)	// 
+#define TEXTURE_WIDTH				(80)	// ƒTƒCƒY
+#define TEXTURE_HEIGHT				(120)	// 
 #define TEXTURE_MAX					(2)		// ƒeƒNƒXƒ`ƒƒ‚Ì”
 
 #define TEXTURE_PATTERN_DIVIDE_X	(62)		// ƒAƒjƒƒpƒ^[ƒ“‚ÌƒeƒNƒXƒ`ƒƒ“à•ªŠ„”iX)
@@ -14,14 +14,42 @@
 static ID3D11Buffer* g_VertexBuffer = NULL;		// ’¸“_î•ñ
 static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// ƒeƒNƒXƒ`ƒƒî•ñ
 
+
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/text_img1.png",
+	"data/TEXTURE/font.png",
 };
 
 
 static BOOL	g_Load = FALSE;		// ‰Šú‰»‚ğs‚Á‚½‚©‚Ìƒtƒ‰ƒO
 static TEXT	g_TEXT[TEXT_MAX];
 
+char g_textlist[293][48][3] = {
+	{"‚ ","‚¢","‚¤","‚¦","‚¨","‚©","‚«","‚­","‚¯","‚±","‚³","‚µ","‚·","‚¹","‚»","‚½","‚¿","‚Â","‚Ä","‚Æ","‚È","‚É","‚Ê","‚Ë","‚Ì","‚Í","‚Ğ","‚Ó","‚Ö","‚Ù","‚Ü","‚İ","‚Ş","‚ß","‚à","‚â","‚ä","‚æ","‚ç","‚è","‚é","‚ê","‚ë","‚í","‚î","‚ï","‚ğ","‚ñ",
+	}, {"‚ª","‚¬","‚®","‚°","‚²","‚´","‚¶","‚¸","‚º","‚¼","‚¾","‚À","‚Ã","‚Å","‚Ç","‚Î","‚Ñ","‚Ô","‚×","‚Ú","‚Ï","‚Ò","‚Õ","‚Ø","‚Û",
+	}, {"‚Ÿ","‚¡","‚£","‚¥","‚§","‚Á","‚á","‚ã","‚å",
+	}, {"ƒA","ƒC","ƒE","ƒG","ƒI","ƒJ","ƒL","ƒN","ƒP","ƒR","ƒT","ƒV","ƒX","ƒZ","ƒ\","ƒ^","ƒ`","ƒc","ƒe","ƒg","ƒi","ƒj","ƒk","ƒl","ƒm","ƒn","ƒq","ƒt","ƒw","ƒz","ƒ}","ƒ~","ƒ€","ƒ","ƒ‚","ƒ„","ƒ†","ƒˆ","ƒ‰","ƒŠ","ƒ‹","ƒŒ","ƒ","ƒ","ƒ","ƒ‘","ƒ’","ƒ“",
+	}, {"ƒK","ƒM","ƒO","ƒQ","ƒS","ƒU","ƒW","ƒY","ƒ[","ƒ]","ƒ_","ƒa","ƒd","ƒf","ƒh","ƒo","ƒr","ƒu","ƒx","ƒ{","ƒp","ƒs","ƒv","ƒy","ƒ|",
+	}, {"ƒ@","ƒB","ƒD","ƒF","ƒH","ƒb","ƒƒ","ƒ…","ƒ‡",
+	}, {"A","B","[","`","u","v","y","z","w","x","J","K",
+	}, {"ô","ó","¡"," ","Ÿ","","¢","£","¤","¥","","›","œ","ü","d","c","E","ˆ","æ","¦","~","§",
+	}, {"I","h","”","","“","•","f","i","j","","~","b","M","o","{","–","p","ƒ","„","H","Q","|","O","\\","—","m","G","F","n","C","D","^",
+	}, {"‚","‚‚","‚ƒ","‚„","‚…","‚†","‚‡","‚ˆ","‚‰","‚Š","‚‹","‚Œ","‚","‚","‚","‚","‚‘","‚’","‚“","‚”","‚•","‚–","‚—","‚˜","‚™","‚š",
+	}, {"‚`","‚a","‚b","‚c","‚d","‚e","‚f","‚g","‚h","‚i","‚j","‚k","‚l","‚m","‚n","‚o","‚p","‚q","‚r","‚s","‚t","‚u","‚v","‚w","‚x","‚y",
+	}, {"‚O","‚P","‚Q","‚R","‚S","‚T","‚U","‚V","‚W","‚X",
+	}
+};
+//‚ ‚¢‚¤‚¦‚¨‚©‚«‚­‚¯‚±‚³‚µ‚·‚¹‚»‚½‚¿‚Â‚Ä‚Æ‚È‚É‚Ê‚Ë‚Ì‚Í‚Ğ‚Ó‚Ö‚Ù‚Ü‚İ‚Ş‚ß‚à‚â‚ä‚æ‚ç‚è‚é‚ê‚ë‚í‚î‚ï‚ğ‚ñ
+//‚ª‚¬‚®‚°‚²‚´‚¶‚¸‚º‚¼‚¾‚À‚Ã‚Å‚Ç‚Î‚Ñ‚Ô‚×‚Ú‚Ï‚Ò‚Õ‚Ø‚Û
+//‚Ÿ‚¡‚£‚¥‚§‚Á‚á‚ã‚å
+//ƒAƒCƒEƒGƒIƒJƒLƒNƒPƒRƒTƒVƒXƒZƒ\ƒ^ƒ`ƒcƒeƒgƒiƒjƒkƒlƒmƒnƒqƒtƒwƒzƒ}ƒ~ƒ€ƒƒ‚ƒ„ƒ†ƒˆƒ‰ƒŠƒ‹ƒŒƒƒƒƒ‘ƒ’ƒ“
+//ƒKƒMƒOƒQƒSƒUƒWƒYƒ[ƒ]ƒ_ƒaƒdƒfƒhƒoƒrƒuƒxƒ{ƒpƒsƒvƒyƒ|
+//ƒ@ƒBƒDƒFƒHƒbƒƒƒ…ƒ‡
+//AB[`uvyzwxJK
+//ôó¡ Ÿ¢£¤¥›œüdcEˆæ¦~§
+//Ih”“•fij~bMo{–pƒ„HQ|O\—mGFnCD^\
+//‚‚‚‚ƒ‚„‚…‚†‚‡‚ˆ‚‰‚Š‚‹‚Œ‚‚‚‚‚‘‚’‚“‚”‚•‚–‚—‚˜‚™‚š
+//‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚y
+//‚O‚P‚Q‚R‚S‚T‚U‚V‚W‚X
 
 
 //=============================================================================
@@ -57,7 +85,10 @@ HRESULT Init_text(void)
 		g_TEXT[i].pos = XMFLOAT3(400.0f, 400.0f, 0.0f);	// ’†S“_‚©‚ç•\¦
 		g_TEXT[i].w = TEXTURE_WIDTH;
 		g_TEXT[i].h = TEXTURE_HEIGHT;
-		g_TEXT[i].use = TRUE;
+		//48‚˜‚P‚Q•¶š‚¾‚©‚ç‚P‚ÅŠ„‚Á‚ÄƒeƒNƒXƒ`ƒƒ‚Ì•‚ğŒˆ‚ß‚é
+		g_TEXT[i].tw = 1/48.0f-0.001f;//-0.001‚ÍŒë·‚Ì’²®
+		g_TEXT[i].th = 1/12.0f - 0.001f;//-0.001‚ÍŒë·‚Ì’²®
+		g_TEXT[i].use = FALSE;
 	}
 	return S_OK;
 }
@@ -117,7 +148,7 @@ void Draw_text(void)
 
 
 			// ‚P–‡‚Ìƒ|ƒŠƒSƒ“‚Ì’¸“_‚ÆƒeƒNƒXƒ`ƒƒÀ•W‚ğİ’è
-			SetSpriteColor(g_VertexBuffer, g_TEXT[i].px, g_TEXT[i].py, g_TEXT[i].pw, g_TEXT[i].ph, g_TEXT[i].tx, g_TEXT[i].ty, g_TEXT[i].tw, g_TEXT[i].th,XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			SetSpriteColor(g_VertexBuffer, g_TEXT[i].pos.x, g_TEXT[i].pos.y, g_TEXT[i].w, g_TEXT[i].h, g_TEXT[i].tx, g_TEXT[i].ty, g_TEXT[i].tw, g_TEXT[i].th, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 
 			// ƒ|ƒŠƒSƒ“•`‰æ
 			GetDeviceContext()->Draw(4, 0);
@@ -128,10 +159,28 @@ void Draw_text(void)
 }
 
 
-
-void Settext(float x, float y, char text[]) {
-	
-
+//ƒeƒLƒXƒg‚Ì•\¦
+void SetText(float x, float y,float size, char *text) {
+#ifdef _DEBUG	//ƒfƒoƒbƒO”Å‚Ì‚¾‚¯
+	OutputDebugString(text);
+#endif
+	float temp_y;//‰üs
+	for (int i = 0; i < strlen(text); i++) {
+		for (int j = 0; j < 293; j++) {
+			for (int l = 0; l < 48; l++) {
+				if ((int)text[i] == (int)g_textlist[j][l][0]&& (int)text[i+1] == (int)g_textlist[j][l][1]) {
+					if (!g_TEXT[i].use) {
+						g_TEXT[i].use = TRUE;
+						g_TEXT[i].pos = XMFLOAT3(x, y, 0.0f);
+						g_TEXT[i].w = size;
+						g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
+						g_TEXT[i].tx = 0.00f;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
+						g_TEXT[i].ty = 0.00f;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
+					}
+				}
+			}
+		}
+	}
 }
 
 

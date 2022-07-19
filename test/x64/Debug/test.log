@@ -1,0 +1,4 @@
+﻿  main.cpp
+C:\Users\mukan\Documents\GitHub\Project_First_2DGame\test\main.cpp(10,9): warning C4477: 'printf' : 書式文字列 '%02X' には、型 'unsigned int' の引数が必要ですが、可変個引数 1 は型 'char *' です
+C:\Users\mukan\Documents\GitHub\Project_First_2DGame\test\main.cpp(10,9): warning C4313: 'printf': 書式文字列内の '%X' が引数 1 ('char *' 型) と競合しています
+  test.vcxproj -> C:\Users\mukan\Documents\GitHub\Project_First_2DGame\test\x64\Debug\test.exe
