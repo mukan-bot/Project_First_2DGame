@@ -235,8 +235,8 @@ void Update(void) {
 		break;
 	}
 	//UpdateText();
-	char text[] = {"aAあテストtest"};
-	SetText(100.0f, 300.0f,80.0f, text);
+	char text[] = {"aあbびcし　す su"};
+	SetText(100.0f, 100.0f,80.0f, text);
 
 }
 

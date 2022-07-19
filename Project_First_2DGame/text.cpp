@@ -54,7 +54,8 @@ char g_textlist[293][48][3] = {//使える文字列
 char g_textlist_half[293][48][3] = {
 	{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", }, {
 	"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",}, {
-	"1","2","3","4","5","6","7","8","9",},
+	"1","2","3","4","5","6","7","8","9",
+	},
 };
 
 
@@ -170,35 +171,50 @@ void SetText(float x, float y,float size, char *text) {
 #ifdef _DEBUG	//デバッグ版の時だけ
 	OutputDebugString(text);
 #endif
+
+	int temp_x = 0;//文字を一文字ずつずらして表示するために使う
 	float temp_y;//改行
+	bool is_half = FALSE;//一個前の文字が半角だったかどうかを判定する
 	for (int i = 0; i < strlen(text); i++) {
 		for (int j = 0; j < 293; j++) {
 			for (int l = 0; l < 48; l++) {
+				//全角文字を判定
 				if ((int)text[i] == (int)g_textlist[j][l][0]&& (int)text[i+1] == (int)g_textlist[j][l][1]) {
 					i++;
+					temp_x++;
 					if (!g_TEXT[i].use) {
 						g_TEXT[i].use = TRUE;
-						g_TEXT[i].pos.x = x + (size / 2 * (i+ 1));
+						g_TEXT[i].pos.x = x + (size * temp_x);
 						g_TEXT[i].pos.y = y;
 						g_TEXT[i].w = size;
 						g_TEXT[i].h = (size / 8) * 12;//高さが１２だからsizeを元に計算	
 						g_TEXT[i].tx = g_TEXT[i].tw * l;	// テクスチャの左上X座標
 						g_TEXT[i].ty = g_TEXT[i].th * j;	// テクスチャの左上Y座標
 					}
+					is_half = FALSE;
 				}
+				//半角文字を判定
 				else if ((int)text[i] == (int)g_textlist_half[j][l][0]) {
 					if (!g_TEXT[i].use) {
 						g_TEXT[i].use = TRUE;
-						g_TEXT[i].pos.x = x + (size / 2 * (i*2));
+						g_TEXT[i].pos.x = x + (size / 2 * (temp_x * 2));
 						g_TEXT[i].pos.y = y;
 						g_TEXT[i].w = size;
 						g_TEXT[i].h = (size / 8) * 12;//高さが１２だからsizeを元に計算	
 						g_TEXT[i].tx = g_TEXT[i].tw * l;	// テクスチャの左上X座標
 						g_TEXT[i].ty = g_TEXT[i].th * (j + 9);	// テクスチャの左上Y座標
 					}
+					if (!is_half) {
+						temp_x--;
+					}
+
+					is_half = TRUE;
+					
 				}
 			}
 		}
+
+		temp_x++;
 	}
 }
 
