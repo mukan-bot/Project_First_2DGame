@@ -16,7 +16,7 @@ static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// ƒeƒNƒXƒ`ƒ
 
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/font.png",
+	"data/TEXTURE/font2.png",
 };
 
 
@@ -86,8 +86,8 @@ HRESULT Init_text(void)
 		g_TEXT[i].w = TEXTURE_WIDTH;
 		g_TEXT[i].h = TEXTURE_HEIGHT;
 		//48‚˜‚P‚Q•¶š‚¾‚©‚ç‚P‚ÅŠ„‚Á‚ÄƒeƒNƒXƒ`ƒƒ‚Ì•‚ğŒˆ‚ß‚é
-		g_TEXT[i].tw = 1/48.0f-0.001f;//-0.001‚ÍŒë·‚Ì’²®
-		g_TEXT[i].th = 1/12.0f - 0.001f;//-0.001‚ÍŒë·‚Ì’²®
+		g_TEXT[i].tw = 1/48.0f;
+		g_TEXT[i].th = 1/12.0f;
 		g_TEXT[i].use = FALSE;
 	}
 	return S_OK;
@@ -169,13 +169,15 @@ void SetText(float x, float y,float size, char *text) {
 		for (int j = 0; j < 293; j++) {
 			for (int l = 0; l < 48; l++) {
 				if ((int)text[i] == (int)g_textlist[j][l][0]&& (int)text[i+1] == (int)g_textlist[j][l][1]) {
+					i++;
 					if (!g_TEXT[i].use) {
 						g_TEXT[i].use = TRUE;
-						g_TEXT[i].pos = XMFLOAT3(x, y, 0.0f);
+						g_TEXT[i].pos.x = x + (size / 2 * i-1);
+						g_TEXT[i].pos.y = y;
 						g_TEXT[i].w = size;
 						g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
-						g_TEXT[i].tx = 0.00f;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
-						g_TEXT[i].ty = 0.00f;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
+						g_TEXT[i].tx = g_TEXT[i].tw * l;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
+						g_TEXT[i].ty = g_TEXT[i].th * j;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
 					}
 				}
 			}

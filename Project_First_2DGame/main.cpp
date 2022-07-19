@@ -235,8 +235,8 @@ void Update(void) {
 		break;
 	}
 	//UpdateText();
-	char text[] = {"‚ ‚¢‚¤‚¦‚¨"};
-	SetText(400.0f, 300.0f,300.0f, text);
+	char text[] = {"‚ª‚¬‚®‚°‚²"};
+	SetText(100.0f, 300.0f,80.0f, text);
 
 }
 
