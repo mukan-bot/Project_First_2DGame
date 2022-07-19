@@ -16,14 +16,14 @@ static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// ƒeƒNƒXƒ`ƒ
 
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/font2.png",
+	"data/TEXTURE/font.png",
 };
 
 
 static BOOL	g_Load = FALSE;		// ‰Šú‰»‚ğs‚Á‚½‚©‚Ìƒtƒ‰ƒO
 static TEXT	g_TEXT[TEXT_MAX];
 
-char g_textlist[293][48][3] = {
+char g_textlist[293][48][3] = {//g‚¦‚é•¶š—ñ
 	{"‚ ","‚¢","‚¤","‚¦","‚¨","‚©","‚«","‚­","‚¯","‚±","‚³","‚µ","‚·","‚¹","‚»","‚½","‚¿","‚Â","‚Ä","‚Æ","‚È","‚É","‚Ê","‚Ë","‚Ì","‚Í","‚Ğ","‚Ó","‚Ö","‚Ù","‚Ü","‚İ","‚Ş","‚ß","‚à","‚â","‚ä","‚æ","‚ç","‚è","‚é","‚ê","‚ë","‚í","‚î","‚ï","‚ğ","‚ñ",
 	}, {"‚ª","‚¬","‚®","‚°","‚²","‚´","‚¶","‚¸","‚º","‚¼","‚¾","‚À","‚Ã","‚Å","‚Ç","‚Î","‚Ñ","‚Ô","‚×","‚Ú","‚Ï","‚Ò","‚Õ","‚Ø","‚Û",
 	}, {"‚Ÿ","‚¡","‚£","‚¥","‚§","‚Á","‚á","‚ã","‚å",
@@ -50,6 +50,12 @@ char g_textlist[293][48][3] = {
 //‚‚‚‚ƒ‚„‚…‚†‚‡‚ˆ‚‰‚Š‚‹‚Œ‚‚‚‚‚‘‚’‚“‚”‚•‚–‚—‚˜‚™‚š
 //‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚y
 //‚O‚P‚Q‚R‚S‚T‚U‚V‚W‚X
+
+char g_textlist_half[293][48][3] = {
+	{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", }, {
+	"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",}, {
+	"1","2","3","4","5","6","7","8","9",},
+};
 
 
 //=============================================================================
@@ -172,12 +178,23 @@ void SetText(float x, float y,float size, char *text) {
 					i++;
 					if (!g_TEXT[i].use) {
 						g_TEXT[i].use = TRUE;
-						g_TEXT[i].pos.x = x + (size / 2 * i-1);
+						g_TEXT[i].pos.x = x + (size / 2 * (i+ 1));
 						g_TEXT[i].pos.y = y;
 						g_TEXT[i].w = size;
 						g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
 						g_TEXT[i].tx = g_TEXT[i].tw * l;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
 						g_TEXT[i].ty = g_TEXT[i].th * j;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
+					}
+				}
+				else if ((int)text[i] == (int)g_textlist_half[j][l][0]) {
+					if (!g_TEXT[i].use) {
+						g_TEXT[i].use = TRUE;
+						g_TEXT[i].pos.x = x + (size / 2 * (i*2));
+						g_TEXT[i].pos.y = y;
+						g_TEXT[i].w = size;
+						g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
+						g_TEXT[i].tx = g_TEXT[i].tw * l;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
+						g_TEXT[i].ty = g_TEXT[i].th * (j + 9);	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
 					}
 				}
 			}
