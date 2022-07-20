@@ -16,7 +16,7 @@ static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// ÉeÉNÉXÉ`É
 
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/font2.png",
+	"data/TEXTURE/font.png",
 };
 
 
