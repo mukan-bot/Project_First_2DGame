@@ -16,7 +16,7 @@ static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// ƒeƒNƒXƒ`ƒ
 
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/font.png",
+	"data/TEXTURE/font2.png",
 };
 
 
@@ -35,7 +35,7 @@ char g_textlist[293][48][3] = {//g‚¦‚é•¶š—ñ
 	}, {"I","h","”","","“","•","f","i","j","","~","b","M","o","{","–","p","ƒ","„","H","Q","|","O","\\","—","m","G","F","n","C","D","^",
 	}, {"‚","‚‚","‚ƒ","‚„","‚…","‚†","‚‡","‚ˆ","‚‰","‚Š","‚‹","‚Œ","‚","‚","‚","‚","‚‘","‚’","‚“","‚”","‚•","‚–","‚—","‚˜","‚™","‚š",
 	}, {"‚`","‚a","‚b","‚c","‚d","‚e","‚f","‚g","‚h","‚i","‚j","‚k","‚l","‚m","‚n","‚o","‚p","‚q","‚r","‚s","‚t","‚u","‚v","‚w","‚x","‚y",
-	}, {"‚O","‚P","‚Q","‚R","‚S","‚T","‚U","‚V","‚W","‚X",
+	}, {"‚O","‚P","‚Q","‚R","‚S","‚T","‚U","‚V","‚W","‚X","@"
 	}
 };
 //‚ ‚¢‚¤‚¦‚¨‚©‚«‚­‚¯‚±‚³‚µ‚·‚¹‚»‚½‚¿‚Â‚Ä‚Æ‚È‚É‚Ê‚Ë‚Ì‚Í‚Ğ‚Ó‚Ö‚Ù‚Ü‚İ‚Ş‚ß‚à‚â‚ä‚æ‚ç‚è‚é‚ê‚ë‚í‚î‚ï‚ğ‚ñ
@@ -54,7 +54,7 @@ char g_textlist[293][48][3] = {//g‚¦‚é•¶š—ñ
 char g_textlist_half[293][48][3] = {
 	{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", }, {
 	"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",}, {
-	"1","2","3","4","5","6","7","8","9",
+	"1","2","3","4","5","6","7","8","9"," "
 	},
 };
 
@@ -171,50 +171,28 @@ void SetText(float x, float y,float size, char *text) {
 #ifdef _DEBUG	//ƒfƒoƒbƒO”Å‚Ì‚¾‚¯
 	OutputDebugString(text);
 #endif
-
-	int temp_x = 0;//•¶š‚ğˆê•¶š‚¸‚Â‚¸‚ç‚µ‚Ä•\¦‚·‚é‚½‚ß‚Ég‚¤
-	float temp_y;//‰üs
-	bool is_half = FALSE;//ˆêŒÂ‘O‚Ì•¶š‚ª”¼Šp‚¾‚Á‚½‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
 	for (int i = 0; i < strlen(text); i++) {
 		for (int j = 0; j < 293; j++) {
 			for (int l = 0; l < 48; l++) {
 				//‘SŠp•¶š‚ğ”»’è
 				if ((int)text[i] == (int)g_textlist[j][l][0]&& (int)text[i+1] == (int)g_textlist[j][l][1]) {
-					i++;
-					temp_x++;
-					if (!g_TEXT[i].use) {
-						g_TEXT[i].use = TRUE;
-						g_TEXT[i].pos.x = x + (size * temp_x);
-						g_TEXT[i].pos.y = y;
-						g_TEXT[i].w = size;
-						g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
-						g_TEXT[i].tx = g_TEXT[i].tw * l;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
-						g_TEXT[i].ty = g_TEXT[i].th * j;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
+					for(int z=0;z<TEXT_MAX;z++){
+						if (!g_TEXT[i].use) {
+							g_TEXT[i].use = TRUE;
+							g_TEXT[i].pos.x = x;
+							g_TEXT[i].pos.y = y;
+							g_TEXT[i].w = size;
+							g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
+							g_TEXT[i].tx = g_TEXT[i].tw * l;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
+							g_TEXT[i].ty = g_TEXT[i].th * j;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
+							i++;
+							break;
+						}
 					}
-					is_half = FALSE;
-				}
-				//”¼Šp•¶š‚ğ”»’è
-				else if ((int)text[i] == (int)g_textlist_half[j][l][0]) {
-					if (!g_TEXT[i].use) {
-						g_TEXT[i].use = TRUE;
-						g_TEXT[i].pos.x = x + (size / 2 * (temp_x * 2));
-						g_TEXT[i].pos.y = y;
-						g_TEXT[i].w = size;
-						g_TEXT[i].h = (size / 8) * 12;//‚‚³‚ª‚P‚Q‚¾‚©‚çsize‚ğŒ³‚ÉŒvZ	
-						g_TEXT[i].tx = g_TEXT[i].tw * l;	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãXÀ•W
-						g_TEXT[i].ty = g_TEXT[i].th * (j + 9);	// ƒeƒNƒXƒ`ƒƒ‚Ì¶ãYÀ•W
-					}
-					if (!is_half) {
-						temp_x--;
-					}
-
-					is_half = TRUE;
-					
 				}
 			}
 		}
-
-		temp_x++;
+		x += size;
 	}
 }
 
