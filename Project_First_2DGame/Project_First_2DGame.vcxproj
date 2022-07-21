@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="debugproc.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="renderer.h" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="debugproc.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="renderer.cpp" />

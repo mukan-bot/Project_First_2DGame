@@ -3,6 +3,7 @@
 #include "camera.h"
 #include "text.h"
 
+#include "game.h"
 
 //マクロ定義
 #define CLASS_NAME "AppClass"
@@ -231,12 +232,18 @@ void Update(void) {
 	//カメラ更新
 	UpdateCamera();
 	switch (g_Mode) {
+	case (MODE_GAME):
+		Update_game();
+		break;
 	default:
 		break;
 	}
 	//UpdateText();
-	char text[] = {"あｓｄｆｊｋｌ；"};
+	char text[] = {"あｓｄｆｊｋｌ；\n"};
 	SetText(100.0f, 100.0f,50.0f, text);
+	char text1[] = { "てｓつ" };
+	SetText(100.0f, 100.0f, 100.0f,text1);
+	Sleep(1000);
 
 }
 
@@ -259,6 +266,9 @@ void Draw(void) {
 
 	switch (g_Mode){
 
+	case (MODE_GAME):
+		Update_game();
+		break;
 	default:
 		break;
 	}

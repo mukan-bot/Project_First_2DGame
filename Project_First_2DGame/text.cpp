@@ -166,7 +166,7 @@ void Draw_text(void)
 }
 
 
-//テキストの表示
+//テキストの表示(全角のみ)漢字×
 void SetText(float x, float y,float size, char *text) {
 #ifdef _DEBUG	//デバッグ版の時だけ
 	OutputDebugString(text);
@@ -177,7 +177,7 @@ void SetText(float x, float y,float size, char *text) {
 				//全角文字を判定
 				if ((int)text[i] == (int)g_textlist[j][l][0]&& (int)text[i+1] == (int)g_textlist[j][l][1]) {
 					for(int z=0;z<TEXT_MAX;z++){
-						if (!g_TEXT[i].use) {
+						if (!g_TEXT[z].use) {
 							g_TEXT[i].use = TRUE;
 							g_TEXT[i].pos.x = x;
 							g_TEXT[i].pos.y = y;
