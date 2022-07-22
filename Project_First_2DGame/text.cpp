@@ -141,14 +141,15 @@ void Draw_text(void)
 	// プリミティブトポロジ設定
 	GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	// マテリアル設定
-	MATERIAL material;
-	ZeroMemory(&material, sizeof(material));
-	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	SetMaterial(material);
+
 
 	for (int i = 0; i < TEXT_MAX; i++) {
 		if (g_TEXT[i].use) {
+			// マテリアル設定
+			MATERIAL material;
+			ZeroMemory(&material, sizeof(material));
+			material.Diffuse = g_TEXT[i].color;
+			SetMaterial(material);
 
 			// テクスチャ設定
 			GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[0]);
@@ -167,7 +168,7 @@ void Draw_text(void)
 
 
 //テキストの表示(全角のみ)漢字×
-void SetText(float x, float y,float size, char *text) {
+void SetText(float x, float y,float size,XMFLOAT4 color, char *text) {
 #ifdef _DEBUG	//デバッグ版の時だけ
 	OutputDebugString(text);
 #endif
@@ -178,6 +179,7 @@ void SetText(float x, float y,float size, char *text) {
 				if ((int)text[i] == (int)g_textlist[j][l][0]&& (int)text[i+1] == (int)g_textlist[j][l][1]) {
 					for(int z=0;z<TEXT_MAX;z++){
 						if (!g_TEXT[z].use) {
+							g_TEXT[i].color = color;
 							g_TEXT[i].use = TRUE;
 							g_TEXT[i].pos.x = x;
 							g_TEXT[i].pos.y = y;

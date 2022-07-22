@@ -20,7 +20,6 @@ struct texture {
 
 //ポリゴン系の変数
 struct polygon {
-	XMFLOAT3 pos = XMFLOAT3(0.0f, 0.0f, 0.0f);		// ポリゴンの座標
 	float w = 1.0f;		//幅
 	float h = 1.0f;		//高さ
 };
@@ -31,6 +30,8 @@ struct main_obj{
 	texture tex;
 	polygon pol;
 	bool use = FALSE;
+	XMFLOAT3 pos = XMFLOAT3(0.0f, 0.0f, 0.0f);		// ポリゴンの座標
+
 };
 
 

@@ -199,6 +199,8 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//テキストの初期化
 	Init_text();
 
+	SetMode(MODE_GAME);
+
 	return S_OK;
 }
 
@@ -228,9 +230,10 @@ void Update(void) {
 	}
 	//UpdateText();
 	char text[] = {"あｓｄｆｊｋｌ；\n"};
-	SetText(100.0f, 100.0f,50.0f, text);
-	char text1[] = { "てｓつ" };
-	SetText(100.0f, 100.0f, 100.0f,text1);
+	XMFLOAT4 color(0.4f, 0.4f, 0.4f, 0.4f);
+	SetText(100.0f, 100.0f,50.0f, color, text);
+	char text1[] = { "ｔＥｓｔ" };
+	SetText(100.0f, 100.0f, 100.0f, color,text1);
 
 }
 
@@ -274,6 +277,7 @@ void SetMode(int mode) {
 	default:
 		break;
 	}
+	g_Mode = mode;
 }
 int GetMode(void) {
 	return g_Mode;

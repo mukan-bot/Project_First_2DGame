@@ -21,6 +21,7 @@ struct TEXT
 	float th = 0.0823333333333333;	// テクスチャの高さ
 	float tx = 0.00f;	// テクスチャの左上X座標
 	float ty = 0.00f;	// テクスチャの左上Y座標
+	XMFLOAT4	color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	bool use = FALSE;
 };
@@ -31,7 +32,7 @@ struct TEXT
 
 
 // プロトタイプ宣言
-void SetText(float x, float y, float size, char text[TEXT_MAX]);
+void SetText(float x, float y, float size, XMFLOAT4 color, char text[TEXT_MAX]);
 HRESULT Init_text(void);
 void Uninit_text(void);
 void Update_text(void);
