@@ -5,16 +5,10 @@
 #include "debugproc.h"
 #include "sprite.h"
 
-// マクロ定義
+// マクロ定義-------
 
 
-//構造体定義
-struct obj
-{
-	texture tex;
-	polygon pol;
-	bool use = FALSE;
-};
+//構造体定義-------
 
 //テクスチャ系の変数
 struct texture {
@@ -27,16 +21,21 @@ struct texture {
 //ポリゴン系の変数
 struct polygon {
 	XMFLOAT3 pos = XMFLOAT3(0.0f, 0.0f, 0.0f);		// ポリゴンの座標
-	float w = 1;		//幅
-	float h = 1;		//高さ
+	float w = 1.0f;		//幅
+	float h = 1.0f;		//高さ
 };
 
 
 
+struct main_obj{
+	texture tex;
+	polygon pol;
+	bool use = FALSE;
+};
 
 
 
-// プロトタイプ宣言
+// プロトタイプ宣言-------
 HRESULT Init_game(void);
 void Uninit_game(void);
 void Update_game(void);

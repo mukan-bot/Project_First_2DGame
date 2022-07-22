@@ -21,8 +21,6 @@ void Draw(void);
 
 
 //グローバル変数
-long g_MouseX = 0;
-long g_MouseY = 0;
 
 
 //デバッグ用
@@ -51,11 +49,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DestroyWindow(hWnd);
 			break;
 		}
-		break;
-
-	case WM_MOUSEMOVE:
-		g_MouseX = LOWORD(lParam);
-		g_MouseY = HIWORD(lParam);
 		break;
 
 	default:
@@ -174,11 +167,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				Update();			//更新処理
 				Draw();				//描画処理
 
-#ifdef _DEBUG	//デバッグ版の時だけ表示する
-				wsprintf(&g_DebugStr[strlen(g_DebugStr)], " MX:%d MY:%d", GetMousePosX(), GetMousePosY());
-				SetWindowText(hWnd, g_DebugStr);
-#endif
-
 				dwFrameCount++;
 			}
 		}
@@ -243,7 +231,6 @@ void Update(void) {
 	SetText(100.0f, 100.0f,50.0f, text);
 	char text1[] = { "てｓつ" };
 	SetText(100.0f, 100.0f, 100.0f,text1);
-	Sleep(1000);
 
 }
 
@@ -267,7 +254,7 @@ void Draw(void) {
 	switch (g_Mode){
 
 	case (MODE_GAME):
-		Update_game();
+		Draw_game();
 		break;
 	default:
 		break;
@@ -278,13 +265,16 @@ void Draw(void) {
 }
 
 
-long GetMousePosX(void)
-{
-	return g_MouseX;
+void SetMode(int mode) {
+	switch (mode){
+	case (MODE_GAME):
+		Init_game();
+		break;
+
+	default:
+		break;
+	}
 }
-
-
-long GetMousePosY(void)
-{
-	return g_MouseY;
+int GetMode(void) {
+	return g_Mode;
 }

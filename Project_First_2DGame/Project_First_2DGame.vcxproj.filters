@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MODE_GAME">
+      <UniqueIdentifier>{70b7ffc4-0b30-4286-98c8-8062e46611b8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ソース ファイル\MODE_GAME">
       <UniqueIdentifier>{923b8c00-149d-4ed8-897a-a3684d90e947}</UniqueIdentifier>
     </Filter>
@@ -37,7 +40,10 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
-      <Filter>ソース ファイル\MODE_GAME</Filter>
+      <Filter>ヘッダー ファイル\MODE_GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ヘッダー ファイル\MODE_GAME</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
+      <Filter>ソース ファイル\MODE_GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
       <Filter>ソース ファイル\MODE_GAME</Filter>
     </ClCompile>
   </ItemGroup>

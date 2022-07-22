@@ -149,6 +149,7 @@
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sprite.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="sprite.cpp" />

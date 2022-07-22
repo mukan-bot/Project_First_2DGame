@@ -1,11 +1,6 @@
-﻿  game.cpp
-  main.cpp
+﻿  main.cpp
 C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(20,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
 C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(21,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(237,2): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\main.cpp(268,2): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
-  text.cpp
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(20,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(21,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+  player.cpp
   コードを生成中...
   Project_First_2DGame.vcxproj -> C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
