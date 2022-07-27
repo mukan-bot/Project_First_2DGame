@@ -30,7 +30,7 @@ struct main_obj{
 	texture tex;
 	polygon pol;
 	bool use = FALSE;
-	XMFLOAT3 pos = XMFLOAT3(0.0f, 0.0f, 0.0f);		// ポリゴンの座標
+	XMFLOAT2 pos = XMFLOAT2(0.0f, 0.0f);		// ポリゴンの座標
 
 };
 

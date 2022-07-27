@@ -45,6 +45,9 @@
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\MODE_GAME</Filter>
     </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>ヘッダー ファイル\MODE_GAME</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,9 @@
       <Filter>ソース ファイル\MODE_GAME</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
+      <Filter>ソース ファイル\MODE_GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
       <Filter>ソース ファイル\MODE_GAME</Filter>
     </ClCompile>
   </ItemGroup>

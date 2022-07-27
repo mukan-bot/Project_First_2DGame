@@ -236,7 +236,7 @@ void Update(void) {
 	SetText(100.0f, 100.0f, 100.0f, color,text1);
 
 }
-
+#include"player.h"
 //•`‰æˆ—
 void Draw(void) {
 

@@ -3,12 +3,14 @@
 //マクロ定義
 #define TEXTURE_MAX	(1)
 
+#define SIZE	(200.0f)
+
 //グローバル変数
 static ID3D11Buffer* g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/test.png",
+	"data/TEXTURE/man.png",
 };
 
 static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
@@ -35,11 +37,12 @@ HRESULT Init_player(void) {
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	GetDevice()->CreateBuffer(&bd, NULL, &g_VertexBuffer);
-
+	
+	//player変数の初期化
 	g_Player.obj.pos = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	g_Player.obj.use = TRUE;
-	g_Player.obj.pol.h = 1.0f;
-	g_Player.obj.pol.w = 1.0f;
+	g_Player.obj.pol.h = SIZE;
+	g_Player.obj.pol.w = SIZE;
 	g_Player.obj.tex.x = 0.0f;
 	g_Player.obj.tex.y = 0.0f;
 	g_Player.obj.tex.w = 1.0f;
@@ -70,6 +73,7 @@ void Uninit_player(void) {
 void Update_player(void) {
 }
 void Draw_player(void) {
+
 	// 頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;

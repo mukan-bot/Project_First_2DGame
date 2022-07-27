@@ -32,8 +32,8 @@ struct TEXT
 
 
 // プロトタイプ宣言
-void SetText(float x, float y, float size, XMFLOAT4 color, char text[TEXT_MAX]);
 HRESULT Init_text(void);
 void Uninit_text(void);
-void Update_text(void);
 void Draw_text(void);
+//x座標,y座標,サイズ,色,テキスト
+void SetText(float x, float y, float size, XMFLOAT4 color, char text[TEXT_MAX]);
