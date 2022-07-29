@@ -33,11 +33,13 @@ int SetCollision(COLLISION* collision) {
 bool GetCollision(COLLISION collision) {
 	
 	//ílÇégÇ¢Ç‚Ç∑Ç¢ÇÊÇ§Ç…Ç‹Ç∆ÇﬂÇƒÇ®Ç≠collision
-	XMFLOAT4 temp;
-	float pos_pos2_range;
+	XMFLOAT4 temp_c;
 	if (collision.shape == BOX) {
 		//ç∂,âE,è„,â∫
-		temp = XMFLOAT4(collision.pos.x - (collision.size.x / 2.0f), collision.pos.x + (collision.size.x / 2.0f), collision.pos.y - (collision.size.y / 2.0f), collision.pos.y + (collision.size.y / 2.0f));
+		temp_c = XMFLOAT4(collision.pos.x - (collision.size.x / 2.0f), collision.pos.x + (collision.size.x / 2.0f), collision.pos.y - (collision.size.y / 2.0f), collision.pos.y + (collision.size.y / 2.0f));
+	}
+	else if (collision.shape == CAPSULE) {
+		
 	}
 
 	for (int i = 0; i <= g_collision_count; i++) {
@@ -59,10 +61,13 @@ bool GetCollision(COLLISION collision) {
 		if (g_collision[i]->shape == BOX) {
 			//BOXëŒBOX
 			if (collision.shape == BOX) {
-				if ((temp_g.x < temp.y) && (temp_g.y > temp.x) && (temp_g.z < temp.w) && (temp_g.w > temp.z)) {
+				if ((temp_g.x < temp_c.y) && (temp_g.y > temp_c.x) && (temp_g.z < temp_c.w) && (temp_g.w > temp_c.z)) {
 					return TRUE;
 				}
-			} 		
+			} 	
+			else if (collision.shape == CAPSULE) {
+				
+			}
 		}
 	}
 	return FALSE;
