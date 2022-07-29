@@ -41,3 +41,5 @@ HRESULT Init_game(void);
 void Uninit_game(void);
 void Update_game(void);
 void Draw_game(void);
+
+float clamp(float value, float min, float max);

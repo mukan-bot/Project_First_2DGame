@@ -48,6 +48,9 @@
     <ClInclude Include="collision.h">
       <Filter>ヘッダー ファイル\MODE_GAME</Filter>
     </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>ヘッダー ファイル\MODE_GAME</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,6 +78,9 @@
       <Filter>ソース ファイル\MODE_GAME</Filter>
     </ClCompile>
     <ClCompile Include="collision.cpp">
+      <Filter>ソース ファイル\MODE_GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
       <Filter>ソース ファイル\MODE_GAME</Filter>
     </ClCompile>
   </ItemGroup>

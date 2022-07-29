@@ -229,11 +229,7 @@ void Update(void) {
 		break;
 	}
 	//UpdateText();
-	char text[] = {"‚ ‚“‚„‚†‚Š‚‹‚ŒG\n"};
-	XMFLOAT4 color(0.4f, 0.4f, 0.4f, 0.4f);
-	SetText(100.0f, 100.0f,50.0f, color, text);
-	char text1[] = { "‚”‚d‚“‚”" };
-	SetText(100.0f, 100.0f, 100.0f, color,text1);
+
 
 }
 #include"player.h"

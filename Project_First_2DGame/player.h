@@ -3,10 +3,12 @@
 #include "main.h"
 #include "renderer.h"
 #include "camera.h"
+#include "collision.h"
 
 
 struct PLAYER {
 	main_obj obj;
+	COLLISION col;
 
 };
 

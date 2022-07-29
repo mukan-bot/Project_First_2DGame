@@ -39,7 +39,7 @@ HRESULT Init_player(void) {
 	GetDevice()->CreateBuffer(&bd, NULL, &g_VertexBuffer);
 	
 	//playerïœêîÇÃèâä˙âª
-	g_Player.obj.pos = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	g_Player.obj.pos = XMFLOAT2(400.0f, 200.0f);
 	g_Player.obj.use = TRUE;
 	g_Player.obj.pol.h = SIZE;
 	g_Player.obj.pol.w = SIZE;
@@ -48,7 +48,16 @@ HRESULT Init_player(void) {
 	g_Player.obj.tex.w = 1.0f;
 	g_Player.obj.tex.h = 1.0f;
 
-
+	//ìñÇΩÇËîªíË
+	g_Player.col.pos = g_Player.obj.pos;
+	g_Player.col.pos2 = g_Player.obj.pos;
+	g_Player.col.pos2.x += 200;
+	g_Player.col.pos2.y += 200;
+	g_Player.col.angle = 0.0f;
+	g_Player.col.shape = CAPSULE;
+	g_Player.col.size = XMFLOAT2(SIZE, SIZE);
+	g_Player.col.type = GROUND;
+	SetCollision(&g_Player.col);
 	return S_OK;
 }
 
@@ -71,6 +80,14 @@ void Uninit_player(void) {
 }
 
 void Update_player(void) {
+
+	if (GetCollision(g_Player.col)) {
+	}
+	else {
+		g_Player.obj.pos.y++;
+		
+	}
+	g_Player.col.pos = g_Player.obj.pos;
 }
 void Draw_player(void) {
 

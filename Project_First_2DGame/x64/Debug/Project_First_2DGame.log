@@ -1,13 +1,5 @@
 ﻿  collision.cpp
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\collision.cpp(83,3): error C2059: 構文エラー: '}'
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\collision.cpp(83,3): error C2143: 構文エラー: ';' が '}' の前にありません。
-  game.cpp
-  main.cpp
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(20,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(21,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
-  player.cpp
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\player.cpp(42,47): error C2679: 二項演算子 '=': 型 'DirectX::XMFLOAT3' の右オペランドを扱う演算子が見つかりません (または変換できません)。
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\DirectXMath.h(533,15): message : 'DirectX::XMFLOAT2 &DirectX::XMFLOAT2::operator =(DirectX::XMFLOAT2 &&)' の可能性があります
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\DirectXMath.h(530,15): message : または 'DirectX::XMFLOAT2 &DirectX::XMFLOAT2::operator =(const DirectX::XMFLOAT2 &)'
-C:\Users\mukan\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\player.cpp(42,47): message : 引数リスト '(DirectX::XMFLOAT2, DirectX::XMFLOAT3)' を一致させようとしているとき
-  コードを生成中...
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(20,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(21,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\collision.cpp(83,11): warning C4101: 'g_hit_range': ローカル変数は 1 度も使われていません。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\collision.cpp(82): error C4789: バッファー 'hit_pos_g' (サイズが 24 バイト) でオーバーランが発生します。8 バイトがオフセット 24 から書き込まれます

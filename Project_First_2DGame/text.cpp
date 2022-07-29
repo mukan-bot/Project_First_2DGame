@@ -169,9 +169,6 @@ void Draw_text(void)
 
 //テキストの表示(全角のみ)漢字×
 void SetText(float x, float y,float size,XMFLOAT4 color, char text[TEXT_MAX]) {
-#ifdef _DEBUG	//デバッグ版の時だけ
-	OutputDebugString(text);
-#endif
 	for (int i = 0; i < strlen(text); i++) {
 		for (int j = 0; j < 293; j++) {
 			for (int l = 0; l < 48; l++) {
