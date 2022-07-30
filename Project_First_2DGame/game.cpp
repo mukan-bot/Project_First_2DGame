@@ -23,8 +23,8 @@ void Update_game(void) {
 	Update_test();
 }
 void Draw_game(void) {
-	Draw_player();
 	Draw_test();
+	Draw_player();
 }
 
 //値の最大値と最小値を指定出来る

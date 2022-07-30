@@ -51,10 +51,6 @@ HRESULT Init_test(void) {
 
 	//“–‚½‚è”»’è
 	g_test.col.pos = g_test.obj.pos;
-	g_test.col.pos2 = g_test.obj.pos;
-	g_test.col.pos2.x += 200;
-	g_test.col.pos2.y += 200;
-	g_test.col.angle = 0.0f;
 	g_test.col.shape = BOX;
 	g_test.col.size = XMFLOAT2(SIZE, SIZE);
 	g_test.col.type = GROUND;

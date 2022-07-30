@@ -3,7 +3,7 @@
 
 //マクロ定義
 #define MAX_COLLISION (256)
-
+#define PI (3.14159265f)//円周率
 
 //グローバル変数
 COLLISION* g_collision[MAX_COLLISION];
@@ -66,7 +66,48 @@ bool GetCollision(COLLISION collision) {
 				}
 			} 	
 			else if (collision.shape == CAPSULE) {
+				XMFLOAT2 pos_g[5];	//BOXの四隅と中心の座標を入れておく
+				pos_g[0] = g_collision[i]->pos;	//中心点
+				pos_g[1] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//左上
+				pos_g[2] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//右上
+				pos_g[3] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//左下
+				pos_g[4] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//右下
 				
+				//四隅との判定
+				for (int i = 1; i < 5; i++) {
+					float dx = pos_g[i].x - collision.pos.x;				// ⊿ｘ
+					float dy = pos_g[i].y - collision.pos.y;				// ⊿ｙ
+					float t = (collision.vec.x * dx + collision.vec.y * dy) / (collision.vec.x * collision.vec.x + collision.vec.y * collision.vec.y);
+					t = clamp(t, 0.0f, 1.0f);
+					XMFLOAT2 min;
+					min.x = collision.vec.x * t + collision.pos.x;
+					min.y = collision.vec.y * t + collision.pos.y;
+					float fDistSpr = (min.x - pos_g[i].x) * (min.x - pos_g[i].x) + (min.y - pos_g[i].y) * (min.y - pos_g[i].y); //距離の二乗
+
+					if (fDistSpr < collision.size.x) {
+						//OutputDebugString("te");
+						return TRUE;
+					}
+				}
+				//中心との判定大きい判定の時のすり抜け防止
+				float dx = pos_g[0].x - collision.pos.x;				// ⊿ｘ
+				float dy = pos_g[0].y - collision.pos.y;				// ⊿ｙ
+				float t = (collision.vec.x * dx + collision.vec.y * dy) / (collision.vec.x * collision.vec.x + collision.vec.y * collision.vec.y);
+				t = clamp(t, 0.0f, 1.0f);
+				XMFLOAT2 min;
+				min.x = collision.vec.x * t + collision.pos.x;
+				min.y = collision.vec.y * t + collision.pos.y;
+				float fDistSpr = (min.x - pos_g[0].x) * (min.x - pos_g[0].x) + (min.y - pos_g[0].y) * (min.y - pos_g[0].y); //距離の二乗
+
+				if (fDistSpr < collision.size.x + g_collision[i]->size.x) {
+					OutputDebugString("te");
+					return TRUE;
+				}
+				//else if (fDistSpr < collision.size.x + g_collision[i]->size.y * collision.size.x + g_collision[i]->size.y) {
+				//	//OutputDebugString("te");
+				//	return TRUE;
+				//}
+
 			}
 		}
 	}

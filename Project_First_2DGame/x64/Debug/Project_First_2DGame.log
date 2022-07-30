@@ -1,4 +1,4 @@
 ﻿  collision.cpp
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(20,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(21,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
-  Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(20,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\text.h(21,11): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

@@ -20,11 +20,9 @@ enum {
 struct COLLISION {
 	//座標1
 	XMFLOAT2 pos;
-	//座標2（カプセルのみ）
-	XMFLOAT2 pos2;
-	//角度
-	float angle;
-	//大きさ (サークルの時は両方同じ値を入れる)
+	//ベクトル：長さ（カプセルのみサークルは0.01）
+	XMFLOAT2 vec;
+	//大きさ (カプセル(サークル)のときはｘに幅、ｙは0)
 	XMFLOAT2 size;
 	//形
 	int shape;

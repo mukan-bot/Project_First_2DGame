@@ -50,13 +50,12 @@ HRESULT Init_player(void) {
 
 	//“–‚½‚è”»’è
 	g_Player.col.pos = g_Player.obj.pos;
-	g_Player.col.pos2 = g_Player.obj.pos;
-	g_Player.col.pos2.x += 200;
-	g_Player.col.pos2.y += 200;
-	g_Player.col.angle = 0.0f;
+	g_Player.col.pos.y = g_Player.obj.pos.y - SIZE / 2;
+	g_Player.col.vec = XMFLOAT2(0.0f,200.0f);
 	g_Player.col.shape = CAPSULE;
-	g_Player.col.size = XMFLOAT2(SIZE, SIZE);
+	g_Player.col.size = XMFLOAT2(10.0f, 0.0f);
 	g_Player.col.type = GROUND;
+
 	SetCollision(&g_Player.col);
 	return S_OK;
 }
@@ -88,6 +87,7 @@ void Update_player(void) {
 		
 	}
 	g_Player.col.pos = g_Player.obj.pos;
+	g_Player.col.pos.y = g_Player.obj.pos.y - SIZE / 2;
 }
 void Draw_player(void) {
 
