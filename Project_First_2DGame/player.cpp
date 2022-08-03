@@ -50,10 +50,8 @@ HRESULT Init_player(void) {
 
 	//“–‚½‚è”»’è
 	g_Player.col.pos = g_Player.obj.pos;
-	g_Player.col.pos.y = g_Player.obj.pos.y - SIZE / 2;
-	g_Player.col.vec = XMFLOAT2(0.0f,200.0f);
-	g_Player.col.shape = CAPSULE;
-	g_Player.col.size = XMFLOAT2(10.0f, 0.0f);
+	g_Player.col.shape = CIRCLE;
+	g_Player.col.size = XMFLOAT2(SIZE/2, 0.0f);
 	g_Player.col.type = GROUND;
 
 	SetCollision(&g_Player.col);
@@ -80,14 +78,13 @@ void Uninit_player(void) {
 
 void Update_player(void) {
 
-	if (GetCollision(g_Player.col)) {
+	if (!CheckHit(g_Player.col)) {
+		g_Player.obj.pos.y++;
 	}
 	else {
-		g_Player.obj.pos.y++;
 		
 	}
 	g_Player.col.pos = g_Player.obj.pos;
-	g_Player.col.pos.y = g_Player.obj.pos.y - SIZE / 2;
 }
 void Draw_player(void) {
 

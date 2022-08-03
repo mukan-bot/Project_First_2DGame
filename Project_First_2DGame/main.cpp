@@ -10,9 +10,7 @@
 #define WINDOW_NAME "my_fast_DX11_game"
 
 //プロトタイプ宣言
-//https://docs.microsoft.com/ja-jp/windows/win32/learnwin32/writing-the-window-procedure
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-//https://docs.microsoft.com/ja-jp/windows/win32/seccrypto/common-hresult-values
 HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow);
 void Uninit(void);
 void Update(void);
@@ -65,6 +63,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 //メイン関数
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+
 	UNREFERENCED_PARAMETER(hPrevInstance);	//無くても良いけど、警告が出る（未使用宣言）
 	UNREFERENCED_PARAMETER(lpCmdLine);		//無くても良いけど、警告が出る（未使用宣言）
 
@@ -162,10 +161,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 #ifdef _DEBUG	//デバッグ版の時だけFPSを表示する
 				wsprintf(g_DebugStr, WINDOW_NAME);
 				wsprintf(&g_DebugStr[strlen(g_DebugStr)], " FPS:%d", g_CountFPS);
+				SetWindowText(hWnd, g_DebugStr);
 #endif
 
 				Update();			//更新処理
 				Draw();				//描画処理
+
 
 				dwFrameCount++;
 			}
@@ -277,4 +278,8 @@ void SetMode(int mode) {
 }
 int GetMode(void) {
 	return g_Mode;
+}
+
+int GetFPS(void) {
+	return g_CountFPS;
 }

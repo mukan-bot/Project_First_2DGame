@@ -80,3 +80,5 @@ char* GetDebugStr(void);
 void SetMode(int mode);
 int GetMode(void);
 
+int GetFPS(void);
+

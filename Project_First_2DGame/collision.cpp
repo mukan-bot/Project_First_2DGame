@@ -1,9 +1,11 @@
 #include "collision.h"
 #include "text.h"
+#include "main.h"
 
 //マクロ定義
-#define MAX_COLLISION (256)
-#define PI (3.14159265f)//円周率
+#define MAX_COLLISION (256)	//当たり判定の限界
+
+
 
 //グローバル変数
 COLLISION* g_collision[MAX_COLLISION];
@@ -29,17 +31,26 @@ int SetCollision(COLLISION* collision) {
 	return -1;
 }
 
+//判定の削除
+bool delete_Collision(int numbers) {
+	int i = numbers;
+	if (g_collision[i]->specific_numbers == 0) {
+		return FALSE;
+	}
+	while (g_collision[i]->specific_numbers == -1) {
+		g_collision[i] = g_collision[i + 1];
+		i++;
+	}
+	return TRUE;
+}
 
-bool GetCollision(COLLISION collision) {
+bool CheckHit(COLLISION collision) {
 	
 	//値を使いやすいようにまとめておくcollision
 	XMFLOAT4 temp_c;
 	if (collision.shape == BOX) {
 		//左,右,上,下
 		temp_c = XMFLOAT4(collision.pos.x - (collision.size.x / 2.0f), collision.pos.x + (collision.size.x / 2.0f), collision.pos.y - (collision.size.y / 2.0f), collision.pos.y + (collision.size.y / 2.0f));
-	}
-	else if (collision.shape == CAPSULE) {
-		
 	}
 
 	for (int i = 0; i <= g_collision_count; i++) {
@@ -65,51 +76,74 @@ bool GetCollision(COLLISION collision) {
 					return TRUE;
 				}
 			} 	
-			else if (collision.shape == CAPSULE) {
-				XMFLOAT2 pos_g[5];	//BOXの四隅と中心の座標を入れておく
-				pos_g[0] = g_collision[i]->pos;	//中心点
-				pos_g[1] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//左上
-				pos_g[2] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//右上
-				pos_g[3] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//左下
-				pos_g[4] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//右下
-				
-				//四隅との判定
-				for (int i = 1; i < 5; i++) {
-					float dx = pos_g[i].x - collision.pos.x;				// ⊿ｘ
-					float dy = pos_g[i].y - collision.pos.y;				// ⊿ｙ
-					float t = (collision.vec.x * dx + collision.vec.y * dy) / (collision.vec.x * collision.vec.x + collision.vec.y * collision.vec.y);
-					t = clamp(t, 0.0f, 1.0f);
-					XMFLOAT2 min;
-					min.x = collision.vec.x * t + collision.pos.x;
-					min.y = collision.vec.y * t + collision.pos.y;
-					float fDistSpr = (min.x - pos_g[i].x) * (min.x - pos_g[i].x) + (min.y - pos_g[i].y) * (min.y - pos_g[i].y); //距離の二乗
-
-					if (fDistSpr < collision.size.x) {
-						//OutputDebugString("te");
+			else if (collision.shape == CIRCLE) {
+				XMFLOAT2 pos_g[4];	//BOXの四隅と中心の座標を入れておく
+				pos_g[0] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//左上
+				pos_g[1] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//右上
+				pos_g[2] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//左下
+				pos_g[3] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//右下
+				float temp;
+				for (int j = 0; j < 8; j += 2) {
+					temp = distance_line_point(pos_g[j], XMFLOAT2(pos_g[j+1].x - pos_g[j].x, pos_g[j+1].y - pos_g[j].y), collision.pos);
+					if (temp < collision.size.x * collision.size.x) {
 						return TRUE;
 					}
 				}
-				//中心との判定大きい判定の時のすり抜け防止
-				float dx = pos_g[0].x - collision.pos.x;				// ⊿ｘ
-				float dy = pos_g[0].y - collision.pos.y;				// ⊿ｙ
-				float t = (collision.vec.x * dx + collision.vec.y * dy) / (collision.vec.x * collision.vec.x + collision.vec.y * collision.vec.y);
-				t = clamp(t, 0.0f, 1.0f);
-				XMFLOAT2 min;
-				min.x = collision.vec.x * t + collision.pos.x;
-				min.y = collision.vec.y * t + collision.pos.y;
-				float fDistSpr = (min.x - pos_g[0].x) * (min.x - pos_g[0].x) + (min.y - pos_g[0].y) * (min.y - pos_g[0].y); //距離の二乗
-
-				if (fDistSpr < collision.size.x + g_collision[i]->size.x) {
-					OutputDebugString("te");
-					return TRUE;
-				}
-				//else if (fDistSpr < collision.size.x + g_collision[i]->size.y * collision.size.x + g_collision[i]->size.y) {
-				//	//OutputDebugString("te");
-				//	return TRUE;
-				//}
-
 			}
 		}
 	}
 	return FALSE;
+}
+
+
+
+bool CheckHit_lines(XMFLOAT2 pos1, XMFLOAT2 vec1, XMFLOAT2 pos2, XMFLOAT2 vec2) {
+
+
+	//平行の対処:少し無理やりだけど画面範囲考えたら誤差
+	if (vec1.x == 0.0f) {
+		vec1.x += 0.001f;
+	}
+	if (vec1.y == 0.0f) {
+		vec1.y += 0.001f;
+	}
+	if (vec2.x == 0.0f) {
+		vec2.x += 0.001f;
+	}
+	if (vec2.y == 0.0f) {
+		vec2.y += 0.001f;
+	}
+
+
+	float t1 = (vec1.y - pos1.y) / (vec1.x - pos1.x);
+	float t2 = (vec2.y - pos2.y) / (vec2.x - pos2.x);
+
+	float x = 0.0f;
+	float y = 0.0f;
+
+	if (t1 != t2) {
+		x = (pos2.y - pos1.y + t1 * pos1.x - t2 * pos2.x) / (t1 - t2);
+		y = t1 * (x - pos1.x) + pos1.y;
+	}
+	float r1 = (x - pos1.x) / (vec1.x - pos1.x);
+	float r2 = (x - pos2.x) / (vec2.x - pos2.x);
+	bool hit = ((0 < r1) && (r1 < 1) && (0 < r2) && (r2 < 1));
+	return hit;
+}
+
+
+float distance_line_point(XMFLOAT2 pos, XMFLOAT2 vec, XMFLOAT2 point) {
+	float			dx, dy;							// 位置の差分
+	float			t;
+	float			mx, my;							// 最小の距離を与える座標
+
+	float			fDistSqr;
+
+	dx = point.x - pos.x;				// ⊿ｘ
+	dy = point.y - pos.y;				// ⊿ｙ
+	t = clamp((vec.x * dx + vec.y * dy) / (vec.x * vec.x + vec.y * vec.y), 0.0f, 1.0f);
+	mx = vec.x * t + pos.x;	// 最小位置を与える座標
+	my = vec.y * t + pos.y;
+	fDistSqr = (mx - point.x) * (mx - point.x) +(my - point.y) * (my - point.y);	
+	return fDistSqr;
 }

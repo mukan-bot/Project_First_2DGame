@@ -17,8 +17,8 @@ struct TEXT
 	XMFLOAT3	pos;		// ポリゴンの座標
 	float		w, h;		// 幅と高さ
 
-	float tw = 0.0207333333333333;	// テクスチャの幅
-	float th = 0.0823333333333333;	// テクスチャの高さ
+	float tw = 0.0207333333333333f;	// テクスチャの幅
+	float th = 0.0823333333333333f;	// テクスチャの高さ
 	float tx = 0.00f;	// テクスチャの左上X座標
 	float ty = 0.00f;	// テクスチャの左上Y座標
 	XMFLOAT4	color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
