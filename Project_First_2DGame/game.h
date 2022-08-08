@@ -24,6 +24,13 @@ struct polygon {
 	float h = 1.0f;		//高さ
 };
 
+//アニメーション系の変数
+struct animation {
+	int anime_FPS = 0;
+	int count_FPS = 0;
+	int anime_frame = 0;
+};
+
 
 
 struct main_obj{
@@ -41,5 +48,6 @@ HRESULT Init_game(void);
 void Uninit_game(void);
 void Update_game(void);
 void Draw_game(void);
+void Anime_Update(void);
 
 float clamp(float value, float min, float max);

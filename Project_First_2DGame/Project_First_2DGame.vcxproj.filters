@@ -19,6 +19,12 @@
     <Filter Include="ソース ファイル\MODE_GAME">
       <UniqueIdentifier>{923b8c00-149d-4ed8-897a-a3684d90e947}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MODE_GAME\MAP">
+      <UniqueIdentifier>{4d916dc6-8b80-45c4-87dd-afda132c3d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MODE_GAME\MAP">
+      <UniqueIdentifier>{3d2d0f48-4bda-49c2-8e68-ed5194a060c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="renderer.h">
@@ -51,6 +57,15 @@
     <ClInclude Include="test.h">
       <Filter>ヘッダー ファイル\MODE_GAME</Filter>
     </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="bg.h">
+      <Filter>ヘッダー ファイル\MODE_GAME\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="MAP.h">
+      <Filter>ヘッダー ファイル\MODE_GAME\MAP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -82,6 +97,18 @@
     </ClCompile>
     <ClCompile Include="test.cpp">
       <Filter>ソース ファイル\MODE_GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="bg.cpp">
+      <Filter>ソース ファイル\MODE_GAME\MAP</Filter>
+    </ClCompile>
+    <ClCompile Include="MAP.cpp">
+      <Filter>ソース ファイル\MODE_GAME\MAP</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>ソース ファイル\MODE_GAME\MAP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -56,4 +56,4 @@ CAMERA* GetCamera(void);
 void SetViewPort(int type);
 int GetViewPortType(void);
 
-void SetCameraAT(XMFLOAT3 pos);
+void SetCameraAT(XMFLOAT2 pos);

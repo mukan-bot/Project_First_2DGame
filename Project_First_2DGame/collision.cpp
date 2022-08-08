@@ -76,6 +76,7 @@ bool CheckHit(COLLISION collision) {
 					return TRUE;
 				}
 			} 	
+			//BOX対CIRCLE
 			else if (collision.shape == CIRCLE) {
 				XMFLOAT2 pos_g[4];	//BOXの四隅と中心の座標を入れておく
 				pos_g[0] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//左上
@@ -91,7 +92,34 @@ bool CheckHit(COLLISION collision) {
 				}
 			}
 		}
+		else {
+			//CIRCLE対BOX
+			if (collision.shape == BOX) {
+				XMFLOAT2 pos_c[4];	//BOXの四隅と中心の座標を入れておく
+				pos_c[0] = XMFLOAT2(collision.pos.x - collision.size.x / 2, collision.pos.y - collision.size.y / 2);	//左上
+				pos_c[1] = XMFLOAT2(collision.pos.x + collision.size.x / 2, collision.pos.y - collision.size.y / 2);	//右上
+				pos_c[2] = XMFLOAT2(collision.pos.x - collision.size.x / 2, collision.pos.y + collision.size.y / 2);	//左下
+				pos_c[3] = XMFLOAT2(collision.pos.x + collision.size.x / 2, collision.pos.y + collision.size.y / 2);	//右下
+				float temp;
+				for (int j = 0; j < 8; j += 2) {
+					temp = distance_line_point(pos_c[j], XMFLOAT2(pos_c[j + 1].x - pos_c[j].x, pos_c[j + 1].y - pos_c[j].y), g_collision[i]->pos);
+					if (temp < g_collision[i]->size.x * g_collision[i]->size.x) {
+						return TRUE;
+					}
+				}
+
+			}
+			//CIRCLE対CIRCLE
+			else if (collision.shape == CIRCLE) {
+				float temp = distance_point(g_collision[i]->pos, collision.pos);
+				float r = g_collision[i]->size.x + collision.size.x;
+				if (temp < r * r) {
+					return TRUE;
+				}
+			}
+		}
 	}
+
 	return FALSE;
 }
 
@@ -133,17 +161,29 @@ bool CheckHit_lines(XMFLOAT2 pos1, XMFLOAT2 vec1, XMFLOAT2 pos2, XMFLOAT2 vec2) 
 
 
 float distance_line_point(XMFLOAT2 pos, XMFLOAT2 vec, XMFLOAT2 point) {
-	float			dx, dy;							// 位置の差分
+	float			dx, dy;// 位置の差分
 	float			t;
-	float			mx, my;							// 最小の距離を与える座標
+	float			mx, my;// 最小の距離を与える座標
 
 	float			fDistSqr;
 
-	dx = point.x - pos.x;				// ⊿ｘ
-	dy = point.y - pos.y;				// ⊿ｙ
+	dx = point.x - pos.x;// ⊿ｘ
+	dy = point.y - pos.y;// ⊿ｙ
 	t = clamp((vec.x * dx + vec.y * dy) / (vec.x * vec.x + vec.y * vec.y), 0.0f, 1.0f);
 	mx = vec.x * t + pos.x;	// 最小位置を与える座標
 	my = vec.y * t + pos.y;
 	fDistSqr = (mx - point.x) * (mx - point.x) +(my - point.y) * (my - point.y);	
+	return fDistSqr;
+}
+
+float distance_point(XMFLOAT2 pos1, XMFLOAT2 pos2) {
+	float			dx, dy;// 位置の差分
+
+	float			fDistSqr;
+
+	dx = pos1.x - pos2.x;// ⊿ｘ
+	dy = pos1.y - pos2.y;// ⊿ｙ
+	fDistSqr = dx * dx + dy * dy;// 距離の２乗
+
 	return fDistSqr;
 }

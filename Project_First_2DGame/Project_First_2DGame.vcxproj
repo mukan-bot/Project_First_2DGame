@@ -145,11 +145,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="bg.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="MAP.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="text.h" />
@@ -157,16 +160,20 @@
     <ClInclude Include="sprite.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bg.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MAP.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

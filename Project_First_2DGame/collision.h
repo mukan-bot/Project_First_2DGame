@@ -35,4 +35,5 @@ HRESULT Init_collision(void);
 int SetCollision(COLLISION* collision);
 bool CheckHit(COLLISION collision);
 bool CheckHit_lines(XMFLOAT2 pos1, XMFLOAT2 vec1, XMFLOAT2 pos2, XMFLOAT2 vec2);//二つの線分の当たり判定(pos1:線分1,vec1:ベクトル1,lpos2:線分2vec2:ベクトル2)
-float distance_line_point(XMFLOAT2 pos, XMFLOAT2 vec, XMFLOAT2 point);// 距離の２乗
+float distance_line_point(XMFLOAT2 pos, XMFLOAT2 vec, XMFLOAT2 point);// 線分と点の最短距離の２乗
+float distance_point(XMFLOAT2 pos1, XMFLOAT2 pos2);//2点間の距離

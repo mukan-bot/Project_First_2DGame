@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "camera.h"
 #include "text.h"
+#include "input.h"
 
 #include "game.h"
 
@@ -200,6 +201,9 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//テキストの初期化
 	Init_text();
 
+	//入力の初期化
+	InitInput(hInstance,hWnd);
+
 	SetMode(MODE_GAME);
 
 	return S_OK;
@@ -215,6 +219,9 @@ void Uninit(void) {
 
 	//テキストの終了処理
 	Uninit_text();
+
+	//入力の終了処理
+	UninitInput();
 }
 
 //更新処理
@@ -222,6 +229,9 @@ void Update(void) {
 
 	//カメラ更新
 	UpdateCamera();
+
+	//入力の初期化
+	UpdateInput();
 	switch (g_Mode) {
 	case (MODE_GAME):
 		Update_game();
@@ -260,6 +270,12 @@ void Draw(void) {
 		break;
 	}
 	Draw_text();
+
+#ifdef _DEBUG
+	// デバッグ表示
+	DrawDebugProc();
+#endif
+
 	//バックバッファ、フロントバッファ入れ替え
 	Present();
 }
@@ -283,3 +299,5 @@ int GetMode(void) {
 int GetFPS(void) {
 	return g_CountFPS;
 }
+
+

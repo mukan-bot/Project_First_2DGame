@@ -51,8 +51,8 @@ HRESULT Init_test(void) {
 
 	//“–‚½‚è”»’è
 	g_test.col.pos = g_test.obj.pos;
-	g_test.col.shape = BOX;
-	g_test.col.size = XMFLOAT2(SIZE, SIZE);
+	g_test.col.shape = CIRCLE;
+	g_test.col.size = XMFLOAT2(SIZE/2, SIZE);
 	g_test.col.type = GROUND;
 	SetCollision(&g_test.col);
 

@@ -13,8 +13,7 @@ char		g_aStrDebug[1024] = { "\0" };	//デバッグ情報
 
 //デバッグ表示処理の描画処理
 
-void DrawDebugProc(void)
-{
+void DrawDebugProc(void){
 	RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	DebugTextOut(g_aStrDebug, 0, 0);
@@ -25,9 +24,7 @@ void DrawDebugProc(void)
 
 
 //デバッグ表示の登録
-
-void PrintDebugProc(char* fmt, ...)
-{
+void PrintDebugProc(char* fmt, ...){
 #if 0
 	long* pParam;
 	static char aBuf[256];
@@ -46,14 +43,11 @@ void PrintDebugProc(char* fmt, ...)
 	va_start(list, fmt);
 
 	pCur = fmt;
-	for (; *pCur; ++pCur)
-	{
-		if (*pCur != '%')
-		{
+	for (; *pCur; ++pCur){
+		if (*pCur != '%'){
 			sprintf_s(aWk, "%c", *pCur);
 		}
-		else
-		{
+		else{
 			pCur++;
 
 			switch (*pCur)
@@ -90,8 +84,7 @@ void PrintDebugProc(char* fmt, ...)
 	va_end(list);
 
 	//連結
-	if ((strlen(g_aStrDebug) + strlen(aBuf)) < ((sizeof g_aStrDebug) - 1))
-	{
+	if ((strlen(g_aStrDebug) + strlen(aBuf)) < ((sizeof g_aStrDebug) - 1)){
 		strcat_s(g_aStrDebug, aBuf);
 	}
 #endif

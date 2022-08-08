@@ -1,3 +1,2 @@
-﻿  collision.cpp
-D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\collision.h(1,1): warning C4828: オフセット 0x325 から始まる、現在のソースの文字セット (コードページ 932) では使用できない文字がファイルに含まれています。
+﻿  bg.cpp
   Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

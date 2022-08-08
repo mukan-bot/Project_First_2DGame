@@ -9,6 +9,9 @@
 struct PLAYER {
 	main_obj obj;
 	COLLISION col;
+	animation anime;
+	bool camera_use;//カメラをプレイヤー中心にするかどうか
+	float speed;
 
 };
 
@@ -19,3 +22,4 @@ HRESULT Init_player(void);
 void Uninit_player(void);
 void Update_player(void);
 void Draw_player(void);
+void Anime_player(void);

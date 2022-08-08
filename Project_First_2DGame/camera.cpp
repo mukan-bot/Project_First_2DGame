@@ -13,9 +13,7 @@
 #define	POS_Y_CAM			(50.0f)			//カメラの初期位置(Y座標)
 #define	POS_Z_CAM			(-140.0f)		//カメラの初期位置(Z座標)
 
-//#define	POS_X_CAM		(0.0f)			//カメラの初期位置(X座標)
-//#define	POS_Y_CAM		(200.0f)		//カメラの初期位置(Y座標)
-//#define	POS_Z_CAM		(-400.0f)		//カメラの初期位置(Z座標)
+
 
 
 #define	VIEW_ANGLE		(XMConvertToRadians(45.0f))						//ビュー平面の視野角
@@ -60,7 +58,6 @@ void UninitCamera(void)
 //カメラの更新処理
 void UpdateCamera(void)
 {
-
 
 #ifdef _DEBUG	//デバッグ情報を表示する
 
@@ -174,6 +171,7 @@ void SetCameraAT(XMFLOAT3 pos)
 {
 	//カメラの注視点をプレイヤーの座標にしてみる
 	g_Camera.at = pos;
+
 
 	//カメラの視点をカメラのY軸回転に対応させている
 	g_Camera.pos.x = g_Camera.at.x - sinf(g_Camera.rot.y) * g_Camera.len;
