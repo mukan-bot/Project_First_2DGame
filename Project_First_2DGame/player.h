@@ -10,7 +10,6 @@ struct PLAYER {
 	main_obj obj;
 	COLLISION col;
 	animation anime;
-	bool camera_use;//カメラをプレイヤー中心にするかどうか
 	float speed;
 
 };

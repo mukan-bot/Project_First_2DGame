@@ -66,6 +66,9 @@
     <ClInclude Include="MAP.h">
       <Filter>ヘッダー ファイル\MODE_GAME\MAP</Filter>
     </ClInclude>
+    <ClInclude Include="Visual_tile.h">
+      <Filter>ヘッダー ファイル\MODE_GAME\MAP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,7 +110,7 @@
     <ClCompile Include="MAP.cpp">
       <Filter>ソース ファイル\MODE_GAME\MAP</Filter>
     </ClCompile>
-    <ClCompile Include="tile.cpp">
+    <ClCompile Include="Visual_tile.cpp">
       <Filter>ソース ファイル\MODE_GAME\MAP</Filter>
     </ClCompile>
   </ItemGroup>

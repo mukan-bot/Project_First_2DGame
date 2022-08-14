@@ -12,6 +12,7 @@
 
 //テクスチャ系の変数
 struct texture {
+	int texNo = 0;
 	float x = 0.00f;	// テクスチャの左上X座標
 	float y = 0.00f;	// テクスチャの左上Y座標
 	float w = 1.0f;		// テクスチャの幅

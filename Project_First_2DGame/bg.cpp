@@ -1,10 +1,10 @@
 #include "bg.h"
-
+#include "MAP.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define TEXTURE_WIDTH				(SCREEN_WIDTH)	// 背景サイズ
-#define TEXTURE_HEIGHT				(SCREEN_HEIGHT)	// 
+#define WIDTH				(SCREEN_WIDTH)	// 背景サイズ
+#define HEIGHT				(SCREEN_HEIGHT)	// 
 #define LAYER_MAX					(3)				// テクスチャの数
 
 
@@ -65,16 +65,15 @@ HRESULT InitBG(void)
 	for (int i = 0; i < LAYER_MAX; i++) {
 		g_BG[i].obj.pos = XMFLOAT2(0.0f, 0.0f);
 		g_BG[i].obj.use = TRUE;
-		g_BG[i].obj.pol.w = TEXTURE_WIDTH;
-		g_BG[i].obj.pol.h = TEXTURE_HEIGHT;
+		g_BG[i].obj.pol.w = WIDTH;
+		g_BG[i].obj.pol.h = HEIGHT;
 		g_BG[i].obj.tex.x = 0.0f;
 		g_BG[i].obj.tex.y = 0.0f;
 		g_BG[i].obj.tex.w = 1.0f;
 		g_BG[i].obj.tex.h = 1.0f;
-		g_BG[i].texNo = i;
+		g_BG[i].obj.tex.texNo = i;
 	}
 
-	Set_ScrollBG(0.01f);
 
 
 	g_Load = TRUE;
@@ -105,12 +104,9 @@ void UninitBG(void){
 // 更新処理
 //=============================================================================
 void UpdateBG(void){
-
-	for (int i = 0; i < LAYER_MAX; i++) {
-		g_BG[i].obj.tex.x += g_BG[i].scrollSpeed;
-		OutputDebugString("-");
-	}
-	OutputDebugString("\n");
+	g_BG[2].obj.tex.x = Get_Scroll();
+	g_BG[1].obj.tex.x = g_BG[2].obj.tex.x * 0.5f;
+	g_BG[0].obj.tex.x = g_BG[1].obj.tex.x * 0.09f;
 }
 
 //=============================================================================
@@ -137,7 +133,7 @@ void DrawBG(void){
 	// 背景を描画
 	for (int i = 0; i < LAYER_MAX; i++) {
 		// テクスチャ設定
-		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_BG[i].texNo]);
+		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_BG[i].obj.tex.texNo]);
 
 		// １枚のポリゴンの頂点とテクスチャ座標を設定
 		SetSpriteLTColor(g_VertexBuffer,
@@ -148,9 +144,6 @@ void DrawBG(void){
 		// ポリゴン描画
 		GetDeviceContext()->Draw(4, 0);
 	}
-
-
-
 }
 
 

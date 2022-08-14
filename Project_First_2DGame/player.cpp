@@ -1,6 +1,9 @@
 #include "player.h"
 #include "input.h"
 
+#include "MAP.h"
+#include "Visual_tile.h"
+
 #include "camera.h"
 //マクロ定義
 #define TEXTURE_MAX	(1)
@@ -21,6 +24,11 @@ static CAMERA* g_Player_camera;
 
 static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
 static PLAYER g_Player;
+
+
+int temp=-1;
+
+
 
 HRESULT Init_player(void) {
 	ID3D11Device* pDevice = GetDevice();
@@ -56,8 +64,7 @@ HRESULT Init_player(void) {
 	g_Player.obj.tex.y = 0.0f;
 	g_Player.obj.tex.w = 1.0f/ANIME_COUNT;
 	g_Player.obj.tex.h = 1.0f/ ANIME_NUMBER;
-	g_Player.speed = 10;
-	g_Player.camera_use = TRUE;
+	g_Player.speed = 0.001;
 
 
 	//当たり判定
@@ -72,6 +79,7 @@ HRESULT Init_player(void) {
 
 
 	SetCollision(&g_Player.col);
+	
 	return S_OK;
 }
 
@@ -95,7 +103,12 @@ void Uninit_player(void) {
 
 void Update_player(void) {
 	if (GetKeyboardPress(DIK_D)) {
-		g_Player.obj.pos.x += g_Player.speed;
+		Set_Scroll(g_Player.speed);
+		//g_Player.obj.pos.x += g_Player.speed;
+	}
+	if (GetKeyboardPress(DIK_A)) {
+		Set_Scroll(-g_Player.speed);
+		//g_Player.obj.pos.x += g_Player.speed;
 	}
 	if (!CheckHit(g_Player.col)) {
 		g_Player.obj.pos.y++;
@@ -105,6 +118,18 @@ void Update_player(void) {
 	}
 	g_Player.col.pos = g_Player.obj.pos;
 	g_Player_camera->pos = XMFLOAT3(g_Player.obj.pos.x, g_Player.obj.pos.y, g_Player_camera->pos.z);
+
+
+	if (GetKeyboardTrigger(DIK_1)) {
+		SetV_tile(4, XMFLOAT3(100, 100, 100));
+	}
+	else if (GetKeyboardTrigger(DIK_2)) {
+		
+	}
+
+
+
+
 }
 
 void Anime_player(void) {

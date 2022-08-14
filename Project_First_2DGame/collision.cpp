@@ -8,9 +8,9 @@
 
 
 //グローバル変数
-COLLISION* g_collision[MAX_COLLISION];
+COLLISION g_collision[MAX_COLLISION];
 //今何個判定を作ったか数える
-int g_collision_count;
+int g_collision_count=0;
 
 
 
@@ -22,26 +22,44 @@ HRESULT Init_collision(void) {
 //戻り値-1は生成失敗（成功はg_collision_countの値）
 int SetCollision(COLLISION* collision) {
 	if (g_collision_count < MAX_COLLISION) {
-		collision->specific_numbers = g_collision_count;
-		g_collision[g_collision_count] = collision;
-		g_collision[g_collision_count]->specific_numbers = g_collision_count;
-		g_collision_count++;
-		return g_collision_count - 1;
+		if (g_collision[g_collision_count].specific_numbers == -1) {
+			collision->specific_numbers = g_collision_count;
+			g_collision[g_collision_count] = *collision;
+			g_collision[g_collision_count].specific_numbers = g_collision_count;
+			g_collision_count++;
+			return g_collision_count - 1;
+		}
 	}
+	for (int i = 0; i < MAX_COLLISION; i++) {//削除したコリジョンの番号を使うため
+		if (g_collision[i].specific_numbers == -1) {
+			collision->specific_numbers = i;
+			g_collision[i] = *collision;
+			g_collision[i].specific_numbers = i;
+			return i;
+		}
+	}
+
 	return -1;
 }
 
 //判定の削除
 bool delete_Collision(int numbers) {
-	int i = numbers;
-	if (g_collision[i]->specific_numbers == 0) {
-		return FALSE;
+	if ((numbers < MAX_COLLISION) && g_collision[numbers].specific_numbers != -1) {
+		g_collision[numbers].specific_numbers = -1;
+		return TRUE;
 	}
-	while (g_collision[i]->specific_numbers == -1) {
-		g_collision[i] = g_collision[i + 1];
-		i++;
-	}
-	return TRUE;
+	return FALSE;
+
+
+	//int i = numbers;
+	//if (g_collision[i].specific_numbers == 0) {
+	//	return FALSE;
+	//}
+	//while (g_collision[i].specific_numbers == -1) {
+	//	g_collision[i] = g_collision[i + 1];
+	//	i++;
+	//}
+	//return TRUE;
 }
 
 bool CheckHit(COLLISION collision) {
@@ -56,7 +74,7 @@ bool CheckHit(COLLISION collision) {
 	for (int i = 0; i <= g_collision_count; i++) {
 
 		//typeが一致していない場合iに＋１して言って一致するものを探す or 識別ナンバーが同じ当たり判定をスキップ
-		while ((g_collision[i]->type != collision.type)||(g_collision[i]->specific_numbers==collision.specific_numbers)) {
+		while ((g_collision[i].type != collision.type)||(g_collision[i].specific_numbers==collision.specific_numbers)) {
 			
 
 			if (i < g_collision_count) {
@@ -67,9 +85,9 @@ bool CheckHit(COLLISION collision) {
 		//値を使いやすいようにまとめておくg_collision
 		XMFLOAT4 temp_g;
 		//左,右,上,下
-		temp_g = XMFLOAT4(g_collision[i]->pos.x - (g_collision[i]->size.x / 2.0f), g_collision[i]->pos.x + (g_collision[i]->size.x / 2.0f), g_collision[i]->pos.y - (g_collision[i]->size.y / 2.0f), g_collision[i]->pos.y + (g_collision[i]->size.y / 2.0f));
+		temp_g = XMFLOAT4(g_collision[i].pos.x - (g_collision[i].size.x / 2.0f), g_collision[i].pos.x + (g_collision[i].size.x / 2.0f), g_collision[i].pos.y - (g_collision[i].size.y / 2.0f), g_collision[i].pos.y + (g_collision[i].size.y / 2.0f));
 
-		if (g_collision[i]->shape == BOX) {
+		if (g_collision[i].shape == BOX) {
 			//BOX対BOX
 			if (collision.shape == BOX) {
 				if ((temp_g.x < temp_c.y) && (temp_g.y > temp_c.x) && (temp_g.z < temp_c.w) && (temp_g.w > temp_c.z)) {
@@ -79,10 +97,10 @@ bool CheckHit(COLLISION collision) {
 			//BOX対CIRCLE
 			else if (collision.shape == CIRCLE) {
 				XMFLOAT2 pos_g[4];	//BOXの四隅と中心の座標を入れておく
-				pos_g[0] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//左上
-				pos_g[1] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y - g_collision[i]->size.y / 2);	//右上
-				pos_g[2] = XMFLOAT2(g_collision[i]->pos.x - g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//左下
-				pos_g[3] = XMFLOAT2(g_collision[i]->pos.x + g_collision[i]->size.x / 2, g_collision[i]->pos.y + g_collision[i]->size.y / 2);	//右下
+				pos_g[0] = XMFLOAT2(g_collision[i].pos.x - g_collision[i].size.x / 2, g_collision[i].pos.y - g_collision[i].size.y / 2);	//左上
+				pos_g[1] = XMFLOAT2(g_collision[i].pos.x + g_collision[i].size.x / 2, g_collision[i].pos.y - g_collision[i].size.y / 2);	//右上
+				pos_g[2] = XMFLOAT2(g_collision[i].pos.x - g_collision[i].size.x / 2, g_collision[i].pos.y + g_collision[i].size.y / 2);	//左下
+				pos_g[3] = XMFLOAT2(g_collision[i].pos.x + g_collision[i].size.x / 2, g_collision[i].pos.y + g_collision[i].size.y / 2);	//右下
 				float temp;
 				for (int j = 0; j < 8; j += 2) {
 					temp = distance_line_point(pos_g[j], XMFLOAT2(pos_g[j+1].x - pos_g[j].x, pos_g[j+1].y - pos_g[j].y), collision.pos);
@@ -102,8 +120,8 @@ bool CheckHit(COLLISION collision) {
 				pos_c[3] = XMFLOAT2(collision.pos.x + collision.size.x / 2, collision.pos.y + collision.size.y / 2);	//右下
 				float temp;
 				for (int j = 0; j < 8; j += 2) {
-					temp = distance_line_point(pos_c[j], XMFLOAT2(pos_c[j + 1].x - pos_c[j].x, pos_c[j + 1].y - pos_c[j].y), g_collision[i]->pos);
-					if (temp < g_collision[i]->size.x * g_collision[i]->size.x) {
+					temp = distance_line_point(pos_c[j], XMFLOAT2(pos_c[j + 1].x - pos_c[j].x, pos_c[j + 1].y - pos_c[j].y), g_collision[i].pos);
+					if (temp < g_collision[i].size.x * g_collision[i].size.x) {
 						return TRUE;
 					}
 				}
@@ -111,8 +129,8 @@ bool CheckHit(COLLISION collision) {
 			}
 			//CIRCLE対CIRCLE
 			else if (collision.shape == CIRCLE) {
-				float temp = distance_point(g_collision[i]->pos, collision.pos);
-				float r = g_collision[i]->size.x + collision.size.x;
+				float temp = distance_point(g_collision[i].pos, collision.pos);
+				float r = g_collision[i].size.x + collision.size.x;
 				if (temp < r * r) {
 					return TRUE;
 				}
