@@ -52,14 +52,6 @@ using namespace DirectX;
 #define	MAP_LEFT		(-MAP_W/2)
 #define	MAP_RIGHT		(MAP_W/2)
 
-//補間用のデータ構造体を定義
-struct INTERPOLATION_DATA
-{
-	XMFLOAT3	pos;		//頂点座標
-	XMFLOAT3	rot;		//回転
-	XMFLOAT3	scl;		//拡大縮小
-	float		frame;		//実行フレーム数 ( dt = 1.0f/frame )
-};
 
 enum
 {
@@ -70,7 +62,15 @@ enum
 	MODE_MAX
 };
 
-
+//構造体定義
+//補間用のデータ構造体を定義
+struct INTERPOLATION_DATA
+{
+	XMFLOAT3	pos;		//頂点座標
+	XMFLOAT3	rot;		//回転
+	XMFLOAT3	scl;		//拡大縮小
+	float		frame;		//実行フレーム数 ( dt = 1.0f/frame )
+};
 
 //プロトタイプ宣言
 long GetMousePosX(void);

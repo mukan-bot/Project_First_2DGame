@@ -25,4 +25,5 @@ void Draw_map(void);
 
 bool Set_Scroll(float scroll_f);
 float Get_Scroll();
+float Get_PlusScroll();
 

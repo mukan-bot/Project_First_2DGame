@@ -1,0 +1,2 @@
+main_BGM:https://peritune.com/blog/2021/07/12/entangle/
+title_BGM:https://peritune.com/blog/2022/01/30/dark_moon/

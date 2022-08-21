@@ -3,30 +3,58 @@
 
 #include "MAP.h"
 #include "Visual_tile.h"
+#include "Ground_tile.h"
+#include "HUD.h"
+#include "atk.h"
 
 #include "camera.h"
 //マクロ定義
-#define TEXTURE_MAX	(1)
-#define ANIME_NUMBER (1.0f)
-#define ANIME_COUNT (4.0f)
+#define TEXTURE_MAX	(2)
+#define ANIME_NUMBER (3.0f)//縦分割数
+#define ANIME_COUNT (8.0f) //横分割数
 
-#define SIZE	(50.0f)
+//アニメーション
+#define IDLE_FRAME (6)
+#define RUN_FRAME (8)
+#define DAMAGE_FRAME (3)
+#define ANIME_FPS (20)
+
+
+
+
+#define SIZE	(100.0f)
+
+#define COL_SIZE_W (30)//横
+#define COL_SIZE_H (90)//縦
 
 //グローバル変数
 static ID3D11Buffer* g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView* g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char* g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/man0.png",
+	"data/TEXTURE/player.png",
+	"data/TEXTURE/test.png",
 };
 
 static CAMERA* g_Player_camera;
 
 static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
+
+
+
 static PLAYER g_Player;
+static bool g_is_run_R = TRUE;
+static STATUS g_status;
 
 
-int temp=-1;
+
+static int g_anime_frame[ANIME_MAX] = { IDLE_FRAME,
+										RUN_FRAME,
+										DAMAGE_FRAME };
+
+//プロトタイプ宣言
+void Update_col(void);
+
 
 
 
@@ -52,8 +80,7 @@ HRESULT Init_player(void) {
 	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	GetDevice()->CreateBuffer(&bd, NULL, &g_VertexBuffer);
 	
-	//カメラの所得
-	g_Player_camera = GetCamera();
+
 
 	//player変数の初期化
 	g_Player.obj.pos = XMFLOAT2(400.0f, 200.0f);
@@ -64,24 +91,74 @@ HRESULT Init_player(void) {
 	g_Player.obj.tex.y = 0.0f;
 	g_Player.obj.tex.w = 1.0f/ANIME_COUNT;
 	g_Player.obj.tex.h = 1.0f/ ANIME_NUMBER;
-	g_Player.speed = 0.001;
+
+	g_Player.is_hitD = FALSE;
+	g_Player.is_hitU = FALSE;
+	g_Player.is_hitL = FALSE;
+	g_Player.is_hitR = FALSE;
+
+	g_Player.is_jump = FALSE;
+
+
+	//ステータスの初期化
+	g_status.hp = 1.0f;
+	g_status.mp = 1.0f;
+	g_status.plus_mp = 0.005f;
+	g_status.atk = 20.0f;
+	g_status.matk = 1.5f;
+	g_status.speed = 0.003;
+	g_status.jump_speed = 3;
+	g_status.gravity = 3;
+	g_status.temp_gravity = 0;
+
 
 
 	//当たり判定
+	//当たり判定全体
 	g_Player.col.pos = g_Player.obj.pos;
-	g_Player.col.shape = CIRCLE;
-	g_Player.col.size = XMFLOAT2(SIZE/2, 0.0f);
-	g_Player.col.type = GROUND;
+	g_Player.col.shape = BOX;
+	g_Player.col.size = XMFLOAT2(COL_SIZE_W, COL_SIZE_H);
+	g_Player.col.type = ATK_ENEMY;
+	//当たり判定下
+	g_Player.col_D.pos.x = g_Player.obj.pos.x;
+	g_Player.col_D.pos.y = g_Player.obj.pos.y + COL_SIZE_H / 2;
+	g_Player.col_D.shape = BOX;
+	g_Player.col_D.size = XMFLOAT2(COL_SIZE_W - 10, 0.01f);//-10は必要のないものと当たらないようにするため
+	g_Player.col_D.type = GROUND;
+	//当たり判定上
+	g_Player.col_U.pos.x = g_Player.obj.pos.x;
+	g_Player.col_U.pos.y = g_Player.obj.pos.y - COL_SIZE_H / 2;
+	g_Player.col_U.shape = BOX;
+	g_Player.col_U.size = XMFLOAT2(COL_SIZE_W - 10, 0.01f);//-10は必要のないものと当たらないようにするため
+	g_Player.col_U.type = GROUND;	
+	//当たり判定右
+	g_Player.col_R.pos.x = g_Player.obj.pos.y;
+	g_Player.col_R.pos.y = g_Player.obj.pos.x + COL_SIZE_W / 2;
+	g_Player.col_R.shape = BOX;
+	g_Player.col_R.size = XMFLOAT2(0.01f, COL_SIZE_H - 10);//-10は必要のないものと当たらないようにするため
+	g_Player.col_R.type = GROUND;
+	//当たり判定左
+	g_Player.col_L.pos.x = g_Player.obj.pos.y;
+	g_Player.col_L.pos.y = g_Player.obj.pos.x - COL_SIZE_W / 2;
+	g_Player.col_L.shape = BOX;
+	g_Player.col_L.size = XMFLOAT2(1.01f, COL_SIZE_H - 10);//-10は必要のないものと当たらないようにするため
+	g_Player.col_L.type = GROUND;
+
 
 	//Animation
 	g_Player.anime.anime_frame = 0;
-	g_Player.anime.anime_FPS = 20;
+	g_Player.anime.anime_FPS = ANIME_FPS;
+	g_Player.anime.count_FPS = 0;
+	g_Player.anime.which_anime = IDLE_ANIME;
 
 
-	SetCollision(&g_Player.col);
 	
+	Init_HUD();
+
 	return S_OK;
 }
+
+
 
 void Uninit_player(void) {
 	{
@@ -102,43 +179,201 @@ void Uninit_player(void) {
 }
 
 void Update_player(void) {
-	if (GetKeyboardPress(DIK_D)) {
-		Set_Scroll(g_Player.speed);
-		//g_Player.obj.pos.x += g_Player.speed;
-	}
-	if (GetKeyboardPress(DIK_A)) {
-		Set_Scroll(-g_Player.speed);
-		//g_Player.obj.pos.x += g_Player.speed;
-	}
-	if (!CheckHit(g_Player.col)) {
-		g_Player.obj.pos.y++;
+	XMFLOAT2 temp = g_Player.obj.pos;
+
+	//プレイヤーがどこかにあたっているか
+	if (CheckHit(g_Player.col_D)) {
+		g_Player.is_hitD = TRUE;
 	}
 	else {
-		
+		g_Player.is_hitD = FALSE;
 	}
-	g_Player.col.pos = g_Player.obj.pos;
-	g_Player_camera->pos = XMFLOAT3(g_Player.obj.pos.x, g_Player.obj.pos.y, g_Player_camera->pos.z);
+	if (CheckHit(g_Player.col_U)) {
+		g_Player.is_hitU = TRUE;
+	}
+	else {
+		g_Player.is_hitU = FALSE;
+	}
+	if (CheckHit(g_Player.col_L)) {
+		g_Player.is_hitL = TRUE;
+	}
+	else {
+		g_Player.is_hitL = FALSE;
+	}
+	if (CheckHit(g_Player.col_R)) {
+		g_Player.is_hitR = TRUE;
+	}
+	else {
+		g_Player.is_hitR = FALSE;
+	}
 
 
-	if (GetKeyboardTrigger(DIK_1)) {
-		SetV_tile(4, XMFLOAT3(100, 100, 100));
+	if (GetKeyboardPress(DIK_D)) {
+		Set_P_Anime(RUN_ANIME);
+		g_is_run_R = TRUE;
+		if (!g_Player.is_hitR) {
+			Set_Scroll(g_status.speed);
+		}
 	}
-	else if (GetKeyboardTrigger(DIK_2)) {
-		
+	else if (GetKeyboardPress(DIK_A)) {
+		Set_P_Anime(RUN_ANIME);
+		g_is_run_R = FALSE;
+		if (!g_Player.is_hitL) {
+			Set_Scroll(-g_status.speed);
+		}
+	}
+	else {
+		Set_P_Anime(IDLE_ANIME);
 	}
 
+	//ジャンプや空中にいるときの判定
+	{
+		if ((GetKeyboardPress(DIK_W)) && (g_status.mp > 0.0f)) {
+			if (!g_Player.is_jump) {
+				//ジャンプのはじめに0.2のMPがないとジャンプできない
+				if (g_status.mp > 0.2f) {
+					if (!g_Player.is_hitU) {//上が当たってたらジャンプできない
+						g_Player.is_jump = TRUE;
+					}
+				}
+			}
+			else {
+				g_Player.obj.pos.y -= g_status.jump_speed;
+				g_status.mp -= 0.01;
+				g_status.temp_gravity = 0.0f;
+			}
+		}
+		else {
+			g_Player.is_jump = FALSE;
+		}
+
+		//ジャンプ中でなくて地面にいないときは下に下がる
+		if ((!g_Player.is_hitD) && (!g_Player.is_jump)) {
+			float temp = g_status.gravity + g_status.temp_gravity;
+			g_Player.obj.pos.y += temp;
+			g_status.temp_gravity += PLUS_G;
+		}
+		//地面にいるとき
+		else {
+			g_status.temp_gravity = 0.0f;//加算されてた値をもとに戻す
+
+		}
+	}
+
+	if (GetKeyboardTrigger(DIK_E)) {
+		g_status.mp -= Set_ATK(ATK_PLAYER, STANDARD_ATK, g_is_run_R, g_Player.obj.pos);
+	}
+	if (GetKeyboardTrigger(DIK_Q)) {
+		g_status.mp -= Set_ATK(ATK_PLAYER, LINE_ATK, g_is_run_R, g_Player.obj.pos);
+	}
+
+	g_status.hp -= CheckDamage(g_Player.col);
+
+
+	//mpが１以下で地面にいるときMPを回復
+	if (g_status.mp <= 1.0f&&g_Player.is_hitD) {
+		g_status.mp += g_status.plus_mp;
+	}
+	g_status.mp = 1;
+	if (g_status.mp < 0.0f) {//mpがマイナスにならないように
+		g_status.mp = 0.0f;
+	}
+
+	//移動があった場合めり込んでいないか確認
+	//めり込んでた場合移動
+	if (g_Player.obj.pos.x != temp.x) {
+		if (g_Player.obj.pos.x < temp.x) {
+			if (g_Player.is_hitL) {
+				Set_Scroll(g_status.speed);
+			}
+		}
+		else {
+			if (g_Player.is_hitR) {
+
+				Set_Scroll(-g_status.speed);
+			}
+		}
+	}
+	else {
+		Set_Scroll(0.0f);
+	}
+	if (g_Player.obj.pos.y != temp.y) {
+		if (g_Player.obj.pos.y < temp.y) {
+			if (g_Player.is_hitU) {
+				g_Player.obj.pos.y += g_status.gravity;
+			}
+		}
+		else {
+			if (g_Player.is_hitD) {
+				g_Player.obj.pos.y -= g_status.gravity;
+			}
+		}
+	}
+
+
+	//コリジョンの更新
+	Update_col();
+	//アニメーションの更新
+	Anime_player();
 
 
 
 }
 
+void Update_col(void) {
+	//当たり判定
+	g_Player.col.pos = g_Player.obj.pos;
+
+	//当たり判定下
+	g_Player.col_D.pos.x = g_Player.obj.pos.x;
+	g_Player.col_D.pos.y = g_Player.obj.pos.y + COL_SIZE_H / 2;
+
+	//当たり判定上
+	g_Player.col_U.pos.x = g_Player.obj.pos.x;
+	g_Player.col_U.pos.y = g_Player.obj.pos.y - COL_SIZE_H / 2;
+
+	//当たり判定右
+	g_Player.col_R.pos.x = g_Player.obj.pos.x + COL_SIZE_W / 2;
+	g_Player.col_R.pos.y = g_Player.obj.pos.y;
+
+	//当たり判定左
+	g_Player.col_L.pos.x = g_Player.obj.pos.x - COL_SIZE_W / 2;
+	g_Player.col_L.pos.y = g_Player.obj.pos.y;
+}
+
+
+
 void Anime_player(void) {
-	if (g_Player.anime.count_FPS == g_Player.anime.anime_FPS) {
-		g_Player.anime.anime_frame++;
+	if (g_Player.anime.count_FPS >= g_Player.anime.anime_FPS) {
+		if (g_Player.anime.anime_frame >= g_anime_frame[g_Player.anime.which_anime]) {
+			g_Player.anime.anime_frame = 0;
+
+			if ((!g_is_run_R) && (g_anime_frame[g_Player.anime.which_anime] < ANIME_COUNT)) {
+
+				g_Player.anime.anime_frame = 2;
+			}
+		}
+		g_Player.obj.tex.y = (1 / ANIME_NUMBER * g_Player.anime.which_anime);
+
+
 		g_Player.obj.tex.x = (1 / ANIME_COUNT) * g_Player.anime.anime_frame;
+		
+		g_Player.anime.anime_frame++;
+
 		g_Player.anime.count_FPS = 0;
+
 	}
 	g_Player.anime.count_FPS++;
+
+
+
+}
+
+void Set_P_Anime(int anime) {
+	if (g_Player.anime.which_anime != anime) {
+		g_Player.anime.which_anime = anime;
+	}
+
 }
 
 
@@ -166,11 +401,30 @@ void Draw_player(void) {
 		// テクスチャ設定
 		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[0]);
 
+		if (g_is_run_R) {
+			// １枚のポリゴンの頂点とテクスチャ座標を設定
+			SetSpriteColor(g_VertexBuffer, g_Player.obj.pos.x, g_Player.obj.pos.y, g_Player.obj.pol.w, g_Player.obj.pol.h, g_Player.obj.tex.x, g_Player.obj.tex.y, g_Player.obj.tex.w, g_Player.obj.tex.h, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		else {
+			SetSpriteColor(g_VertexBuffer, g_Player.obj.pos.x, g_Player.obj.pos.y, g_Player.obj.pol.w, g_Player.obj.pol.h, g_Player.obj.tex.x, g_Player.obj.tex.y, -g_Player.obj.tex.w, g_Player.obj.tex.h, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 
-		// １枚のポリゴンの頂点とテクスチャ座標を設定
-		SetSpriteColor(g_VertexBuffer, g_Player.obj.pos.x, g_Player.obj.pos.y, g_Player.obj.pol.w, g_Player.obj.pol.h, g_Player.obj.tex.x, g_Player.obj.tex.y, g_Player.obj.tex.w, g_Player.obj.tex.h, XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
 
 		// ポリゴン描画
 		GetDeviceContext()->Draw(4, 0);
+
+		// テクスチャ設定
+		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[1]);
 	}
 }
+
+
+STATUS* Get_pStatus(void) {
+	return &g_status;
+}
+
+PLAYER* Get_Player(void) {
+	return &g_Player;
+}
+
+

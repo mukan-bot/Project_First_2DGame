@@ -1,3 +1,5 @@
+//Šî–{HUD—p
+
 #include "text.h"
 
 

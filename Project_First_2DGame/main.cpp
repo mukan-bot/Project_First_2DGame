@@ -3,6 +3,7 @@
 #include "camera.h"
 #include "text.h"
 #include "input.h"
+#include "sound.h"
 
 #include "game.h"
 
@@ -204,6 +205,9 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//“ü—Í‚Ì‰Šú‰»
 	InitInput(hInstance,hWnd);
 
+	//ƒTƒEƒ“ƒh‚Ì‰Šú‰»
+	InitSound(hWnd);
+
 	SetMode(MODE_GAME);
 
 	return S_OK;
@@ -285,6 +289,8 @@ void SetMode(int mode) {
 	switch (mode){
 	case (MODE_GAME):
 		Init_game();
+		Sound_Volume(SOUND_LABEL_BGM_main00, 0.05f);
+		PlaySound(SOUND_LABEL_BGM_main00);
 		break;
 
 	default:

@@ -17,7 +17,7 @@ static ID3D11Buffer* g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView* g_Texture[TEXTUR_MAX] = { NULL };	// テクスチャ情報
 
 static char* g_TexturName[TEXTUR_MAX] = {
-	"data/TEXTURE/visual_tile/visual_tile.png",
+	"data/TEXTURE/tile/visual_tile.png",
 };
 
 static TILE g_v_tile[V_TILE_MAX];
@@ -26,7 +26,6 @@ static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
 
 static int g_count = 0;
 
-static float g_temp_x = 0.0f;
 
 //プロトタイプ宣言
 
@@ -74,7 +73,6 @@ HRESULT Init_Visual_tile(void){
 		//g_v_tile[i].anime_frame = 0;
 	}
 
-	g_temp_x = Get_Scroll();
 
 	srand(time(NULL));
 
@@ -100,13 +98,12 @@ void Uninit_Visual_tile(void) {
 	g_Load = FALSE;
 }
 
-void Update_Visual_tile() {
+void Update_Visual_tile(float plus) {
 	for (int i = 0; i < V_TILE_MAX; i++) {
 		if (g_v_tile[i].obj.use) {
-			g_v_tile[i].obj.pos.x -= (SCREEN_WIDTH/ Get_Scroll());
+			g_v_tile[i].obj.pos.x -= (plus);
 		}
 	}
-	g_temp_x = Get_Scroll();
 }
 
 
@@ -129,7 +126,7 @@ void Draw_Visual_tile(void) {
 	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SetMaterial(material);
 
-	// 背景を描画
+	// 描画
 	for (int i = 0; i < V_TILE_MAX; i++) {
 		if (g_v_tile[i].obj.use) {
 			// テクスチャ設定
@@ -188,8 +185,8 @@ int SetV_tile(int tex_no, XMFLOAT3 pos_size) {
 				g_v_tile[i].obj.tex.x = g_v_tile[i].obj.tex.w * (tex_no - TEXTUR_W);
 				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * tex_no;
 			}
-			g_v_tile[i].obj.tex.x += 0.001f;//画像が全体的に少しずれているので調整
-			g_v_tile[i].obj.tex.y += 0.001f;
+			//g_v_tile[i].obj.tex.x += 0.001f;//画像が全体的に少しずれているので調整
+			//g_v_tile[i].obj.tex.y += 0.001f;
 			return i;
 		}
 	}

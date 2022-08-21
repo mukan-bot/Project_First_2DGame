@@ -10,7 +10,7 @@
 HRESULT Init_Visual_tile(void);
 void Uninit_Visual_tile(void);
 void Draw_Visual_tile(void);
-void Update_Visual_tile();
+void Update_Visual_tile(float plus);
 
 
 int SetV_tile(int tex_no, XMFLOAT3 pos_size);//å©ÇΩñ⁄ópê›íu
