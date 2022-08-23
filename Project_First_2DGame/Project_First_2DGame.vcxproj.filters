@@ -37,6 +37,12 @@
     <Filter Include="ヘッダー ファイル\MODE_GAME\enemy">
       <UniqueIdentifier>{1455a585-df8f-412e-bb68-44426a4ae6d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MODE_TITLE">
+      <UniqueIdentifier>{b4ea6212-6406-4926-b2d7-4c406ce5337b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MODE_TITLE">
+      <UniqueIdentifier>{2f0bd4df-f3fb-442a-8730-7e3684ae8e39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="renderer.h">
@@ -99,6 +105,24 @@
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\MODE_GAME\player</Filter>
     </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>ヘッダー ファイル\MODE_GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>ヘッダー ファイル\MODE_TITLE</Filter>
+    </ClInclude>
+    <ClInclude Include="title_bg.h">
+      <Filter>ヘッダー ファイル\MODE_TITLE</Filter>
+    </ClInclude>
+    <ClInclude Include="title_logo.h">
+      <Filter>ヘッダー ファイル\MODE_TITLE</Filter>
+    </ClInclude>
+    <ClInclude Include="title_hud.h">
+      <Filter>ヘッダー ファイル\MODE_TITLE</Filter>
+    </ClInclude>
+    <ClInclude Include="menue.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -160,6 +184,24 @@
     </ClCompile>
     <ClCompile Include="enemy_Update.cpp">
       <Filter>ソース ファイル\MODE_GAME\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>ソース ファイル\MODE_GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>ソース ファイル\MODE_TITLE</Filter>
+    </ClCompile>
+    <ClCompile Include="title_bg.cpp">
+      <Filter>ソース ファイル\MODE_TITLE</Filter>
+    </ClCompile>
+    <ClCompile Include="title_logo.cpp">
+      <Filter>ソース ファイル\MODE_TITLE</Filter>
+    </ClCompile>
+    <ClCompile Include="title_hud.cpp">
+      <Filter>ソース ファイル\MODE_TITLE</Filter>
+    </ClCompile>
+    <ClCompile Include="menue.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -143,7 +143,10 @@ HRESULT Init_player(void) {
 	g_Player.col_L.shape = BOX;
 	g_Player.col_L.size = XMFLOAT2(1.01f, COL_SIZE_H - 10);//-10は必要のないものと当たらないようにするため
 	g_Player.col_L.type = GROUND;
-
+	//ライン
+	g_Player.line_pos = g_Player.obj.pos;
+	g_Player.line_pos.y -= SIZE / 2;
+	g_Player.line_vec = XMFLOAT2(0.0f, SIZE);
 
 	//Animation
 	g_Player.anime.anime_frame = 0;
@@ -228,7 +231,7 @@ void Update_player(void) {
 
 	//ジャンプや空中にいるときの判定
 	{
-		if ((GetKeyboardPress(DIK_W)) && (g_status.mp > 0.0f)) {
+		if (((GetKeyboardPress(DIK_W))||GetKeyboardPress(DIK_SPACE)) && (g_status.mp > 0.0f)) {
 			if (!g_Player.is_jump) {
 				//ジャンプのはじめに0.2のMPがないとジャンプできない
 				if (g_status.mp > 0.2f) {
@@ -267,14 +270,18 @@ void Update_player(void) {
 		g_status.mp -= Set_ATK(ATK_PLAYER, LINE_ATK, g_is_run_R, g_Player.obj.pos);
 	}
 
-	g_status.hp -= CheckDamage(g_Player.col);
-
+	//HPの減算
+	float temp_hp = CheckDamage(g_Player.col);
+	if (temp_hp > 0.0f) {
+		g_status.hp -= temp_hp;
+		Set_P_Anime(DAMAGE_ANIME);
+	}
 
 	//mpが１以下で地面にいるときMPを回復
 	if (g_status.mp <= 1.0f&&g_Player.is_hitD) {
 		g_status.mp += g_status.plus_mp;
 	}
-	g_status.mp = 1;
+
 	if (g_status.mp < 0.0f) {//mpがマイナスにならないように
 		g_status.mp = 0.0f;
 	}
@@ -347,9 +354,9 @@ void Anime_player(void) {
 	if (g_Player.anime.count_FPS >= g_Player.anime.anime_FPS) {
 		if (g_Player.anime.anime_frame >= g_anime_frame[g_Player.anime.which_anime]) {
 			g_Player.anime.anime_frame = 0;
+			Set_P_Anime(IDLE_ANIME);
 
 			if ((!g_is_run_R) && (g_anime_frame[g_Player.anime.which_anime] < ANIME_COUNT)) {
-
 				g_Player.anime.anime_frame = 2;
 			}
 		}

@@ -32,8 +32,11 @@ DWORD g_aSizeAudio[SOUND_LABEL_MAX] = {};					// オーディオデータサイズ
 // 各音素材のパラメータ
 SOUNDPARAM g_aParam[SOUND_LABEL_MAX] =
 {
-	{ (char*)"data/BGM/main_BGM.wav", -1 },	// main_BGM0
-	{ (char*)"data/BGM/title_BGM.wav", 0 },	// title_BGM
+	{ (char*)"data/BGM/main_BGM.wav", -1 },		// main_BGM
+	{ (char*)"data/BGM/title_BGM.wav", -1 },	// title_BGM
+	{ (char*)"data/SE/select_mv.wav", 0 },			// select_mv_SE
+	{ (char*)"data/SE/select_no.wav", 0 },		// select_no_SE
+	{ (char*)"data/SE/select_ok.wav", 0 },		// select_ok_SE
 
 };
 

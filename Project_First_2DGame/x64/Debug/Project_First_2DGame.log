@@ -1,3 +1,1 @@
-﻿  atk.cpp
-D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(90,45): warning C4305: '=': 'double' から 'float' へ切り詰めます。
-  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
+﻿  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

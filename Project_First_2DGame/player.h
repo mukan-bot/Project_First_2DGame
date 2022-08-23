@@ -29,6 +29,8 @@ struct PLAYER {
 	bool is_hitU;
 	bool is_hitL;
 	bool is_hitR;
+	XMFLOAT2 line_pos;
+	XMFLOAT2 line_vec;
 };
 
 

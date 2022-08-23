@@ -8,6 +8,7 @@
 #include "MAP.h"
 #include "HUD.h"
 #include "atk.h"
+#include "effect.h"
 
 #include "set_map.h"
 
@@ -18,6 +19,7 @@ HRESULT Init_game(void) {
 	Init_player();
 
 	Init_ATK();
+	Init_effect();
 
 	Init_collision();
 
@@ -32,12 +34,14 @@ void Uninit_game(void) {
 	Uninit_player();
 	Uninit_HUD();
 	Uninit_ATK();
+	Uninit_effect();
 }
 void Update_game(void) {
 	Update_map();
 	Update_enemy();
 	Update_player();
 	Update_ATK();
+	Update_effect();
 	Update_HUD();
 
 	Anime_Update();
@@ -47,6 +51,7 @@ void Draw_game(void) {
 	Draw_enemy();
 	Draw_player();
 	Draw_ATK();
+	Draw_effect();
 
 	Draw_HUD();
 }

@@ -26,7 +26,8 @@ struct attack {
 	int atk_type;	//‚Ç‚ÌUŒ‚‚©
 	bool is_Rside;	//‰E‘¤‚É‘Î‚·‚éUŒ‚‚È‚çtrue
 	int count_frame;
-	float time;
+	//float time;
+	int no;
 };
 
 struct attack_status {
@@ -38,6 +39,7 @@ struct attack_status {
 	main_obj obj;
 	XMFLOAT4 color;
 	bool is_g_collision;	//’n–Ê‚ğŠÑ’Ê‚·‚é‚©
+
 };
 
 

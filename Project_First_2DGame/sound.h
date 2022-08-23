@@ -14,7 +14,10 @@
 enum 
 {
 	SOUND_LABEL_BGM_main00,	// BGM1
-	SOUND_LABEL_SE_bomb000,		// ”š”­‰¹
+	SOUND_LABEL_BGM_title00,
+	SOUND_LABEL_SE_select_mv,
+	SOUND_LABEL_SE_select_no,
+	SOUND_LABEL_SE_select_ok,
 
 	SOUND_LABEL_MAX,
 };

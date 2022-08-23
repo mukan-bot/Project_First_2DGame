@@ -150,6 +150,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="debugproc.h" />
+    <ClInclude Include="effect.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy_Update.h" />
     <ClInclude Include="game.h" />
@@ -158,12 +159,17 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MAP.h" />
+    <ClInclude Include="menue.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="set_map.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="title.h" />
+    <ClInclude Include="title_bg.h" />
+    <ClInclude Include="title_hud.h" />
+    <ClInclude Include="title_logo.h" />
     <ClInclude Include="Visual_tile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +178,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="debugproc.cpp" />
+    <ClCompile Include="effect.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemy_Update.cpp" />
     <ClCompile Include="game.cpp" />
@@ -180,12 +187,17 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MAP.cpp" />
+    <ClCompile Include="menue.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="set_map.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="title.cpp" />
+    <ClCompile Include="title_bg.cpp" />
+    <ClCompile Include="title_hud.cpp" />
+    <ClCompile Include="title_logo.cpp" />
     <ClCompile Include="Visual_tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

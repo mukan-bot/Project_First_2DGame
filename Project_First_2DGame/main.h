@@ -56,13 +56,15 @@ using namespace DirectX;
 enum
 {
 	MODE_TITLE,			//タイトル画面
-	MODE_TUTORIAL,			//ゲーム説明画面
-	MODE_GAME,				//ゲーム画面
-	MODE_RESULT,			//リザルト画面
+	MODE_TUTORIAL,		//ゲーム説明画面
+	MODE_GAME,			//ゲーム画面
+	MODE_RESULT,		//リザルト画面
+	MODE_MENUE,			//メニュー画面
 	MODE_MAX
 };
 
 //構造体定義
+// 
 //補間用のデータ構造体を定義
 struct INTERPOLATION_DATA
 {
@@ -72,10 +74,30 @@ struct INTERPOLATION_DATA
 	float		frame;		//実行フレーム数 ( dt = 1.0f/frame )
 };
 
+//テクスチャ系の変数
+struct texture {
+	int texNo = 0;
+	float x = 0.00f;	// テクスチャの左上X座標
+	float y = 0.00f;	// テクスチャの左上Y座標
+	float w = 1.0f;		// テクスチャの幅
+	float h = 1.0f;		// テクスチャの高さ
+};
+
+//ポリゴン系の変数
+struct polygon {
+	float w = 1.0f;		//幅
+	float h = 1.0f;		//高さ
+};
+//ポリゴンの表示用
+struct main_obj {
+	texture tex;
+	polygon pol;
+	bool use = FALSE;
+	XMFLOAT2 pos = XMFLOAT2(0.0f, 0.0f);		// ポリゴンの座標
+
+};
+
 //プロトタイプ宣言
-long GetMousePosX(void);
-long GetMousePosY(void);
-char* GetDebugStr(void);
 
 void SetMode(int mode);
 int GetMode(void);

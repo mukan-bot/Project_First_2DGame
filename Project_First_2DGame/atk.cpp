@@ -4,10 +4,13 @@
 #include "player.h"
 #include "MAP.h"
 #include "collision.h"
+#include "effect.h"
 
 
 //マクロ定義
 #define ATKs_MAX	(256) //一度に出せる攻撃の限界
+
+
 
 // グローバル変数
 static ID3D11Buffer* g_VertexBuffer = NULL;		// 頂点情報
@@ -76,7 +79,9 @@ HRESULT Init_ATK(void) {
 		g_atk[i].col.shape = GROUND;
 		g_atk[i].col.type = BOX;
 		g_atk[i].count_frame = 0;
-		g_atk[i].time = 0.0f;
+		//g_atk[i].time = 0.0f;
+		g_atk[i].no = -1;
+		
 	}
 
 	for (int i = 0; i < MAX_ATK; i++) {
@@ -85,39 +90,40 @@ HRESULT Init_ATK(void) {
 
 		g_atk_status[i].obj.use = FALSE;
 		g_atk_status[i].obj.pos = XMFLOAT2(0, 0);
-
 	}
-	g_atk_status[STANDARD_ATK].atk_power = 0.05;
-	g_atk_status[STANDARD_ATK].minus_mp = 0.0f;
-	g_atk_status[STANDARD_ATK].frame = 5;
-	g_atk_status[STANDARD_ATK].vec = XMFLOAT2(30, 0);
-	g_atk_status[STANDARD_ATK].col.size = XMFLOAT2(10, 80);
-	g_atk_status[STANDARD_ATK].col.shape = BOX;
-	g_atk_status[STANDARD_ATK].obj.pol.w = 20;
-	g_atk_status[STANDARD_ATK].obj.pol.h = 100;
-	g_atk_status[STANDARD_ATK].obj.tex.texNo = STANDARD_ATK;
-	g_atk_status[STANDARD_ATK].obj.tex.w = 1.0f;
-	g_atk_status[STANDARD_ATK].obj.tex.h = 1.0f;
-	g_atk_status[STANDARD_ATK].obj.tex.x = 0;
-	g_atk_status[STANDARD_ATK].obj.tex.y = 0;
-	g_atk_status[STANDARD_ATK].obj.pos = XMFLOAT2(30, 0);
-	g_atk_status[STANDARD_ATK].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.5f);
+	int i = STANDARD_ATK;
+	g_atk_status[i].atk_power = 0.05;
+	g_atk_status[i].minus_mp = 0.0f;
+	g_atk_status[i].frame = 5 ;
+	g_atk_status[i].vec = XMFLOAT2(3, 0);
+	g_atk_status[i].col.size = XMFLOAT2(10, 80);
+	g_atk_status[i].col.shape = BOX;
+	g_atk_status[i].obj.pol.w = 20;
+	g_atk_status[i].obj.pol.h = 100;
+	g_atk_status[i].obj.tex.texNo = i;
+	g_atk_status[i].obj.tex.w = 1.0f;
+	g_atk_status[i].obj.tex.h = 1.0f;
+	g_atk_status[i].obj.tex.x = 0;
+	g_atk_status[i].obj.tex.y = 0;
+	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
+	g_atk_status[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.0f);
+	i = LINE_ATK;
+	g_atk_status[i].atk_power = 0.01f;
+	g_atk_status[i].minus_mp = 0.1f;
+	g_atk_status[i].frame = 10;
+	g_atk_status[i].vec = XMFLOAT2(300, 0);
+	g_atk_status[i].col.shape = BOX;
+	g_atk_status[i].col.size = XMFLOAT2(50, 20);
+	g_atk_status[i].obj.pol.w = 60;
+	g_atk_status[i].obj.pol.h = 25;
+	g_atk_status[i].obj.tex.texNo = i;
+	g_atk_status[i].obj.tex.w = 1.0f;
+	g_atk_status[i].obj.tex.h = 1.0f;
+	g_atk_status[i].obj.tex.x = 0;
+	g_atk_status[i].obj.tex.y = 0;
+	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
+	g_atk_status[i].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 0.0f);
 
-	g_atk_status[LINE_ATK].atk_power = 0.01f;
-	g_atk_status[LINE_ATK].minus_mp = 0.1f;
-	g_atk_status[LINE_ATK].frame = 10;
-	g_atk_status[LINE_ATK].vec = XMFLOAT2(300, 0);
-	g_atk_status[LINE_ATK].col.shape = BOX;
-	g_atk_status[LINE_ATK].col.size = XMFLOAT2(50, 20);
-	g_atk_status[LINE_ATK].obj.pol.w = 60;
-	g_atk_status[LINE_ATK].obj.pol.h = 25;
-	g_atk_status[LINE_ATK].obj.tex.texNo = LINE_ATK;
-	g_atk_status[LINE_ATK].obj.tex.w = 1.0f;
-	g_atk_status[LINE_ATK].obj.tex.h = 1.0f;
-	g_atk_status[LINE_ATK].obj.tex.x = 0;
-	g_atk_status[LINE_ATK].obj.tex.y = 0;
-	g_atk_status[LINE_ATK].obj.pos = XMFLOAT2(30, 0);
-	g_atk_status[LINE_ATK].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	g_Load = TRUE;
 	return S_OK;
@@ -191,6 +197,9 @@ void Update_ATK(void) {
 		if (g_atk[i].obj.use==TRUE) {
 			if (g_atk[i].count_frame > g_atk_status[g_atk[i].atk_type].frame) {
 				g_atk[i].obj.use = FALSE;
+				if (g_atk[i].no != -1) {
+					Del_effect(g_atk[i].no);
+				}
 			}
 
 			bool is_move = FALSE;	//移動の選択(FALSEなら線形補間の移動も行う)
@@ -217,12 +226,18 @@ void Update_ATK(void) {
 			temp.type = GROUND;
 			if (CheckHit(temp)) {
 				g_atk[i].obj.use = FALSE;
+				if (g_atk[i].no != -1) {
+					Del_effect(g_atk[i].no);
+				}
 			}
 			
 
 			g_atk[i].count_frame++;
 
 			Update_ATK_col(i);
+		}
+		else {
+			Del_effect(g_atk[i].no);
 		}
 	}
 }
@@ -270,7 +285,18 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 	g_atk[i].is_Rside = is_Rside;
 	g_atk[i].obj.use = TRUE;
 	g_atk[i].count_frame = 0;
+	g_atk[i].no = -1;
 	Update_ATK_col(i);
+	switch (atk_type)
+	{
+	case (STANDARD_ATK):
+		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_FIRE_BULLET_4, FALSE, 2);
+		break;
+	case(LINE_ATK):
+		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_ICE_SPEAR, TRUE,4);
+	default:
+		break;
+	}
 	return g_atk_status[atk_type].minus_mp;
 }
 

@@ -6,7 +6,7 @@
 #include "sound.h"
 
 #include "game.h"
-
+#include "title.h"
 //マクロ定義
 #define CLASS_NAME "AppClass"
 #define WINDOW_NAME "my_fast_DX11_game"
@@ -21,7 +21,7 @@ void Draw(void);
 
 
 //グローバル変数
-
+float bgm_volume = 0.05;
 
 //デバッグ用
 #ifdef _DEBUG
@@ -208,7 +208,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//サウンドの初期化
 	InitSound(hWnd);
 
-	SetMode(MODE_GAME);
+	SetMode(MODE_TITLE);
 
 	return S_OK;
 }
@@ -237,17 +237,19 @@ void Update(void) {
 	//入力の初期化
 	UpdateInput();
 	switch (g_Mode) {
+	case (MODE_TITLE):
+		Update_title();
+		break;
 	case (MODE_GAME):
 		Update_game();
 		break;
 	default:
+		PostQuitMessage(WM_QUIT);
 		break;
 	}
-	//UpdateText();
 
 
 }
-#include"player.h"
 //描画処理
 void Draw(void) {
 
@@ -266,7 +268,9 @@ void Draw(void) {
 	SetLightEnable(FALSE);
 
 	switch (g_Mode){
-
+	case (MODE_TITLE):
+		Draw_title();
+		break;
 	case (MODE_GAME):
 		Draw_game();
 		break;
@@ -287,9 +291,14 @@ void Draw(void) {
 
 void SetMode(int mode) {
 	switch (mode){
+	case (MODE_TITLE):
+		Init_title();
+		Sound_Volume(SOUND_LABEL_BGM_title00, bgm_volume);
+		PlaySound(SOUND_LABEL_BGM_title00);
+		break;
 	case (MODE_GAME):
 		Init_game();
-		Sound_Volume(SOUND_LABEL_BGM_main00, 0.05f);
+		Sound_Volume(SOUND_LABEL_BGM_main00, bgm_volume);
 		PlaySound(SOUND_LABEL_BGM_main00);
 		break;
 
