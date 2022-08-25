@@ -26,6 +26,7 @@ HRESULT Init_game(void) {
 	Set_map();
 
 
+
 	return S_OK;
 }
 void Uninit_game(void) {
@@ -45,6 +46,11 @@ void Update_game(void) {
 	Update_HUD();
 
 	Anime_Update();
+
+	SCORE* temp = Get_score();
+	temp->time++;
+
+
 }
 void Draw_game(void) {
 	Draw_map();

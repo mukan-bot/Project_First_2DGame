@@ -197,13 +197,13 @@ void SetSpriteColorRotation(ID3D11Buffer* buf, float X, float Y, float Width, fl
 	VERTEX_3D* vertex = (VERTEX_3D*)msr.pData;
 
 	float hw, hh;
-	hw = Width * 0.5f;		//コンピューターは割り算が苦手
-	hh = Height * 0.5f;		//掛け算の方が処理が速い
+	hw = Width * 0.5f;
+	hh = Height * 0.5f;
 
 	//指定された座標を中心に回転するプログラム
-	float BaseAngle = atan2f(hh, hw);			//中心点から頂点に対する角度
+	float BaseAngle = atan2f(hh, hw);	//中心点から頂点に対する角度
 	XMVECTOR temp = { hw, hh, 0.0f, 0.0f };
-	temp = XMVector2Length(temp);				//中心点から頂点に対する距離
+	temp = XMVector2Length(temp);	//中心点から頂点に対する距離
 	float Radius = 0.0f;
 	XMStoreFloat(&Radius, temp);
 

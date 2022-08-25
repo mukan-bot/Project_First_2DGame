@@ -106,11 +106,11 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].obj.tex.x = 0;
 	g_atk_status[i].obj.tex.y = 0;
 	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
-	g_atk_status[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.0f);
+	g_atk_status[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.4f);
 	i = LINE_ATK;
 	g_atk_status[i].atk_power = 0.01f;
 	g_atk_status[i].minus_mp = 0.1f;
-	g_atk_status[i].frame = 10;
+	g_atk_status[i].frame = 40;
 	g_atk_status[i].vec = XMFLOAT2(300, 0);
 	g_atk_status[i].col.shape = BOX;
 	g_atk_status[i].col.size = XMFLOAT2(50, 20);
@@ -271,12 +271,14 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 	g_atk[i].obj = g_atk_status[atk_type].obj;
 	if (is_Rside) {
 		g_atk[i].obj.pos = XMFLOAT2(start_pos.x + g_atk_status[atk_type].obj.pos.x, start_pos.y + g_atk_status[atk_type].obj.pos.y);
-		g_atk[i].start_pos = g_atk[i].obj.pos;
+		g_atk[i].start_pos.x = start_pos.x + g_atk_status[atk_type].obj.pos.x;
+		g_atk[i].start_pos.y = start_pos.y + g_atk_status[atk_type].obj.pos.y;
 		g_atk[i].vec = XMFLOAT2(g_atk[i].start_pos.x + g_atk_status[atk_type].vec.x, g_atk[i].start_pos.y + g_atk_status[atk_type].vec.y);
 	}
 	else {
 		g_atk[i].obj.pos = XMFLOAT2(start_pos.x - g_atk_status[atk_type].obj.pos.x, start_pos.y + g_atk_status[atk_type].obj.pos.y);
-		g_atk[i].start_pos = g_atk[i].obj.pos;
+		g_atk[i].start_pos.x = start_pos.x - g_atk_status[atk_type].obj.pos.x;
+		g_atk[i].start_pos.y = start_pos.y - g_atk_status[atk_type].obj.pos.y;
 		g_atk[i].vec = XMFLOAT2(g_atk[i].start_pos.x - g_atk_status[atk_type].vec.x, g_atk[i].start_pos.y - g_atk_status[atk_type].vec.y);
 	}
 	g_atk[i].col = g_atk_status[atk_type].col;
@@ -290,10 +292,10 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 	switch (atk_type)
 	{
 	case (STANDARD_ATK):
-		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_FIRE_BULLET_4, FALSE, 2);
+		//g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_EXPLOSION, FALSE, g_atk_status[atk_type].frame);
 		break;
 	case(LINE_ATK):
-		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_ICE_SPEAR, TRUE,4);
+		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_ICE_SPEAR, FALSE, g_atk_status[atk_type].frame);
 	default:
 		break;
 	}

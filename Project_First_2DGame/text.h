@@ -25,3 +25,4 @@ HRESULT Init_text(void);
 void Uninit_text(void);
 void Draw_text(void);
 void SetText(TEXT text_p, char text[]);
+void SetText_d(TEXT text_p, int d);

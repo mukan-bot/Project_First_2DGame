@@ -70,7 +70,7 @@ void Update_title_hud(void) {
 
 	}
 	int temp2 = g_select;
-	g_select = clamp(g_select, 0, SELECT_MAX - 1);
+	g_select = clamp(g_select, 0, SELECT_EXIT);
 	if (g_select != temp2) PlaySound(SOUND_LABEL_SE_select_no);	//‘I‘ğˆ‚ÌÅ‘å‚ğ’´‚¦‚½‚ç
 	if (g_select != temp1) PlaySound(SOUND_LABEL_SE_select_mv);	//‘I‘ğˆ‚ÌÅ‘å‚ğ’´‚¦‚¸‚ÉˆÚ“®‚µ‚½‚ç
 	g_temp_text = g_text[g_select];
@@ -88,6 +88,7 @@ void Update_title_hud(void) {
 			SetMode(MODE_GAME);
 			break;
 		case (SELECT_OPTION):
+			SetMode(MODE_MENUE);
 			break;
 		case (SELECT_EXIT):
 			SetMode(MODE_MAX);

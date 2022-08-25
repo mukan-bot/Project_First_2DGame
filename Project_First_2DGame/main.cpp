@@ -7,6 +7,8 @@
 
 #include "game.h"
 #include "title.h"
+#include "result.h"
+#include "menue.h"
 //マクロ定義
 #define CLASS_NAME "AppClass"
 #define WINDOW_NAME "my_fast_DX11_game"
@@ -21,7 +23,9 @@ void Draw(void);
 
 
 //グローバル変数
-float bgm_volume = 0.05;
+static float g_bgm_volume = 0.05;
+static float g_ce_volume = 0.05;
+static SCORE g_score;
 
 //デバッグ用
 #ifdef _DEBUG
@@ -30,7 +34,8 @@ char g_DebugStr[2048] = WINDOW_NAME;
 
 #endif
 
-int g_Mode = MODE_TITLE;
+int g_Mode = MODE_RESULT;
+bool g_is_menue = FALSE;
 
 
 //プロシージャ
@@ -112,8 +117,26 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		NULL
 	);
 
-	//初期化処理(ウィンドウを作成してから行う)
-	if (FAILED(Init(hInstance, hWnd, TRUE)))
+	// ウィンドウモードかフルスクリーンモードかの処理
+	BOOL mode = TRUE;
+
+	//int id = MessageBox(NULL, "Windowモードでプレイしますか？", "起動モード", MB_YESNOCANCEL | MB_ICONQUESTION);
+	//switch (id)
+	//{
+	//case IDYES:		// YesならWindowモードで起動
+	//	mode = TRUE;
+	//	break;
+	//case IDNO:		// Noならフルスクリーンモードで起動
+	//	mode = FALSE;	// 環境によって動かない事がある
+	//	break;
+	//case IDCANCEL:	// CANCELなら終了
+	//default:
+	//	return -1;
+	//	break;
+	//}
+
+	// 初期化処理(ウィンドウを作成してから行う)
+	if (FAILED(Init(hInstance, hWnd, mode)))
 	{
 		return -1;
 	}
@@ -208,7 +231,15 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//サウンドの初期化
 	InitSound(hWnd);
 
-	SetMode(MODE_TITLE);
+	SetMode(MODE_RESULT);
+
+	Set_bgmVolume(g_bgm_volume);
+	Set_seVolume(g_ce_volume);
+
+	SCORE* temp;
+	temp = Get_score();
+	temp->time = 0;
+	temp->del_enemy = 0;
 
 	return S_OK;
 }
@@ -243,8 +274,13 @@ void Update(void) {
 	case (MODE_GAME):
 		Update_game();
 		break;
+	case (MODE_RESULT):
+		Update_result();
+		break;
+	case (MODE_MENUE):
+		Update_menue();
+		break;
 	default:
-		PostQuitMessage(WM_QUIT);
 		break;
 	}
 
@@ -274,6 +310,12 @@ void Draw(void) {
 	case (MODE_GAME):
 		Draw_game();
 		break;
+	case (MODE_RESULT):
+		Draw_result();
+		break;
+	case (MODE_MENUE):
+		Draw_menue();
+		break;
 	default:
 		break;
 	}
@@ -290,19 +332,32 @@ void Draw(void) {
 
 
 void SetMode(int mode) {
+	Uninit_title();
+	Uninit_game();
+	Uninit_result();
+	Uninit_menue();
+
+
+	if (mode != MODE_MENUE) {
+		StopSound();
+	}
 	switch (mode){
 	case (MODE_TITLE):
 		Init_title();
-		Sound_Volume(SOUND_LABEL_BGM_title00, bgm_volume);
 		PlaySound(SOUND_LABEL_BGM_title00);
 		break;
 	case (MODE_GAME):
 		Init_game();
-		Sound_Volume(SOUND_LABEL_BGM_main00, bgm_volume);
 		PlaySound(SOUND_LABEL_BGM_main00);
 		break;
-
+	case (MODE_RESULT):
+		Init_result();
+		break;
+	case(MODE_MENUE):
+		Init_menue();
+		break;
 	default:
+		PostQuitMessage(WM_QUIT);
 		break;
 	}
 	g_Mode = mode;
@@ -315,4 +370,21 @@ int GetFPS(void) {
 	return g_CountFPS;
 }
 
+void Set_bgmVolume(float vol) {
+	vol = clamp(vol, 0.0f, 1.0f);
+	Sound_Volume(SOUND_LABEL_BGM_title00, vol);
+	Sound_Volume(SOUND_LABEL_BGM_main00, vol);
+}
+void Set_seVolume(float vol) {
+	g_ce_volume = clamp(vol, 0.0f, 1.0f);
+}
 
+float Get_bgmVolume(void) {
+	return g_bgm_volume;
+}
+float Get_seVolume(void) {
+	return g_ce_volume;
+}
+SCORE* Get_score() {
+	return &g_score;
+}

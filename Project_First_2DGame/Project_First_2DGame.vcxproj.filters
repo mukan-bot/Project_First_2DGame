@@ -43,6 +43,12 @@
     <Filter Include="ヘッダー ファイル\MODE_TITLE">
       <UniqueIdentifier>{2f0bd4df-f3fb-442a-8730-7e3684ae8e39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MODE_RESULT">
+      <UniqueIdentifier>{04d8b35c-90db-4544-8a7e-a0adc3ce23be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MODE_RESULT">
+      <UniqueIdentifier>{6290c721-c99c-4afa-88aa-5210a40cebf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="renderer.h">
@@ -123,6 +129,18 @@
     <ClInclude Include="menue.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>ヘッダー ファイル\MODE_RESULT</Filter>
+    </ClInclude>
+    <ClInclude Include="result_bg.h">
+      <Filter>ヘッダー ファイル\MODE_RESULT</Filter>
+    </ClInclude>
+    <ClInclude Include="result_anime.h">
+      <Filter>ヘッダー ファイル\MODE_RESULT</Filter>
+    </ClInclude>
+    <ClInclude Include="result_score.h">
+      <Filter>ヘッダー ファイル\MODE_RESULT</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -202,6 +220,18 @@
     </ClCompile>
     <ClCompile Include="menue.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\MODE_RESULT</Filter>
+    </ClCompile>
+    <ClCompile Include="result_bg.cpp">
+      <Filter>ソース ファイル\MODE_RESULT</Filter>
+    </ClCompile>
+    <ClCompile Include="result_anime.cpp">
+      <Filter>ソース ファイル\MODE_RESULT</Filter>
+    </ClCompile>
+    <ClCompile Include="result_score.cpp">
+      <Filter>ソース ファイル\MODE_RESULT</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

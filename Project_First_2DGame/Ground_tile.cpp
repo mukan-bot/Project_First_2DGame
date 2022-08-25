@@ -167,15 +167,9 @@ int SetG_TILE(int tex_no, XMFLOAT3 pos_size) {
 				return g_count - 1;
 			}
 
-			if (tex_no < 3) {
-				float temp = rand() % 3;
-				g_g_tile[g_count].tile.obj.tex.x = g_g_tile[g_count].tile.obj.tex.w * temp;
-				g_g_tile[g_count].tile.obj.tex.y = g_g_tile[g_count].tile.obj.tex.h * tex_no;
-			}
-			else {
-				g_g_tile[g_count].tile.obj.tex.x = g_g_tile[g_count].tile.obj.tex.w * (tex_no - TEXTUR_W);
-				g_g_tile[g_count].tile.obj.tex.y = g_g_tile[g_count].tile.obj.tex.h * tex_no;
-			}
+			g_g_tile[g_count].tile.obj.tex.x = g_g_tile[g_count].tile.obj.tex.w * (tex_no);
+			g_g_tile[g_count].tile.obj.tex.y = g_g_tile[g_count].tile.obj.tex.h * (int(tex_no/TEXTUR_H));
+
 			g_count++;
 			return g_count - 1;
 		}
@@ -195,15 +189,10 @@ int SetG_TILE(int tex_no, XMFLOAT3 pos_size) {
 				return -1;
 			}
 
-			if (tex_no < 3) {
-				float temp = rand() % 3;
-				g_g_tile[i].tile.obj.tex.x = g_g_tile[i].tile.obj.tex.w * temp;
-				g_g_tile[i].tile.obj.tex.y = g_g_tile[i].tile.obj.tex.h * tex_no;
-			}
-			else {
-				g_g_tile[i].tile.obj.tex.x = g_g_tile[i].tile.obj.tex.w * (tex_no - TEXTUR_W);
-				g_g_tile[i].tile.obj.tex.y = g_g_tile[i].tile.obj.tex.h * tex_no;
-			}
+			g_g_tile[i].tile.obj.tex.x = g_g_tile[i].tile.obj.tex.w * (tex_no - TEXTUR_W);
+			g_g_tile[i].tile.obj.tex.y = g_g_tile[i].tile.obj.tex.h * tex_no;
+
+
 			return i;
 		}
 	}

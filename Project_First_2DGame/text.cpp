@@ -216,3 +216,21 @@ void SetText(TEXT text_p, char text[]) {
 		}
 	}
 }
+//êîéö
+void SetText_d(TEXT text_p, int d) {
+	char text[TEXT_MAX];
+	char temp[10][3] = { "ÇO","ÇP", "ÇQ", "ÇR", "ÇS", "ÇT", "ÇU", "ÇV", "ÇW", "ÇX", };
+	_itoa_s(d, text, 10);
+	int i = 0;
+	int j = d;
+	while (j != 0) {
+		j /= 10;
+		i++;
+	}
+	text_p.pos.x += (((text_p.size) * i) / 2) - text_p.size / 2;
+	while (d != 0) {
+		SetText(text_p, temp[d % 10]);
+		d /= 10;
+		text_p.pos.x -= text_p.size;
+	}
+}

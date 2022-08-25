@@ -252,6 +252,7 @@ HRESULT Init_enemy(void) {
 
 
 void Uninit_enemy(void) {
+	if (g_Load == FALSE) return;
 	{
 		g_VertexBuffer->Release();
 		g_VertexBuffer = NULL;

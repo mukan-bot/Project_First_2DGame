@@ -77,6 +77,7 @@ struct INTERPOLATION_DATA
 //テクスチャ系の変数
 struct texture {
 	int texNo = 0;
+	XMFLOAT4 color;
 	float x = 0.00f;	// テクスチャの左上X座標
 	float y = 0.00f;	// テクスチャの左上Y座標
 	float w = 1.0f;		// テクスチャの幅
@@ -97,6 +98,12 @@ struct main_obj {
 
 };
 
+//スコア
+struct SCORE {
+	int time;		//時間の合計
+	int del_enemy;	//倒したエネミーの数
+};
+
 //プロトタイプ宣言
 
 void SetMode(int mode);
@@ -104,3 +111,10 @@ int GetMode(void);
 
 int GetFPS(void);
 
+void Set_bgmVolume(float vol);
+void Set_seVolume(float vol);
+
+float Get_bgmVolume(void);
+float Get_seVolume(void);
+
+SCORE* Get_score();

@@ -81,7 +81,7 @@ HRESULT Init_effect(void){
 	g_effect[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.8f);
 	i = EFFECT_TYPE_EXPLOSION;
 	g_effect[i].anime.anime_frame_max = 44;
-	g_effect[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.8f);
+	g_effect[i].color = XMFLOAT4(0.7f, 0.7f, 1.0f, 0.8f);
 	i = EFFECT_TYPE_FIRE_BULLET_1;
 	g_effect[i].anime.anime_frame_max = 45;
 	g_effect[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.8f);
@@ -123,7 +123,7 @@ void Update_effect() {
 		if (g_temp_effect[i].obj.use) {
 			if (g_temp_effect[i].anime.anime_FPS < g_temp_effect[i].anime.count_FPS) {
 				if (g_temp_effect[i].anime.anime_frame == g_temp_effect[i].anime.anime_frame_max) {
-					if(g_temp_effect[i].loop){
+					if (g_temp_effect[i].loop) {
 						g_temp_effect[i].anime.anime_frame = 0;
 					}
 					else {
@@ -170,8 +170,10 @@ void Draw_effect(void) {
 			}
 			else {
 				// ‚P–‡‚Ìƒ|ƒŠƒSƒ“‚Ì’¸“_‚ÆƒeƒNƒXƒ`ƒƒÀ•W‚ðÝ’è
-				SetSpriteColor(g_VertexBuffer, g_temp_effect[i].pos->x, g_temp_effect[i].pos->y, g_temp_effect[i].obj.pol.w, g_temp_effect[i].obj.pol.h, g_temp_effect[i].obj.tex.x, g_temp_effect[i].obj.tex.y, -g_temp_effect[i].obj.tex.w, g_temp_effect[i].obj.tex.h, g_temp_effect[i].color);
-
+				SetSpriteColorRotation(g_VertexBuffer, g_temp_effect[i].pos->x, g_temp_effect[i].pos->y, g_temp_effect[i].obj.pol.w, g_temp_effect[i].obj.pol.h, g_temp_effect[i].obj.tex.x, g_temp_effect[i].obj.tex.y, g_temp_effect[i].obj.tex.w, g_temp_effect[i].obj.tex.h, g_temp_effect[i].color,3.14f);
+			}
+			if (GetMode() == MODE_RESULT) {
+				SetSpriteColorRotation(g_VertexBuffer, g_temp_effect[i].pos->x, g_temp_effect[i].pos->y, g_temp_effect[i].obj.pol.w, g_temp_effect[i].obj.pol.h, g_temp_effect[i].obj.tex.x, g_temp_effect[i].obj.tex.y, g_temp_effect[i].obj.tex.w, g_temp_effect[i].obj.tex.h, g_temp_effect[i].color, 1);
 			}
 			// ƒ|ƒŠƒSƒ“•`‰æ
 			GetDeviceContext()->Draw(4, 0);
@@ -189,7 +191,7 @@ int Set_effect(XMFLOAT2* pos, bool is_rside,float size, int effect_type, bool lo
 			g_temp_effect[i].obj.pol.h = size;
 			g_temp_effect[i].no = i;
 			g_temp_effect[i].loop = loop;
-			g_temp_effect[i].anime.anime_FPS = fps;
+			g_temp_effect[i].anime.anime_FPS = fps/g_effect[effect_type].anime.anime_frame_max;
 			g_temp_effect[i].is_Rside = is_rside;
 			return g_temp_effect[i].no;
 		}

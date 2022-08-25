@@ -48,8 +48,8 @@ HRESULT Init_title_logo(void) {
 	for (int i = 0; i < LAYER_MAX; i++) {
 		g_title_logo[i].pos = XMFLOAT2(WIDTH / 2,100);
 		g_title_logo[i].use = TRUE;
-		g_title_logo[i].pol.h = 200;
-		g_title_logo[i].pol.w = g_title_logo[i].pol.h * 1.6;
+		g_title_logo[i].pol.h = 150;
+		g_title_logo[i].pol.w = g_title_logo[i].pol.h * 3.88;
 		g_title_logo[i].tex.w = 1.0f;
 		g_title_logo[i].tex.h = 1.0f;
 		g_title_logo[i].tex.x = 0.0f;
@@ -105,7 +105,7 @@ void Draw_title_logo(void) {
 		SetSpriteColor(g_VertexBuffer,
 			g_title_logo[i].pos.x, g_title_logo[i].pos.y, g_title_logo[i].pol.w, g_title_logo[i].pol.h,
 			g_title_logo[i].tex.x, g_title_logo[i].tex.y, g_title_logo[i].tex.w, g_title_logo[i].tex.h,
-			XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+			XMFLOAT4(0.50f, 0.50f, 0.50f, 1.0f));
 
 		// ƒ|ƒŠƒSƒ“•`‰æ
 		GetDeviceContext()->Draw(4, 0);

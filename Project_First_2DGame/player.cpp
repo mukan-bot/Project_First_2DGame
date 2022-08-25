@@ -164,165 +164,171 @@ HRESULT Init_player(void) {
 
 
 void Uninit_player(void) {
+	if (g_Load == FALSE) return;
 	{
 		g_VertexBuffer->Release();
 		g_VertexBuffer = NULL;
 	}
 
-	for (int i = 0; i < TEXTURE_MAX; i++)
-	{
-		if (g_Texture[i])
-		{
+	for (int i = 0; i < TEXTURE_MAX; i++){
+		if (g_Texture[i])		{
 			g_Texture[i]->Release();
 			g_Texture[i] = NULL;
 		}
 	}
-
 	g_Load = FALSE;
 }
 
 void Update_player(void) {
-	XMFLOAT2 temp = g_Player.obj.pos;
-
-	//プレイヤーがどこかにあたっているか
-	if (CheckHit(g_Player.col_D)) {
-		g_Player.is_hitD = TRUE;
-	}
-	else {
-		g_Player.is_hitD = FALSE;
-	}
-	if (CheckHit(g_Player.col_U)) {
-		g_Player.is_hitU = TRUE;
-	}
-	else {
-		g_Player.is_hitU = FALSE;
-	}
-	if (CheckHit(g_Player.col_L)) {
-		g_Player.is_hitL = TRUE;
-	}
-	else {
-		g_Player.is_hitL = FALSE;
-	}
-	if (CheckHit(g_Player.col_R)) {
-		g_Player.is_hitR = TRUE;
-	}
-	else {
-		g_Player.is_hitR = FALSE;
-	}
-
-
-	if (GetKeyboardPress(DIK_D)) {
-		Set_P_Anime(RUN_ANIME);
-		g_is_run_R = TRUE;
-		if (!g_Player.is_hitR) {
-			Set_Scroll(g_status.speed);
-		}
-	}
-	else if (GetKeyboardPress(DIK_A)) {
-		Set_P_Anime(RUN_ANIME);
-		g_is_run_R = FALSE;
-		if (!g_Player.is_hitL) {
-			Set_Scroll(-g_status.speed);
-		}
-	}
-	else {
-		Set_P_Anime(IDLE_ANIME);
-	}
-
-	//ジャンプや空中にいるときの判定
-	{
-		if (((GetKeyboardPress(DIK_W))||GetKeyboardPress(DIK_SPACE)) && (g_status.mp > 0.0f)) {
-			if (!g_Player.is_jump) {
-				//ジャンプのはじめに0.2のMPがないとジャンプできない
-				if (g_status.mp > 0.2f) {
-					if (!g_Player.is_hitU) {//上が当たってたらジャンプできない
-						g_Player.is_jump = TRUE;
-					}
-				}
-			}
-			else {
-				g_Player.obj.pos.y -= g_status.jump_speed;
-				g_status.mp -= 0.01;
-				g_status.temp_gravity = 0.0f;
-			}
+	if (GetMode() == MODE_GAME) {
+		XMFLOAT2 temp = g_Player.obj.pos;
+		//プレイヤーがどこかにあたっているか
+		if (CheckHit(g_Player.col_D)) {
+			g_Player.is_hitD = TRUE;
 		}
 		else {
-			g_Player.is_jump = FALSE;
+			g_Player.is_hitD = FALSE;
 		}
-
-		//ジャンプ中でなくて地面にいないときは下に下がる
-		if ((!g_Player.is_hitD) && (!g_Player.is_jump)) {
-			float temp = g_status.gravity + g_status.temp_gravity;
-			g_Player.obj.pos.y += temp;
-			g_status.temp_gravity += PLUS_G;
+		if (CheckHit(g_Player.col_U)) {
+			g_Player.is_hitU = TRUE;
 		}
-		//地面にいるとき
 		else {
-			g_status.temp_gravity = 0.0f;//加算されてた値をもとに戻す
-
+			g_Player.is_hitU = FALSE;
 		}
-	}
+		if (CheckHit(g_Player.col_L)) {
+			g_Player.is_hitL = TRUE;
+		}
+		else {
+			g_Player.is_hitL = FALSE;
+		}
+		if (CheckHit(g_Player.col_R)) {
+			g_Player.is_hitR = TRUE;
+		}
+		else {
+			g_Player.is_hitR = FALSE;
+		}
 
-	if (GetKeyboardTrigger(DIK_E)) {
-		g_status.mp -= Set_ATK(ATK_PLAYER, STANDARD_ATK, g_is_run_R, g_Player.obj.pos);
-	}
-	if (GetKeyboardTrigger(DIK_Q)) {
-		g_status.mp -= Set_ATK(ATK_PLAYER, LINE_ATK, g_is_run_R, g_Player.obj.pos);
-	}
 
-	//HPの減算
-	float temp_hp = CheckDamage(g_Player.col);
-	if (temp_hp > 0.0f) {
-		g_status.hp -= temp_hp;
-		Set_P_Anime(DAMAGE_ANIME);
-	}
-
-	//mpが１以下で地面にいるときMPを回復
-	if (g_status.mp <= 1.0f&&g_Player.is_hitD) {
-		g_status.mp += g_status.plus_mp;
-	}
-
-	if (g_status.mp < 0.0f) {//mpがマイナスにならないように
-		g_status.mp = 0.0f;
-	}
-
-	//移動があった場合めり込んでいないか確認
-	//めり込んでた場合移動
-	if (g_Player.obj.pos.x != temp.x) {
-		if (g_Player.obj.pos.x < temp.x) {
-			if (g_Player.is_hitL) {
+		if (GetKeyboardPress(DIK_D)) {
+			Set_P_Anime(RUN_ANIME);
+			g_is_run_R = TRUE;
+			if (!g_Player.is_hitR) {
 				Set_Scroll(g_status.speed);
 			}
 		}
-		else {
-			if (g_Player.is_hitR) {
-
+		else if (GetKeyboardPress(DIK_A)) {
+			Set_P_Anime(RUN_ANIME);
+			g_is_run_R = FALSE;
+			if (!g_Player.is_hitL) {
 				Set_Scroll(-g_status.speed);
 			}
 		}
-	}
-	else {
-		Set_Scroll(0.0f);
-	}
-	if (g_Player.obj.pos.y != temp.y) {
-		if (g_Player.obj.pos.y < temp.y) {
-			if (g_Player.is_hitU) {
-				g_Player.obj.pos.y += g_status.gravity;
+		else {
+			Set_P_Anime(IDLE_ANIME);
+		}
+
+		//ジャンプや空中にいるときの判定
+		{
+			if (((GetKeyboardPress(DIK_W)) || GetKeyboardPress(DIK_SPACE)) && (g_status.mp > 0.0f)) {
+				if (!g_Player.is_jump) {
+					//ジャンプのはじめに0.2のMPがないとジャンプできない
+					if (g_status.mp > 0.2f) {
+						if (!g_Player.is_hitU) {//上が当たってたらジャンプできない
+							g_Player.is_jump = TRUE;
+						}
+					}
+				}
+				else {
+					g_Player.obj.pos.y -= g_status.jump_speed;
+					g_status.mp -= 0.01;
+					g_status.temp_gravity = 0.0f;
+				}
+			}
+			else {
+				g_Player.is_jump = FALSE;
+			}
+
+			//ジャンプ中でなくて地面にいないときは下に下がる
+			if ((!g_Player.is_hitD) && (!g_Player.is_jump)) {
+				float temp = g_status.gravity + g_status.temp_gravity;
+				g_Player.obj.pos.y += temp;
+				g_status.temp_gravity += PLUS_G;
+			}
+			//地面にいるとき
+			else {
+				g_status.temp_gravity = 0.0f;//加算されてた値をもとに戻す
+
+			}
+		}
+
+		if (GetKeyboardTrigger(DIK_E)) {
+			g_status.mp -= Set_ATK(ATK_PLAYER, STANDARD_ATK, g_is_run_R, g_Player.obj.pos);
+		}
+		if (GetKeyboardTrigger(DIK_Q)) {
+			g_status.mp -= Set_ATK(ATK_PLAYER, LINE_ATK, g_is_run_R, g_Player.obj.pos);
+		}
+
+		//HPの減算
+		float temp_hp = CheckDamage(g_Player.col);
+		if (temp_hp > 0.0f) {
+			g_status.hp -= temp_hp;
+			Set_P_Anime(DAMAGE_ANIME);
+		}
+
+		//mpが１以下で地面にいるときMPを回復
+		if (g_status.mp <= 1.0f && g_Player.is_hitD) {
+			g_status.mp += g_status.plus_mp;
+		}
+
+		if (g_status.mp < 0.0f) {//mpがマイナスにならないように
+			g_status.mp = 0.0f;
+		}
+
+		//移動があった場合めり込んでいないか確認
+		//めり込んでた場合移動
+		if (g_Player.obj.pos.x != temp.x) {
+			if (g_Player.obj.pos.x < temp.x) {
+				if (g_Player.is_hitL) {
+					Set_Scroll(g_status.speed);
+				}
+			}
+			else {
+				if (g_Player.is_hitR) {
+
+					Set_Scroll(-g_status.speed);
+				}
 			}
 		}
 		else {
-			if (g_Player.is_hitD) {
-				g_Player.obj.pos.y -= g_status.gravity;
+			Set_Scroll(0.0f);
+		}
+		if (g_Player.obj.pos.y != temp.y) {
+			if (g_Player.obj.pos.y < temp.y) {
+				if (g_Player.is_hitU) {
+					g_Player.obj.pos.y += g_status.gravity;
+				}
+			}
+			else {
+				if (g_Player.is_hitD) {
+					g_Player.obj.pos.y -= g_status.gravity;
+				}
 			}
 		}
+
+
+		//コリジョンの更新
+		Update_col();
+
+		//アニメーションの更新
+		Anime_player();
 	}
 
+	else {
 
-	//コリジョンの更新
-	Update_col();
-	//アニメーションの更新
-	Anime_player();
-
+		Set_P_Anime(RUN_ANIME);
+		//アニメーションの更新
+		Anime_player();
+	}
 
 
 }
@@ -354,7 +360,7 @@ void Anime_player(void) {
 	if (g_Player.anime.count_FPS >= g_Player.anime.anime_FPS) {
 		if (g_Player.anime.anime_frame >= g_anime_frame[g_Player.anime.which_anime]) {
 			g_Player.anime.anime_frame = 0;
-			Set_P_Anime(IDLE_ANIME);
+			if (g_Player.anime.which_anime == DAMAGE_ANIME)Set_P_Anime(IDLE_ANIME); //ダメージのアニメーションの場合アニメーションをアイドルにする
 
 			if ((!g_is_run_R) && (g_anime_frame[g_Player.anime.which_anime] < ANIME_COUNT)) {
 				g_Player.anime.anime_frame = 2;
