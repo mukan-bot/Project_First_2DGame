@@ -23,8 +23,8 @@ void Draw(void);
 
 
 //グローバル変数
-static float g_bgm_volume = 0.05;
-static float g_ce_volume = 0.05;
+static float g_bgm_volume = 0.50f;
+static float g_se_volume = 0.50f;
 static SCORE g_score;
 
 //デバッグ用
@@ -179,7 +179,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				dwFrameCount = 0;							//カウントをクリア
 			}
 
-			if ((dwCurrentTime - dwExecLastTime) >= (1000 / 60))	//1/60秒ごとに実行
+			if ((dwCurrentTime - dwExecLastTime) >= (1000 / 60))	//1/60秒ごとに実行------------------------
 			{
 				dwExecLastTime = dwCurrentTime;	//処理した時刻を保存
 
@@ -231,15 +231,15 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//サウンドの初期化
 	InitSound(hWnd);
 
-	SetMode(MODE_RESULT);
+	SetMode(MODE_GAME);
 
 	Set_bgmVolume(g_bgm_volume);
-	Set_seVolume(g_ce_volume);
+	Set_seVolume(g_se_volume);
 
 	SCORE* temp;
 	temp = Get_score();
-	temp->time = 0;
-	temp->del_enemy = 0;
+	temp->time = 1;
+	temp->del_enemy = 1;
 
 	return S_OK;
 }
@@ -370,20 +370,22 @@ int GetFPS(void) {
 	return g_CountFPS;
 }
 
+
 void Set_bgmVolume(float vol) {
-	vol = clamp(vol, 0.0f, 1.0f);
-	Sound_Volume(SOUND_LABEL_BGM_title00, vol);
-	Sound_Volume(SOUND_LABEL_BGM_main00, vol);
+	g_bgm_volume = clamp(vol, 0.0f, 1.0f);
+	Sound_BGM_Volume(g_bgm_volume/10);
 }
 void Set_seVolume(float vol) {
-	g_ce_volume = clamp(vol, 0.0f, 1.0f);
+	g_se_volume = clamp(vol, 0.0f, 1.0f);
+	Sound_SE_Volume(g_se_volume);
 }
+
 
 float Get_bgmVolume(void) {
 	return g_bgm_volume;
 }
 float Get_seVolume(void) {
-	return g_ce_volume;
+	return g_se_volume;
 }
 SCORE* Get_score() {
 	return &g_score;

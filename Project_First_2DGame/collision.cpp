@@ -5,7 +5,7 @@
 #include "atk.h"
 
 //マクロ定義
-#define MAX_COLLISION (1024)	//当たり判定の限界
+#define MAX_COLLISION (16384)	//当たり判定の限界
 
 //グローバル変数
 COLLISION g_collision[MAX_COLLISION];

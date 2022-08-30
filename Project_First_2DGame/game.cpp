@@ -13,6 +13,8 @@
 #include "set_map.h"
 
 
+static int g_count = 0;
+
 HRESULT Init_game(void) {
 	Init_map();
 	Init_enemy();
@@ -23,7 +25,9 @@ HRESULT Init_game(void) {
 
 	Init_collision();
 
-	Set_map();
+
+
+	Init_set_map();
 
 
 
@@ -45,7 +49,9 @@ void Update_game(void) {
 	Update_effect();
 	Update_HUD();
 
+
 	Anime_Update();
+
 
 	SCORE* temp = Get_score();
 	temp->time++;

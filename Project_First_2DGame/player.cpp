@@ -36,7 +36,6 @@ static char* g_TexturName[TEXTURE_MAX] = {
 	"data/TEXTURE/test.png",
 };
 
-static CAMERA* g_Player_camera;
 
 static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
 
@@ -45,6 +44,7 @@ static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
 static PLAYER g_Player;
 static bool g_is_run_R = TRUE;
 static STATUS g_status;
+
 
 
 
@@ -83,7 +83,7 @@ HRESULT Init_player(void) {
 
 
 	//player変数の初期化
-	g_Player.obj.pos = XMFLOAT2(400.0f, 200.0f);
+	g_Player.obj.pos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	g_Player.obj.use = TRUE;
 	g_Player.obj.pol.w = SIZE;
 	g_Player.obj.pol.h = SIZE;
@@ -198,6 +198,9 @@ void Update_player(void) {
 		if (CheckHit(g_Player.col_L)) {
 			g_Player.is_hitL = TRUE;
 		}
+		else if (g_Player.obj.pos.x < g_Player.obj.pol.w/4) {
+			g_Player.is_hitL = TRUE;
+		}
 		else {
 			g_Player.is_hitL = FALSE;
 		}
@@ -213,14 +216,24 @@ void Update_player(void) {
 			Set_P_Anime(RUN_ANIME);
 			g_is_run_R = TRUE;
 			if (!g_Player.is_hitR) {
-				Set_Scroll(g_status.speed);
+				if (g_Player.obj.pos.x < SCREEN_WIDTH / 2) {
+					g_Player.obj.pos.x += g_status.speed * 1000;
+				}
+				else {
+					Set_Scroll(g_status.speed);
+				}
 			}
 		}
 		else if (GetKeyboardPress(DIK_A)) {
 			Set_P_Anime(RUN_ANIME);
 			g_is_run_R = FALSE;
 			if (!g_Player.is_hitL) {
-				Set_Scroll(-g_status.speed);
+				if (Get_Scroll() < 0) {
+					g_Player.obj.pos.x -= g_status.speed*1000;
+				}
+				else {
+					Set_Scroll(-g_status.speed);
+				}
 			}
 		}
 		else {
@@ -242,6 +255,7 @@ void Update_player(void) {
 					g_Player.obj.pos.y -= g_status.jump_speed;
 					g_status.mp -= 0.01;
 					g_status.temp_gravity = 0.0f;
+					//SetMode(MODE_RESULT);
 				}
 			}
 			else {
@@ -289,12 +303,12 @@ void Update_player(void) {
 		if (g_Player.obj.pos.x != temp.x) {
 			if (g_Player.obj.pos.x < temp.x) {
 				if (g_Player.is_hitL) {
-					Set_Scroll(g_status.speed);
+					g_Player.obj.pos.x += g_status.speed;
+					//Set_Scroll(g_status.speed);-------------------------------------
 				}
 			}
 			else {
 				if (g_Player.is_hitR) {
-
 					Set_Scroll(-g_status.speed);
 				}
 			}
@@ -324,13 +338,13 @@ void Update_player(void) {
 	}
 
 	else {
-
+		g_is_run_R = TRUE;
 		Set_P_Anime(RUN_ANIME);
 		//アニメーションの更新
 		Anime_player();
 	}
 
-
+	g_status.mp = 1;
 }
 
 void Update_col(void) {

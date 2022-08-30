@@ -37,7 +37,8 @@ SOUNDPARAM g_aParam[SOUND_LABEL_MAX] =
 	{ (char*)"data/SE/select_mv.wav", 0 },			// select_mv_SE
 	{ (char*)"data/SE/select_no.wav", 0 },		// select_no_SE
 	{ (char*)"data/SE/select_ok.wav", 0 },		// select_ok_SE
-
+	{ (char*)"data/SE/player_result.wav", 0 },		// player_Î‚¢_SE
+	{ (char*)"data/SE/standard_atk.wav", 0 },		// standard_atk_SE
 };
 
 //=============================================================================
@@ -374,6 +375,15 @@ HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwB
 }
 
 //ƒ{ƒŠƒ…[ƒ€•ÏX
-void Sound_Volume(int label,float vol) {
-	g_apSourceVoice[label]->SetVolume(vol);
+void Sound_BGM_Volume(float vol) {
+	for (int i = 0; i < SOUND_LABEL_MAX; i++) {
+		if (g_aParam[i].nCntLoop == -1) g_apSourceVoice[i]->SetVolume(vol);
+	}
 }
+void Sound_SE_Volume(float vol) {
+	for (int i = 0; i < SOUND_LABEL_MAX; i++) {
+		if (g_aParam[i].nCntLoop == 0) g_apSourceVoice[i]->SetVolume(vol);
+	}
+}
+
+

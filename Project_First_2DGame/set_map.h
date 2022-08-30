@@ -6,6 +6,9 @@
 #include "game.h"
 //マクロ定義
 #define SNAP_SIZE (50)
+#define MAP_X_SIZE (11)
+#define MAP_Y_SIZE (11)
 
 //プロトタイプ宣言
-void Set_map(void);
+void Init_set_map(void);
+void Set_map(float plus);

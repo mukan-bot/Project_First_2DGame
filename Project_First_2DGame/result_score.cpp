@@ -65,8 +65,9 @@ HRESULT Init_result_score(void) {
 	for (int i = 0; i < (SCORE_MAX*2)+1; i++) {
 		g_result_text[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 		g_result_text[i].size = 40;
-		g_result_text[i].pos = XMFLOAT2(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 4)+(40*i));
+		g_result_text[i].pos = XMFLOAT2(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 4)+(70*i));
 	}
+	g_result_text[0].size = 60;
 
 
 	return S_OK;

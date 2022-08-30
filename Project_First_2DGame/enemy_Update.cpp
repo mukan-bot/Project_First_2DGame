@@ -22,7 +22,6 @@ void Enemy_s_Update(ENEMY* enemy) {
 void huntress_Update(ENEMY* enemy) {
 	
 	//Set_ATK(ATK_ENEMY, LINE_ATK, TRUE, enemy->obj.pos);
-	PrintDebugProc("%f",enemy->status.hp);
 	enemy->status.hp -= CheckDamage(enemy->col);
 	if (enemy->status.hp < 0.0f) {
 		enemy->obj.use = FALSE;

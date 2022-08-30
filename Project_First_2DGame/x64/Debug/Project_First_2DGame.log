@@ -1,3 +1,10 @@
-﻿  result_score.cpp
-D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\result_score.cpp(68,94): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  set_map.cpp
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\Ground_tile.h(1,1): warning C4828: オフセット 0x1dd から始まる、現在のソースの文字セット (コードページ 932) では使用できない文字がファイルに含まれています。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\Visual_tile.h(1,1): warning C4828: オフセット 0x16d から始まる、現在のソースの文字セット (コードページ 932) では使用できない文字がファイルに含まれています。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(131,59): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(131,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(141,44): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(141,39): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(144,48): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(144,43): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
   Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

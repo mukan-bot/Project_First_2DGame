@@ -106,7 +106,7 @@ void UninitBG(void){
 void UpdateBG(void){
 	g_BG[2].obj.tex.x = Get_Scroll();
 	g_BG[1].obj.tex.x = g_BG[2].obj.tex.x * 0.5f;
-	g_BG[0].obj.tex.x = g_BG[1].obj.tex.x * 0.09f;
+	g_BG[0].obj.tex.x = g_BG[1].obj.tex.x * 0.5f;
 }
 
 //=============================================================================

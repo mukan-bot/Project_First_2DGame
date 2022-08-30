@@ -378,13 +378,26 @@ void Draw_enemy(void) {
 
 	// プリミティブトポロジ設定
 	GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+
+	// マテリアル設定
+	MATERIAL material;
+	ZeroMemory(&material, sizeof(material));
+	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	SetMaterial(material);
+
+
 	for (int i = 0; i < ENEMY_MAX; i++) {
+
+		if (g_Enemy[i].obj.pos.x > SCREEN_WIDTH + g_Enemy[i].obj.pol.w) {
+			continue;
+		}
+		if (g_Enemy[i].obj.pos.x < -g_Enemy[i].obj.pol.w) {
+			continue;
+		}
+
+
 		if (g_Enemy[i].obj.use) {
-			// マテリアル設定
-			MATERIAL material;
-			ZeroMemory(&material, sizeof(material));
-			material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-			SetMaterial(material);
 
 
 			// テクスチャ設定

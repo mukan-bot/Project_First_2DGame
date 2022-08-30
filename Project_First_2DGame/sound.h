@@ -18,7 +18,8 @@ enum
 	SOUND_LABEL_SE_select_mv,
 	SOUND_LABEL_SE_select_no,
 	SOUND_LABEL_SE_select_ok,
-
+	SOUND_LABEL_SE_plakyer_result,
+	SOUND_LABEL_SE_standard_atk,
 	SOUND_LABEL_MAX,
 };
 
@@ -31,4 +32,5 @@ void PlaySound(int label);
 void StopSound(int label);//ƒ‰ƒxƒ‹Žw’è
 void StopSound(void);//‚·‚×‚Ä’âŽ~
 
-void Sound_Volume(int label, float vol);
+void Sound_BGM_Volume(float vol);
+void Sound_SE_Volume(float vol);

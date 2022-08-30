@@ -2,6 +2,7 @@
 #include "result_anime.h"
 #include "player.h"
 #include "effect.h"
+#include "sound.h"
 
 //É}ÉNÉçíËã`
 enum {
@@ -30,6 +31,7 @@ static XMFLOAT2 g_effect_vec;
 static int g_scene = SCENE_MOVE_PLAYER;
 static int g_count;
 static bool g_go_score;
+static bool g_player_sound;
 
 HRESULT Init_result_anime(void) {
 	Init_player();
@@ -49,7 +51,7 @@ HRESULT Init_result_anime(void) {
 		g_effect_count[i] = 0;
 		g_effect_use[i] = FALSE;
 	}
-
+	g_player_sound = FALSE;
 	g_Load = TRUE;
 	return S_OK;
 }
@@ -115,8 +117,14 @@ bool Update_result_anime(void) {
 		if (!g_go_score) {
 			g_go_score = TRUE;
 			tbool = TRUE;
+			g_player_sound = TRUE;     
 		}
 		break;
+
+	}
+	if (g_player_sound) {
+		PlaySound(SOUND_LABEL_SE_plakyer_result);
+		g_player_sound = FALSE;
 	}
 	return tbool;
 }

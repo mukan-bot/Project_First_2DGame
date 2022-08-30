@@ -3,7 +3,7 @@
 #include "MAP.h"
 #include "Visual_tile.h"
 #include <time.h>
-
+#include "set_map.h"
 
 //マクロ定義
 #define TEXTUR_MAX (1)
@@ -126,9 +126,19 @@ void Draw_Visual_tile(void) {
 	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SetMaterial(material);
 
+
+
+
 	// 描画
 	for (int i = 0; i < V_TILE_MAX; i++) {
+		if (g_v_tile[i].obj.pos.x > SCREEN_WIDTH + g_v_tile[i].obj.pol.w) {
+			continue;
+		}
+		if (g_v_tile[i].obj.pos.x < -g_v_tile[i].obj.pol.w) {
+			continue;
+		}
 		if (g_v_tile[i].obj.use) {
+			
 			// テクスチャ設定
 			GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_v_tile[i].obj.tex.texNo]);
 
@@ -154,17 +164,49 @@ int SetV_tile(int tex_no, XMFLOAT3 pos_size) {
 			g_v_tile[g_count].obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
 			g_v_tile[g_count].obj.pol.w = pos_size.z;
 			g_v_tile[g_count].obj.pol.h = pos_size.z;
-			if (tex_no < 3) {
-				float temp = rand() % 3;
+
+
+
+			g_v_tile[g_count].obj.tex.x = g_v_tile[g_count].obj.tex.w * ((1 + tex_no) % 3);
+
+			float temp;
+			switch (tex_no)
+			{
+			case (0):
+				temp = rand() % 3;
 				g_v_tile[g_count].obj.tex.x = g_v_tile[g_count].obj.tex.w * temp;
-				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * tex_no;
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 0;
+				break;
+			case (1):
+				temp = rand() % 3;
+				g_v_tile[g_count].obj.tex.x = g_v_tile[g_count].obj.tex.w * temp;
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 1;
+				break;
+			case (2):
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 2;
+				break;
+			case (3):
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 2;
+				break;
+			case (4):
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 2;
+				break;
+			case (5):
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 3;
+				break;
+			case (6):
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 3;
+				break;
+			case (7):
+				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * 3;
+				break;
+			default:
+				break;
 			}
-			else {
-				g_v_tile[g_count].obj.tex.x = g_v_tile[g_count].obj.tex.w * (tex_no - TEXTUR_W);
-				g_v_tile[g_count].obj.tex.y = g_v_tile[g_count].obj.tex.h * tex_no;
-			}
-			g_v_tile[g_count].obj.tex.x += 0.001f;//画像が全体的に少しずれているので調整
-			g_v_tile[g_count].obj.tex.y += 0.001f;
+
+
+
+
 			g_count++;
 			return g_count - 1;
 		}
@@ -176,17 +218,47 @@ int SetV_tile(int tex_no, XMFLOAT3 pos_size) {
 			g_v_tile[i].obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
 			g_v_tile[i].obj.pol.w = pos_size.z;
 			g_v_tile[i].obj.pol.h = pos_size.z;
-			if (tex_no < 3) {
-				float temp = rand() % 3;
+
+
+			g_v_tile[i].obj.tex.x = g_v_tile[i].obj.tex.w * ((1+tex_no) % 3);
+
+
+			float temp;
+			switch (tex_no)
+			{
+			case (0):
+				temp = rand() % 3;
 				g_v_tile[i].obj.tex.x = g_v_tile[i].obj.tex.w * temp;
 				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * tex_no;
-			}
-			else {
-				g_v_tile[i].obj.tex.x = g_v_tile[i].obj.tex.w * (tex_no - TEXTUR_W);
+				break;
+			case (1):
+				temp = rand() % 3;
+				g_v_tile[i].obj.tex.x = g_v_tile[i].obj.tex.w * temp;
 				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * tex_no;
+				break;
+			case (2):
+				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * 2;
+				break;
+			case (3):
+				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * 2;
+				break;
+			case (4):
+				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * 2;
+				break;
+			case (5):
+				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * 3;
+				break;
+			case (6):
+				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * 3;
+				break;
+			case (7):
+				g_v_tile[i].obj.tex.y = g_v_tile[i].obj.tex.h * 3;
+				break;
+			default:
+				break;
 			}
-			//g_v_tile[i].obj.tex.x += 0.001f;//画像が全体的に少しずれているので調整
-			//g_v_tile[i].obj.tex.y += 0.001f;
+
+
 			return i;
 		}
 	}

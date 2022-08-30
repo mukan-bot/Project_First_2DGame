@@ -4,13 +4,14 @@
 #include "Ground_tile.h"
 #include <time.h>
 #include "collision.h"
+#include "set_map.h"
 
 
 //マクロ定義
 #define TEXTUR_MAX (1)
 #define TEXTUR_W (4.0f) //横分割数
 #define TEXTUR_H (4.0f) //縦分割数
-#define G_TILE_MAX (256)//Visualタイルの最大表示数
+#define G_TILE_MAX (16384)//Groundタイルの最大表示数
 
 
 // グローバル変数
@@ -67,9 +68,6 @@ HRESULT Init_Ground_tile(void) {
 		g_g_tile[i].tile.obj.tex.w = 1.0f / TEXTUR_W;
 		g_g_tile[i].tile.obj.tex.h = 1.0f / TEXTUR_H;
 
-		//g_g_tile[i].anime_count = 0;
-		//g_g_tile[i].anime_speed = 0;
-		//g_g_tile[i].anime_frame = 0;
 
 		//当たり判定
 		g_g_tile[i].col.pos = g_g_tile[i].tile.obj.pos;
@@ -131,11 +129,24 @@ void Draw_Ground_tile(void) {
 	material.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	SetMaterial(material);
 
+
+	// テクスチャ設定
+	GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_g_tile[0].tile.obj.tex.texNo]);
+
+
+	float temp = Get_Scroll();
+	PrintDebugProc("%f\n", temp);
+
 	// 描画
 	for (int i = 0; i < G_TILE_MAX; i++) {
+		if (g_g_tile[i].tile.obj.pos.x > SCREEN_WIDTH + SNAP_SIZE) {
+			continue;
+		}
+
+		if (g_g_tile[i].tile.obj.pos.x < -SNAP_SIZE) {
+			continue;
+		}
 		if (g_g_tile[i].tile.obj.use) {
-			// テクスチャ設定
-			GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_g_tile[i].tile.obj.tex.texNo]);
 
 			// １枚のポリゴンの頂点とテクスチャ座標を設定
 			SetSpriteColor(g_VertexBuffer,
@@ -152,48 +163,54 @@ void Draw_Ground_tile(void) {
 
 
 int SetG_TILE(int tex_no, XMFLOAT3 pos_size) {
-	if (g_count < G_TILE_MAX) {
-		if (!g_g_tile[g_count].tile.obj.use) {
-			g_g_tile[g_count].tile.tile_no = g_count;
-			g_g_tile[g_count].tile.obj.use = TRUE;
-			g_g_tile[g_count].tile.obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
-			g_g_tile[g_count].tile.obj.pol.w = pos_size.z;
-			g_g_tile[g_count].tile.obj.pol.h = pos_size.z;
+	int temp = tex_no - 1;
+	if (temp == -1) {
+		return -1;
+	}
+	if (tex_no < G_TILE_MAX) {
+		if (g_count < G_TILE_MAX) {
+			if (!g_g_tile[g_count].tile.obj.use) {
+				g_g_tile[g_count].tile.tile_no = g_count;
+				g_g_tile[g_count].tile.obj.use = TRUE;
+				g_g_tile[g_count].tile.obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
+				g_g_tile[g_count].tile.obj.pol.w = pos_size.z;
+				g_g_tile[g_count].tile.obj.pol.h = pos_size.z;
 
-			//当たり判定
-			g_g_tile[g_count].col.pos = g_g_tile[g_count].tile.obj.pos;
-			g_g_tile[g_count].col.size = XMFLOAT2(g_g_tile[g_count].tile.obj.pol.w, g_g_tile[g_count].tile.obj.pol.h);
-			if (SetCollision(&g_g_tile[g_count].col) == -1) {
+				//当たり判定
+				g_g_tile[g_count].col.pos = g_g_tile[g_count].tile.obj.pos;
+				g_g_tile[g_count].col.size = XMFLOAT2(g_g_tile[g_count].tile.obj.pol.w, g_g_tile[g_count].tile.obj.pol.h);
+				if (SetCollision(&g_g_tile[g_count].col) == -1) {
+					return g_count - 1;
+				}
+
+				g_g_tile[g_count].tile.obj.tex.x = g_g_tile[g_count].tile.obj.tex.w * (temp);
+				g_g_tile[g_count].tile.obj.tex.y = g_g_tile[g_count].tile.obj.tex.h * (int(temp / TEXTUR_H));
+
+				g_count++;
 				return g_count - 1;
 			}
-
-			g_g_tile[g_count].tile.obj.tex.x = g_g_tile[g_count].tile.obj.tex.w * (tex_no);
-			g_g_tile[g_count].tile.obj.tex.y = g_g_tile[g_count].tile.obj.tex.h * (int(tex_no/TEXTUR_H));
-
-			g_count++;
-			return g_count - 1;
 		}
-	}
-	for (int i = 0; i < G_TILE_MAX; i++) {//削除した番号を使うため
-		if (!g_g_tile[i].tile.obj.use) {
-			g_g_tile[i].tile.tile_no = i;
-			g_g_tile[i].tile.obj.use = TRUE;
-			g_g_tile[i].tile.obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
-			g_g_tile[i].tile.obj.pol.w = pos_size.z;
-			g_g_tile[i].tile.obj.pol.h = pos_size.z;
+		for (int i = 0; i < G_TILE_MAX; i++) {//削除した番号を使うため
+			if (!g_g_tile[i].tile.obj.use) {
+				g_g_tile[i].tile.tile_no = i;
+				g_g_tile[i].tile.obj.use = TRUE;
+				g_g_tile[i].tile.obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
+				g_g_tile[i].tile.obj.pol.w = pos_size.z;
+				g_g_tile[i].tile.obj.pol.h = pos_size.z;
 
-			//当たり判定
-			g_g_tile[i].col.pos = XMFLOAT2(pos_size.x, pos_size.y);
-			g_g_tile[i].col.size = XMFLOAT2(pos_size.z, pos_size.z);
-			if (SetCollision(&g_g_tile[i].col) == -1) {
-				return -1;
+				//当たり判定
+				g_g_tile[i].col.pos = XMFLOAT2(pos_size.x, pos_size.y);
+				g_g_tile[i].col.size = XMFLOAT2(pos_size.z, pos_size.z);
+				if (SetCollision(&g_g_tile[i].col) == -1) {
+					return -1;
+				}
+
+				g_g_tile[i].tile.obj.tex.x = g_g_tile[i].tile.obj.tex.w * (temp - TEXTUR_W);
+				g_g_tile[i].tile.obj.tex.y = g_g_tile[i].tile.obj.tex.h * temp;
+
+
+				return i;
 			}
-
-			g_g_tile[i].tile.obj.tex.x = g_g_tile[i].tile.obj.tex.w * (tex_no - TEXTUR_W);
-			g_g_tile[i].tile.obj.tex.y = g_g_tile[i].tile.obj.tex.h * tex_no;
-
-
-			return i;
 		}
 	}
 	return -1;

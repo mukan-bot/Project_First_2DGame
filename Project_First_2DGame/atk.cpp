@@ -5,6 +5,7 @@
 #include "MAP.h"
 #include "collision.h"
 #include "effect.h"
+#include "sound.h"
 
 
 //マクロ定義
@@ -33,7 +34,6 @@ static int use_atk[ATKs_MAX];
 
 //プロトタイプ宣言
 void Update_ATK_col(int i);
-void delete_ATK(int i);
 
 
 // 初期化処理
@@ -293,6 +293,7 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 	{
 	case (STANDARD_ATK):
 		//g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_EXPLOSION, FALSE, g_atk_status[atk_type].frame);
+		PlaySound(SOUND_LABEL_SE_standard_atk);
 		break;
 	case(LINE_ATK):
 		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_ICE_SPEAR, FALSE, g_atk_status[atk_type].frame);
@@ -382,7 +383,6 @@ float CheckDamage(COLLISION collision) {
 		}
 		if (temp) {
 			g_atk[i].obj.use = FALSE;
-			PrintDebugProc("-");
 			return g_atk_status[g_atk[i].atk_type].atk_power;
 		}
 	}
