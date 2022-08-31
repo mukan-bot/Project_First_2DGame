@@ -288,6 +288,12 @@ void Update_player(void) {
 			g_status.hp -= temp_hp;
 			Set_P_Anime(DAMAGE_ANIME);
 		}
+		//ＨＰが０の場合リザルトモードに
+		if (g_status.hp < 0.0f) {
+			SCORE* temp = Get_score();
+			temp->is_clear = FALSE;
+			SetMode(MODE_RESULT);
+		} 
 
 		//mpが１以下で地面にいるときMPを回復
 		if (g_status.mp <= 1.0f && g_Player.is_hitD) {

@@ -101,7 +101,9 @@ struct main_obj {
 //スコア
 struct SCORE {
 	int time;		//時間の合計
+	int time_count;
 	int del_enemy;	//倒したエネミーの数
+	bool is_clear;	//クリアーできたか
 };
 
 //プロトタイプ宣言

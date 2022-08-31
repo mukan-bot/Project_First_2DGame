@@ -238,8 +238,10 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 
 	SCORE* temp;
 	temp = Get_score();
-	temp->time = 1;
-	temp->del_enemy = 1;
+	temp->time = 0;
+	temp->time_count = 0;
+	temp->del_enemy = 0;
+	temp->is_clear = FALSE;
 
 	return S_OK;
 }

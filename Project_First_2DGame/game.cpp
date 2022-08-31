@@ -12,6 +12,8 @@
 
 #include "set_map.h"
 
+#define GAME_CLEAR_POS (400.0f)
+
 
 static int g_count = 0;
 
@@ -54,7 +56,17 @@ void Update_game(void) {
 
 
 	SCORE* temp = Get_score();
-	temp->time++;
+	if (temp->time_count > 60) {
+		temp->time++;
+		temp->time_count = 0;
+	}
+	temp->time_count++;
+
+
+	if (Get_Scroll() * SCREEN_WIDTH > GAME_CLEAR_POS) {
+		temp->is_clear = TRUE;
+		SetMode(MODE_RESULT);
+	}
 
 
 }
@@ -66,6 +78,9 @@ void Draw_game(void) {
 	Draw_effect();
 
 	Draw_HUD();
+
+
+
 }
 
 void Anime_Update(){

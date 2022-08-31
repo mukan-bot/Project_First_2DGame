@@ -63,11 +63,12 @@ HRESULT Init_result_score(void) {
 	g_result_score.use = FALSE;
 
 	for (int i = 0; i < (SCORE_MAX*2)+1; i++) {
-		g_result_text[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+		g_result_text[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.8f);
 		g_result_text[i].size = 40;
 		g_result_text[i].pos = XMFLOAT2(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 4)+(70*i));
 	}
-	g_result_text[0].size = 60;
+	g_result_text[0].size = 40;
+	g_result_text[0].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 
 	return S_OK;
@@ -90,11 +91,18 @@ void Uninit_result_score(void) {
 }
 void Update_result_score(void) {
 	if (g_result_score.use) {
-		char text0[] = "‚r‚b‚n‚q‚d";
-		char text1[] = "‚s‚h‚l‚d";
-		char text2[] = "‚c‚k‚dQ‚d‚m‚d‚l‚x";
 		SCORE* temp = Get_score();
-		SetText(g_result_text[0], text0);
+		if (temp->is_clear) {
+
+			char text0[] = "‚f‚`‚l‚d ‚b‚k‚d‚`‚q";
+			SetText(g_result_text[0], text0);
+		}
+		else {
+			char text0[] = "‚f‚`‚l‚d ‚n‚u‚q‚`";
+			SetText(g_result_text[0], text0);
+		}
+		char text1[] = "‚s‚h‚l‚d@‚b‚n‚t‚m‚s";
+		char text2[] = "‚j‚h‚k‚k@‚b‚n‚t‚m‚s";
 		SetText(g_result_text[1], text1);
 		SetText_d(g_result_text[2], temp->time);
 		SetText(g_result_text[3], text2);
