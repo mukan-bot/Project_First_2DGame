@@ -27,6 +27,6 @@ void huntress_Update(ENEMY* enemy) {
 		enemy->obj.use = FALSE;
 	}
 	if (!enemy->is_hitD) {
-		enemy->obj.pos.y=400;
+		enemy->obj.pos.y-=0.001;
 	}
 }

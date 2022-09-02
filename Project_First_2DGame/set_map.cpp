@@ -125,9 +125,8 @@ void Init_set_map(void) {
 				y = SNAP_SIZE / 2 + (SNAP_SIZE * i_y);
 				y += SNAP_SIZE * i;
 
-				PrintDebugProc("%d:%d\n", i_x, i_y);
 
-				SetG_TILE(g_map[g_map_tile[i]][i_y][i_x], XMFLOAT3(x, y, SNAP_SIZE));
+				SetG_TILE(g_map[g_map_tile[i]][i_y][i_x], XMFLOAT3(x, int(y), SNAP_SIZE+1));
 				switch (g_map[g_map_tile[i]][i_y][i_x]){
 
 					//ëêÅEä‚Çê∂Ç‚Ç∑
