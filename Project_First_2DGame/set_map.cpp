@@ -8,7 +8,6 @@
 #include "enemy.h"
 
 //É}ÉNÉçíËã`
-#define MAP_SIZE (50)
 #define MAP_LOAD (3)
 enum {
 	MAP_TYPE_ENPTY,

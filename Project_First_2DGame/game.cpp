@@ -12,7 +12,7 @@
 
 #include "set_map.h"
 
-#define GAME_CLEAR_POS (400.0f)
+#define GAME_CLEAR_POS (4000)
 
 
 static int g_count = 0;
@@ -61,13 +61,7 @@ void Update_game(void) {
 		temp->time_count = 0;
 	}
 	temp->time_count++;
-
-
-	if (Get_Scroll() * SCREEN_WIDTH > GAME_CLEAR_POS) {
-		temp->is_clear = TRUE;
-		SetMode(MODE_RESULT);
-	}
-
+	PrintDebugProc("%f", Get_Scroll() * SCREEN_WIDTH);
 
 }
 void Draw_game(void) {

@@ -8,6 +8,7 @@
 #define SNAP_SIZE (50)
 #define MAP_X_SIZE (11)
 #define MAP_Y_SIZE (11)
+#define MAP_SIZE (10)
 
 //プロトタイプ宣言
 void Init_set_map(void);
