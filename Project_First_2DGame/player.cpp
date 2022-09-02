@@ -255,7 +255,6 @@ void Update_player(void) {
 					g_Player.obj.pos.y -= g_status.jump_speed;
 					g_status.mp -= 0.01;
 					g_status.temp_gravity = 0.0f;
-					//SetMode(MODE_RESULT);
 				}
 			}
 			else {
@@ -310,7 +309,6 @@ void Update_player(void) {
 			if (g_Player.obj.pos.x < temp.x) {
 				if (g_Player.is_hitL) {
 					g_Player.obj.pos.x += g_status.speed;
-					//Set_Scroll(g_status.speed);-------------------------------------
 				}
 			}
 			else {

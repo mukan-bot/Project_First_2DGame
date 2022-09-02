@@ -1,8 +1,10 @@
-﻿  set_map.cpp
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(129,62): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(129,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(139,44): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(139,39): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(142,48): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(142,43): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  player.cpp
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\player.cpp(109,24): warning C4305: '=': 'double' から 'float' へ切り詰めます。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\player.cpp(256,25): warning C4305: '-=': 'double' から 'float' へ切り詰めます。
+  result_anime.cpp
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\result_anime.cpp(49,78): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\result_anime.cpp(103,47): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\result_anime.cpp(112,47): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\result_anime.cpp(67,6): warning C4101: 'temp': ローカル変数は 1 度も使われていません。
+  コードを生成中...
   Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

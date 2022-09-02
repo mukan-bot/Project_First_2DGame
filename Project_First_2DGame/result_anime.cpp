@@ -65,7 +65,7 @@ void Uninit_result_anime(void) {
 bool Update_result_anime(void) {
 	int atk_i = 0;
 	int temp;
-	bool tbool = FALSE;;
+	bool tbool = FALSE;
 	switch (g_scene)
 	{
 	case(SCENE_MOVE_PLAYER):
