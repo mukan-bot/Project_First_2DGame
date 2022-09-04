@@ -314,7 +314,6 @@ void Update_player(void) {
 			if (g_Player.obj.pos.x < temp.x) {
 				if (g_Player.is_hitL) {
 					g_Player.obj.pos.x += g_status.speed;
-					//Set_Scroll(g_status.speed);-------------------------------------
 				}
 			}
 			else {

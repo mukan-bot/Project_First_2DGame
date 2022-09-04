@@ -231,7 +231,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow) {
 	//ƒTƒEƒ“ƒh‚Ì‰Šú‰»
 	InitSound(hWnd);
 
-	SetMode(MODE_GAME);
+	SetMode(MODE_TITLE);
 
 	Set_bgmVolume(g_bgm_volume);
 	Set_seVolume(g_se_volume);
@@ -285,7 +285,6 @@ void Update(void) {
 	default:
 		break;
 	}
-
 
 }
 //•`‰æˆ—

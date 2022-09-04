@@ -31,10 +31,14 @@ void Enemy_s_Update(ENEMY* enemy) {
 
 
 void huntress_Update(ENEMY* enemy) {
+<<<<<<< HEAD
 	PrintDebugProc("asdfasdf");
 	if (g_player->obj.pos.x < enemy->obj.pos.x) enemy->is_run_R = FALSE;
 	else enemy->is_run_R = TRUE;
 
+=======
+	Set_ATK(ATK_ENEMY, LINE_ATK, TRUE, enemy->obj.pos);
+>>>>>>> 5bdf4e18536df02258517fc9586dddd736b4405a
 	enemy->status.hp -= CheckDamage(enemy->col);
 	if (enemy->status.hp < 0.0f) {
 		enemy->obj.use = FALSE;
