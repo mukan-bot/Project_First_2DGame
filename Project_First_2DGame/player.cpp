@@ -141,7 +141,7 @@ HRESULT Init_player(void) {
 	g_Player.col_L.pos.x = g_Player.obj.pos.y;
 	g_Player.col_L.pos.y = g_Player.obj.pos.x - COL_SIZE_W / 2;
 	g_Player.col_L.shape = BOX;
-	g_Player.col_L.size = XMFLOAT2(1.01f, COL_SIZE_H - 10);//-10は必要のないものと当たらないようにするため
+	g_Player.col_L.size = XMFLOAT2(0.01f, COL_SIZE_H - 10);//-10は必要のないものと当たらないようにするため
 	g_Player.col_L.type = GROUND;
 	//ライン
 	g_Player.line_pos = g_Player.obj.pos;
@@ -228,8 +228,13 @@ void Update_player(void) {
 			Set_P_Anime(RUN_ANIME);
 			g_is_run_R = FALSE;
 			if (!g_Player.is_hitL) {
-				if (Get_Scroll() < 0) {
+				
+				float* temp = Get_aScroll();
+				if (*temp <= 0.0f) {
+					*temp = 0.0f;
+					PrintDebugProc("%f", temp);
 					g_Player.obj.pos.x -= g_status.speed*1000;
+					
 				}
 				else {
 					Set_Scroll(-g_status.speed);
@@ -255,7 +260,6 @@ void Update_player(void) {
 					g_Player.obj.pos.y -= g_status.jump_speed;
 					g_status.mp -= 0.01;
 					g_status.temp_gravity = 0.0f;
-					//SetMode(MODE_RESULT);
 				}
 			}
 			else {

@@ -368,9 +368,7 @@ int GetMode(void) {
 	return g_Mode;
 }
 
-int GetFPS(void) {
-	return g_CountFPS;
-}
+
 
 
 void Set_bgmVolume(float vol) {

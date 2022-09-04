@@ -46,17 +46,10 @@ struct ANIME_TYPE {
 	int frame = 0;
 };
 struct ENEMY_STATUS {
-	STATUS status;
 	float size;
-	float col_size;
+	XMFLOAT2 col_size;
 	XMFLOAT2 aspect;//大きいところを1.0fとする
-	main_obj obj;
-	COLLISION col;//全体
-	COLLISION col_U;//上
-	COLLISION col_D;//下
-	COLLISION col_L;//左
-	COLLISION col_R;//右
-	animation anime;
+	ENEMY enemy;
 	ANIME_TYPE anime_type[E_ANIME_MAX];//アニメーションの種類を上から順に指定
 
 };

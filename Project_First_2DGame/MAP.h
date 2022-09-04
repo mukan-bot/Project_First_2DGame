@@ -23,7 +23,12 @@ void Uninit_map(void);
 void Update_map(void);
 void Draw_map(void);
 
+//スクロールの加減算
 bool Set_Scroll(float scroll_f);
+//スクロールの値（プレイヤーのｘ座標）の所得
 float Get_Scroll();
+//スクロールの値（プレイヤーのｘ座標）の所得（アドレス）
+float* Get_aScroll();
+//そのフレームでどれだけスクロールが動いたかの所得
 float Get_PlusScroll();
 

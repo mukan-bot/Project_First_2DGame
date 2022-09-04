@@ -18,8 +18,8 @@
 static int g_count = 0;
 
 HRESULT Init_game(void) {
-	Init_map();
 	Init_enemy();
+	Init_map();
 	Init_player();
 
 	Init_ATK();
@@ -29,7 +29,6 @@ HRESULT Init_game(void) {
 
 
 
-	Init_set_map();
 
 
 

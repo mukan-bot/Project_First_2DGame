@@ -63,6 +63,9 @@ bool Set_Scroll(float scroll_f){
 float Get_Scroll() {
 	return g_scroll;
 }
+float* Get_aScroll() {
+	return &g_scroll;
+}
 
 float Get_PlusScroll() {
 	return g_plus_scroll;
