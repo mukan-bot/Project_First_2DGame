@@ -6,6 +6,7 @@
 #include "Ground_tile.h"
 #include "HUD.h"
 #include "atk.h"
+#include "effect.h"
 
 #include "camera.h"
 //マクロ定義
@@ -44,8 +45,8 @@ static BOOL	g_Load = FALSE;		// 初期化を行ったかのフラグ
 static PLAYER g_Player;
 static bool g_is_run_R = TRUE;
 static STATUS g_status;
-
-
+static int g_result_count;	//リザルトに入るまでのカウント
+static XMFLOAT2 g_delete_effect;	//死亡時のエフェクトの表示場所を保存しておく
 
 
 static int g_anime_frame[ANIME_MAX] = { IDLE_FRAME,
@@ -154,7 +155,7 @@ HRESULT Init_player(void) {
 	g_Player.anime.count_FPS = 0;
 	g_Player.anime.which_anime = IDLE_ANIME;
 
-
+	g_result_count = 0;
 	
 	Init_HUD();
 
@@ -181,6 +182,30 @@ void Uninit_player(void) {
 
 void Update_player(void) {
 	if (GetMode() == MODE_GAME) {
+
+		//HPの減算
+		float temp_hp = CheckDamage(g_Player.col);
+		if (temp_hp > 0.0f) {
+			g_status.hp -= temp_hp;
+			Set_P_Anime(DAMAGE_ANIME);
+		}
+
+		//ＨＰが０の場合リザルトモードに
+		if (g_status.hp < 0.0f) {
+			if (g_result_count == 140) {
+				SCORE* temp = Get_score();
+				temp->is_clear = FALSE;
+				SetMode(MODE_RESULT);
+			}
+			else if (g_result_count == 0) {
+				g_delete_effect = g_Player.obj.pos;
+				g_Player.obj.pos = XMFLOAT2(-200, -200);//プレイヤーを画面外に出す（表示を消す）
+				Set_effect(&g_delete_effect, g_is_run_R, g_Player.obj.pol.h*2, EFFECT_TYPE_PURPLE_EXPLOSION, FALSE, 60);
+			}
+			g_result_count++;
+		}
+
+
 		XMFLOAT2 temp = g_Player.obj.pos;
 		//プレイヤーがどこかにあたっているか
 		if (CheckHit(g_Player.col_D)) {
@@ -286,18 +311,7 @@ void Update_player(void) {
 			g_status.mp -= Set_ATK(ATK_PLAYER, LINE_ATK, g_is_run_R, g_Player.obj.pos);
 		}
 
-		//HPの減算
-		float temp_hp = CheckDamage(g_Player.col);
-		if (temp_hp > 0.0f) {
-			g_status.hp -= temp_hp;
-			Set_P_Anime(DAMAGE_ANIME);
-		}
-		//ＨＰが０の場合リザルトモードに
-		if (g_status.hp < 0.0f) {
-			SCORE* temp = Get_score();
-			temp->is_clear = FALSE;
-			SetMode(MODE_RESULT);
-		} 
+
 
 		//mpが１以下で地面にいるときMPを回復
 		if (g_status.mp <= 1.0f && g_Player.is_hitD) {
@@ -352,8 +366,6 @@ void Update_player(void) {
 		//アニメーションの更新
 		Anime_player();
 	}
-
-	g_status.mp = 1;
 }
 
 void Update_col(void) {
@@ -375,21 +387,25 @@ void Update_col(void) {
 	//当たり判定左
 	g_Player.col_L.pos.x = g_Player.obj.pos.x - COL_SIZE_W / 2;
 	g_Player.col_L.pos.y = g_Player.obj.pos.y;
+
+	//ライン
+	g_Player.line_pos = g_Player.obj.pos;
+	g_Player.line_pos.y -= SIZE / 2;
 }
 
 
 
 void Anime_player(void) {
 	if (g_Player.anime.count_FPS >= g_Player.anime.anime_FPS) {
+
 		if (g_Player.anime.anime_frame >= g_anime_frame[g_Player.anime.which_anime]) {
 			g_Player.anime.anime_frame = 0;
-			if (g_Player.anime.which_anime == DAMAGE_ANIME)Set_P_Anime(IDLE_ANIME); //ダメージのアニメーションの場合アニメーションをアイドルにする
+			//if (g_Player.anime.which_anime == DAMAGE_ANIME)Set_P_Anime(IDLE_ANIME); //ダメージのアニメーションの場合アニメーションをアイドルにする
 
 			if ((!g_is_run_R) && (g_anime_frame[g_Player.anime.which_anime] < ANIME_COUNT)) {
 				g_Player.anime.anime_frame = 2;
 			}
 		}
-		g_Player.obj.tex.y = (1 / ANIME_NUMBER * g_Player.anime.which_anime);
 
 
 		g_Player.obj.tex.x = (1 / ANIME_COUNT) * g_Player.anime.anime_frame;
@@ -408,6 +424,7 @@ void Anime_player(void) {
 void Set_P_Anime(int anime) {
 	if (g_Player.anime.which_anime != anime) {
 		g_Player.anime.which_anime = anime;
+		g_Player.obj.tex.y = (1 / ANIME_NUMBER) * g_Player.anime.which_anime;
 	}
 
 }

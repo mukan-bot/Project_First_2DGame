@@ -60,7 +60,6 @@ void Update_game(void) {
 		temp->time_count = 0;
 	}
 	temp->time_count++;
-	PrintDebugProc("%f", Get_Scroll() * SCREEN_WIDTH);
 
 }
 void Draw_game(void) {

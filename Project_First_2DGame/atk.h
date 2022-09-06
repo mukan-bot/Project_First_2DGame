@@ -8,6 +8,7 @@
 enum {
 	STANDARD_ATK,	//’ÊíUŒ‚
 	LINE_ATK,		//’¼üã‚É”ò‚ñ‚Å‚¢‚­UŒ‚
+	STANDARD_ATK_ENEMY,	//ƒvƒŒƒCƒ„[Œü‚©‚Á‚Ä”ò‚ñ‚Å‚¢‚­UŒ‚
 
 	MAX_ATK,//UŒ‚‚ÌŽí—Þ‚ÌÅ‘å”
 };

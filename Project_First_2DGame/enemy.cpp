@@ -95,7 +95,7 @@ HRESULT Init_enemy(void) {
 		g_Enemy[i].anime.count_FPS = 0;
 		g_Enemy[i].anime.which_anime = E_IDLE_ANIME;
 
-
+		g_Enemy[i].count_atk = 0;
 	}
 
 
@@ -120,21 +120,36 @@ HRESULT Init_enemy(void) {
 
 	g_Enemy_status[i].enemy.anime.anime_count = 8;
 	g_Enemy_status[i].enemy.anime.anime_number = 6;
-	g_Enemy_status[i].enemy.anime.anime_FPS = 20;
-	g_Enemy[i].anime.which_anime = E_IDLE_ANIME;
+	g_Enemy_status[i].enemy.anime.anime_FPS = 15;
+	g_Enemy_status[i].enemy.anime.which_anime = E_IDLE_ANIME;
+	g_Enemy_status[i].enemy.atk_waiting = g_Enemy_status[i].enemy.anime.anime_FPS * 2.5;
+	g_Enemy_status[i].enemy.atk_waiting_count = 0;
+
 
 	g_Enemy_status[i].anime_type[0].anime_type = E_ATK1_ANIME;
 	g_Enemy_status[i].anime_type[0].frame = 5;
+	g_Enemy_status[i].anime_type[0].anime_loop = FALSE;
+
 	g_Enemy_status[i].anime_type[1].anime_type = E_ATK2_ANIME;
 	g_Enemy_status[i].anime_type[1].frame = 7;
+	g_Enemy_status[i].anime_type[1].anime_loop = FALSE;
+
 	g_Enemy_status[i].anime_type[2].anime_type = E_DEATH_ANIME;
 	g_Enemy_status[i].anime_type[2].frame = 8;
+	g_Enemy_status[i].anime_type[2].anime_loop = FALSE;
+
 	g_Enemy_status[i].anime_type[3].anime_type = E_RUN_ANIME;
 	g_Enemy_status[i].anime_type[3].frame = 8;
+	g_Enemy_status[i].anime_type[3].anime_loop = TRUE;
+
 	g_Enemy_status[i].anime_type[4].anime_type = E_IDLE_ANIME;
 	g_Enemy_status[i].anime_type[4].frame = 8;
+	g_Enemy_status[i].anime_type[4].anime_loop = TRUE;
+
 	g_Enemy_status[i].anime_type[5].anime_type = E_DAMAGE_ANIME;
-	g_Enemy_status[i].anime_type[5].frame = 9;
+	g_Enemy_status[i].anime_type[5].frame = 3;
+	g_Enemy_status[i].anime_type[5].anime_loop = FALSE;
+
 
 	g_Enemy_status[i].enemy.obj.pos = XMFLOAT2(0.0f, 0.0f);
 	g_Enemy_status[i].enemy.obj.use = FALSE;
@@ -144,6 +159,7 @@ HRESULT Init_enemy(void) {
 	g_Enemy_status[i].enemy.obj.tex.y = 0.0f;
 	g_Enemy_status[i].enemy.obj.tex.w = 1.0f / g_Enemy_status[i].enemy.anime.anime_count;//ècï™äÑêî
 	g_Enemy_status[i].enemy.obj.tex.h = 1.0f / g_Enemy_status[i].enemy.anime.anime_number;//â°ï™äÑêî
+
 
 
 
@@ -202,6 +218,8 @@ void Uninit_enemy(void) {
 void Update_enemy(void) {
 	for (int i = 0; i < ENEMY_MAX; i++) {
 		if (g_Enemy[i].obj.use) {
+			g_Enemy[i].enemy_no = i;
+
 			//EnemyÇ™Ç«Ç±Ç©Ç…Ç†ÇΩÇ¡ÇƒÇ¢ÇÈÇ©
 			if (CheckHit(g_Enemy[i].col_D)) {
 				g_Enemy[i].is_hitD = TRUE;
@@ -274,10 +292,19 @@ void Update_eMove(float plus) {
 void Anime_enemy(int i) {
 	if (g_Enemy[i].anime.count_FPS >= g_Enemy[i].anime.anime_FPS) {
 		if (g_Enemy[i].anime.anime_frame >= g_Enemy[i].anime.anime_frame_max) {
-			g_Enemy[i].anime.anime_frame = 0;
+			if (g_Enemy_status[g_Enemy[i].enemy_type].anime_type[g_Enemy[i].anime.which_anime].anime_loop) {
+				g_Enemy[i].anime.anime_frame = 0;
+			}
+			else {
+				Set_E_Anime(i, E_IDLE_ANIME);
+			}
 		}
-
-		g_Enemy[i].obj.tex.x = g_Enemy[i].obj.tex.w * g_Enemy[i].anime.anime_frame;
+		if (g_Enemy[i].is_run_R) {
+			g_Enemy[i].obj.tex.x = g_Enemy[i].obj.tex.w * g_Enemy[i].anime.anime_frame;
+		}
+		else {
+			g_Enemy[i].obj.tex.x = g_Enemy[i].obj.tex.w + (g_Enemy[i].obj.tex.w * g_Enemy[i].anime.anime_frame);
+		}
 		g_Enemy[i].anime.anime_frame++;
 		g_Enemy[i].anime.count_FPS = 0;
 	}
@@ -293,9 +320,16 @@ void Set_E_Anime(int enemy_no,int anime) {
 		if (i > E_ANIME_MAX) return;
 	}
 	g_Enemy[enemy_no].anime.anime_frame_max = g_Enemy_status[g_Enemy[enemy_no].enemy_type].anime_type[i].frame;
+	g_Enemy[enemy_no].anime.anime_frame = 0;
+	g_Enemy[enemy_no].anime.count_FPS = 0;
 	g_Enemy[enemy_no].obj.tex.y = g_Enemy[enemy_no].obj.tex.h * i;
+	if (g_Enemy[enemy_no].is_run_R) {
+		g_Enemy[enemy_no].obj.tex.x = 0.0f;
+	}
+	else {
 
-
+		g_Enemy[enemy_no].obj.tex.x = g_Enemy[enemy_no].obj.tex.w;
+	}
 }
 
 

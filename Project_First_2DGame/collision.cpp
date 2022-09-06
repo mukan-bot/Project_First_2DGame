@@ -160,6 +160,10 @@ bool CheckHit_lines(XMFLOAT2 pos1, XMFLOAT2 vec1, XMFLOAT2 pos2, XMFLOAT2 vec2) 
 	}
 	float r1 = (x - pos1.x) / (vec1.x - pos1.x);
 	float r2 = (x - pos2.x) / (vec2.x - pos2.x);
+
+	r1 = r1 / SCREEN_WIDTH;
+	r2 = r2 / SCREEN_WIDTH;
+
 	bool hit = ((0 < r1) && (r1 < 1) && (0 < r2) && (r2 < 1));
 	return hit;
 }
@@ -178,6 +182,7 @@ float distance_line_point(XMFLOAT2 pos, XMFLOAT2 vec, XMFLOAT2 point) {
 	mx = vec.x * t + pos.x;	// Å¬ˆÊ’u‚ð—^‚¦‚éÀ•W
 	my = vec.y * t + pos.y;
 	fDistSqr = (mx - point.x) * (mx - point.x) +(my - point.y) * (my - point.y);	
+	fDistSqr = fDistSqr / SCREEN_WIDTH;
 	return fDistSqr;
 }
 

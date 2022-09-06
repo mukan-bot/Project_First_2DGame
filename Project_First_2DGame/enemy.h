@@ -39,11 +39,18 @@ struct ENEMY {
 	bool is_hitR;
 	STATUS status;
 	int enemy_type;
+	int enemy_no;
+	int count_atk = 0;	
+	int atk_waiting = 0;//攻撃までのラグ（アニメーションとのズレ）
+	int atk_waiting_count = 0;//攻撃までのラグのフレームのカウント
 
+	int select_atk = -1; //キャラクターが攻撃途中で離れたときに攻撃が戻らないように
 };
 struct ANIME_TYPE {
 	int anime_type;
 	int frame = 0;
+
+	bool anime_loop;
 };
 struct ENEMY_STATUS {
 	float size;

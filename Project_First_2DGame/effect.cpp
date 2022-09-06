@@ -2,7 +2,7 @@
 
 //マクロ定義
 #define TEXTURE_MAX	(1)			// テクスチャの数
-#define EFFECT_MAX (32)			//表示するエフェクトの最大数
+#define EFFECT_MAX (256)			//表示するエフェクトの最大数
 #define EFFECT_UPDATE_FRAME (15)		//更新頻度
 
 #define EFFECT_FRAME_MAX (60)	//コマ数
