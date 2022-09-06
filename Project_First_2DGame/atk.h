@@ -27,7 +27,7 @@ struct attack {
 	int atk_type;	//‚Ç‚ÌUŒ‚‚©
 	bool is_Rside;	//‰E‘¤‚É‘Î‚·‚éUŒ‚‚È‚çtrue
 	int count_frame;
-	//float time;
+	int effect_no;
 	int no;
 };
 

@@ -2,7 +2,7 @@
 
 //マクロ定義
 #define TEXTURE_MAX	(1)			// テクスチャの数
-#define EFFECT_MAX (256)			//表示するエフェクトの最大数
+#define EFFECT_MAX (255)			//表示するエフェクトの最大数
 #define EFFECT_UPDATE_FRAME (15)		//更新頻度
 
 #define EFFECT_FRAME_MAX (60)	//コマ数
@@ -197,10 +197,11 @@ int Set_effect(XMFLOAT2* pos, bool is_rside,float size, int effect_type, bool lo
 		}
 	}
 }
+
 void Del_effect(int no) {
 	if (g_temp_effect[no].obj.use) {
 		g_temp_effect[no] = g_effect[0];
 		g_temp_effect[no].obj.use = FALSE;
-		g_temp_effect[no].pos = &g_pos;
+		//g_temp_effect[no].pos = &g_pos;
 	}
 }

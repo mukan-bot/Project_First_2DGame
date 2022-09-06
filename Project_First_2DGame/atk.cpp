@@ -85,7 +85,6 @@ HRESULT Init_ATK(void) {
 		g_atk[i].col.shape = GROUND;
 		g_atk[i].col.type = BOX;
 		g_atk[i].count_frame = 0;
-		//g_atk[i].time = 0.0f;
 		g_atk[i].no = -1;
 		
 	}
@@ -232,9 +231,7 @@ void Update_ATK(void) {
 		if (g_atk[i].obj.use==TRUE) {
 			if (g_atk[i].count_frame > g_atk_status[g_atk[i].atk_type].frame) {
 				g_atk[i].obj.use = FALSE;
-				if (g_atk[i].no != -1) {
-					Del_effect(g_atk[i].no);
-				}
+				Del_effect(g_atk[i].no);
 			}
 
 			bool is_move = FALSE;	//ˆÚ“®‚Ì‘I‘ð(FALSE‚È‚çüŒ`•âŠÔ‚ÌˆÚ“®‚às‚¤)
@@ -264,9 +261,7 @@ void Update_ATK(void) {
 			temp.type = GROUND;
 			if (CheckHit(temp)) {
 				g_atk[i].obj.use = FALSE;
-				if (g_atk[i].no != -1) {
-					Del_effect(g_atk[i].no);
-				}
+				Del_effect(g_atk[i].no);
 			}
 			
 
@@ -274,8 +269,9 @@ void Update_ATK(void) {
 
 			Update_ATK_col(i);
 		}
+
 		else {
-			Del_effect(g_atk[i].no);
+			//Del_effect(g_atk[i].no);
 		}
 	}
 }
@@ -331,16 +327,12 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 	switch (atk_type)
 	{
 	case (STANDARD_ATK):
-		//g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_EXPLOSION, FALSE, g_atk_status[atk_type].frame);
 		PlaySound(SOUND_LABEL_SE_standard_atk);
 		break;
 	case(LINE_ATK):
 		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_ICE_SPEAR, FALSE, g_atk_status[atk_type].frame);
 		break;
 	case(STANDARD_ATK_ENEMY):
-		//g_atk[i].vec.x = g_atk[i].vec.x - g_player->obj.pos.x;
-		//g_atk[i].vec.y = SCREEN_WIDTH / 2;
-		//g_atk[i].vec.x = g_atk[i].vec.y - g_player->obj.pos.y;
 		PlaySound(SOUND_LABEL_SE_standard_atk);
 		break;
 	default:
@@ -429,6 +421,7 @@ float CheckDamage(COLLISION collision) {
 		}
 		if (temp) {
 			g_atk[i].obj.use = FALSE;
+			Del_effect(g_atk[i].no);
 			return g_atk_status[g_atk[i].atk_type].atk_power;
 		}
 	}
