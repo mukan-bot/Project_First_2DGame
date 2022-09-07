@@ -176,7 +176,7 @@ HRESULT Init_enemy(void) {
 
 	g_Enemy_status[i].aspect = XMFLOAT2(1.0f, 0.5f);
 	g_Enemy_status[i].size = 600;
-	g_Enemy_status[i].col_size = XMFLOAT2(50, 90);
+	g_Enemy_status[i].col_size = XMFLOAT2(200, 300);
 
 
 	g_Enemy_status[i].enemy.anime.anime_count = 8;
