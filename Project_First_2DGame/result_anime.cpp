@@ -52,6 +52,12 @@ HRESULT Init_result_anime(void) {
 		g_effect_use[i] = FALSE;
 	}
 	g_player_sound = FALSE;
+
+	SCORE* temp = Get_score();
+	if (!temp->is_clear) {
+		g_scene = SCENE_OK;
+	}
+
 	g_Load = TRUE;
 	return S_OK;
 }
