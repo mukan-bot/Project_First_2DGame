@@ -147,7 +147,7 @@
   <ItemGroup>
     <ClInclude Include="atk.h" />
     <ClInclude Include="bg.h" />
-    <ClInclude Include="boss_map.h" />
+    <ClInclude Include="boss_haze.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="debugproc.h" />
@@ -180,7 +180,6 @@
   <ItemGroup>
     <ClCompile Include="atk.cpp" />
     <ClCompile Include="bg.cpp" />
-    <ClCompile Include="boss_map.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="debugproc.cpp" />
@@ -189,6 +188,7 @@
     <ClCompile Include="enemy_Update.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="Ground_tile.cpp" />
+    <ClCompile Include="boss_haze.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />

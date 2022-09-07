@@ -17,6 +17,7 @@ static char* g_TexturName[TEXTUR_MAX] = {
 	"data/TEXTURE/HUD/bar0.png",
 	"data/TEXTURE/HUD/bar1.png",
 	"data/TEXTURE/HUD/bar2.png",
+	
 };
 
 

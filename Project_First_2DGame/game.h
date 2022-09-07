@@ -44,4 +44,6 @@ void Update_game(void);
 void Draw_game(void);
 void Anime_Update(void);
 
+bool Get_isBoss(void);
+
 float clamp(float value, float min, float max);

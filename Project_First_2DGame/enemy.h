@@ -7,7 +7,8 @@
 
 //マクロ定義
 enum {				//敵の種類
-	ENEMY_HUNTRESS,		//基本の敵
+	ENEMY_HUNTRESS,	//基本の敵
+	ENEMY_BOSS,		//ボス
 	ENEMY_TYPE_MAX,	//敵の種類の数
 };
 //アニメーション上から

@@ -162,6 +162,69 @@ HRESULT Init_enemy(void) {
 
 
 
+	//ボスの設定ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+	i = ENEMY_BOSS;
+	g_Enemy_status[i].enemy.status.hp = 1.0f;
+	g_Enemy_status[i].enemy.status.mp = 1.0f;
+	g_Enemy_status[i].enemy.status.plus_mp = 0.005f;
+	g_Enemy_status[i].enemy.status.atk = 20.0f;
+	g_Enemy_status[i].enemy.status.matk = 1.5f;
+	g_Enemy_status[i].enemy.status.speed = 3;
+	g_Enemy_status[i].enemy.status.jump_speed = 3;
+	g_Enemy_status[i].enemy.status.gravity = 3;
+	g_Enemy_status[i].enemy.status.temp_gravity = 0;
+
+	g_Enemy_status[i].aspect = XMFLOAT2(1.0f, 0.5f);
+	g_Enemy_status[i].size = 600;
+	g_Enemy_status[i].col_size = XMFLOAT2(50, 90);
+
+
+	g_Enemy_status[i].enemy.anime.anime_count = 8;
+	g_Enemy_status[i].enemy.anime.anime_number = 6;
+	g_Enemy_status[i].enemy.anime.anime_FPS = 15;
+	g_Enemy_status[i].enemy.anime.which_anime = E_IDLE_ANIME;
+	g_Enemy_status[i].enemy.atk_waiting = g_Enemy_status[i].enemy.anime.anime_FPS * 2.5;
+	g_Enemy_status[i].enemy.atk_waiting_count = 0;
+
+
+	g_Enemy_status[i].anime_type[0].anime_type = E_ATK1_ANIME;
+	g_Enemy_status[i].anime_type[0].frame = 5;
+	g_Enemy_status[i].anime_type[0].anime_loop = FALSE;
+
+	g_Enemy_status[i].anime_type[1].anime_type = E_ATK2_ANIME;
+	g_Enemy_status[i].anime_type[1].frame = 7;
+	g_Enemy_status[i].anime_type[1].anime_loop = FALSE;
+
+	g_Enemy_status[i].anime_type[2].anime_type = E_DEATH_ANIME;
+	g_Enemy_status[i].anime_type[2].frame = 8;
+	g_Enemy_status[i].anime_type[2].anime_loop = FALSE;
+
+	g_Enemy_status[i].anime_type[3].anime_type = E_RUN_ANIME;
+	g_Enemy_status[i].anime_type[3].frame = 8;
+	g_Enemy_status[i].anime_type[3].anime_loop = TRUE;
+
+	g_Enemy_status[i].anime_type[4].anime_type = E_IDLE_ANIME;
+	g_Enemy_status[i].anime_type[4].frame = 8;
+	g_Enemy_status[i].anime_type[4].anime_loop = TRUE;
+
+	g_Enemy_status[i].anime_type[5].anime_type = E_DAMAGE_ANIME;
+	g_Enemy_status[i].anime_type[5].frame = 3;
+	g_Enemy_status[i].anime_type[5].anime_loop = FALSE;
+
+
+	g_Enemy_status[i].enemy.obj.pos = XMFLOAT2(0.0f, 0.0f);
+	g_Enemy_status[i].enemy.obj.use = FALSE;
+	g_Enemy_status[i].enemy.obj.pol.w = g_Enemy_status[i].size * g_Enemy_status[i].aspect.x;
+	g_Enemy_status[i].enemy.obj.pol.h = g_Enemy_status[i].size * g_Enemy_status[i].aspect.y;
+	g_Enemy_status[i].enemy.obj.tex.x = 0.0f;
+	g_Enemy_status[i].enemy.obj.tex.y = 0.0f;
+	g_Enemy_status[i].enemy.obj.tex.w = 1.0f / g_Enemy_status[i].enemy.anime.anime_count;//縦分割数
+	g_Enemy_status[i].enemy.obj.tex.h = 1.0f / g_Enemy_status[i].enemy.anime.anime_number;//横分割数
+
+
+
+
+
 
 	for (i = 0; i < ENEMY_TYPE_MAX; i++) {
 		//当たり判定

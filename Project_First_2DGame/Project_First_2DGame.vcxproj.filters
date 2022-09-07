@@ -147,7 +147,7 @@
     <ClInclude Include="result_score.h">
       <Filter>ヘッダー ファイル\MODE_RESULT</Filter>
     </ClInclude>
-    <ClInclude Include="boss_map.h">
+    <ClInclude Include="boss_haze.h">
       <Filter>ヘッダー ファイル\MODE_GAME\enemy\boss</Filter>
     </ClInclude>
   </ItemGroup>
@@ -242,7 +242,7 @@
     <ClCompile Include="result_score.cpp">
       <Filter>ソース ファイル\MODE_RESULT</Filter>
     </ClCompile>
-    <ClCompile Include="boss_map.cpp">
+    <ClCompile Include="boss_haze.cpp">
       <Filter>ソース ファイル\MODE_GAME\enemy\boss</Filter>
     </ClCompile>
   </ItemGroup>

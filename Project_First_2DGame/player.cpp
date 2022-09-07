@@ -235,40 +235,57 @@ void Update_player(void) {
 			g_Player.is_hitR = FALSE;
 		}
 
-
-		if (GetKeyboardPress(DIK_D)) {
-			Set_P_Anime(RUN_ANIME);
-			g_is_run_R = TRUE;
-			if (!g_Player.is_hitR) {
-				if (g_Player.obj.pos.x < SCREEN_WIDTH / 2) {
-					g_Player.obj.pos.x += g_status.speed * 1000;
-				}
-				else {
-					Set_Scroll(g_status.speed);
-				}
-			}
-		}
-		else if (GetKeyboardPress(DIK_A)) {
-			Set_P_Anime(RUN_ANIME);
-			g_is_run_R = FALSE;
-			if (!g_Player.is_hitL) {
-				
-				float* temp = Get_aScroll();
-				if (*temp <= 0.0f) {
-					*temp = 0.0f;
-					g_Player.obj.pos.x -= g_status.speed*1000;
-					
-				}
-				else {
-					Set_Scroll(-g_status.speed);
+		if (!Get_isBoss()) {
+			if (GetKeyboardPress(DIK_D)) {
+				Set_P_Anime(RUN_ANIME);
+				g_is_run_R = TRUE;
+				if (!g_Player.is_hitR) {
+					if (g_Player.obj.pos.x < SCREEN_WIDTH / 2) {
+						g_Player.obj.pos.x += g_status.speed * 1000;
+					}
+					else {
+						Set_Scroll(g_status.speed);
+					}
 				}
 			}
+			else if (GetKeyboardPress(DIK_A)) {
+				Set_P_Anime(RUN_ANIME);
+				g_is_run_R = FALSE;
+				if (!g_Player.is_hitL) {
+
+					float* temp = Get_aScroll();
+					if (*temp <= 0.0f) {
+						*temp = 0.0f;
+						g_Player.obj.pos.x -= g_status.speed * 1000;
+
+					}
+					else {
+						Set_Scroll(-g_status.speed);
+					}
+				}
+			}
+			//移動していない時はアイドルアニメーションを再生
+			else {
+				Set_P_Anime(IDLE_ANIME);
+			}
 		}
 
-		//移動していない時はアイドルアニメーションを再生
 		else {
-			Set_P_Anime(IDLE_ANIME);
+			if (GetKeyboardPress(DIK_D)) {
+				Set_P_Anime(RUN_ANIME);
+				g_is_run_R = TRUE;
+				g_Player.obj.pos.x += g_status.speed * 1000;
+			}
+			if (GetKeyboardPress(DIK_A)) {
+				Set_P_Anime(RUN_ANIME);
+				g_is_run_R = FALSE;
+				g_Player.obj.pos.x -= g_status.speed * 1000;
+			}
+
+			g_Player.obj.pos.x = clamp(g_Player.obj.pos.x, 10, SCREEN_WIDTH - 10);
 		}
+
+
 
 		//ジャンプや空中にいるときの判定
 		{

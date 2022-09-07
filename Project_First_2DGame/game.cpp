@@ -9,7 +9,7 @@
 #include "HUD.h"
 #include "atk.h"
 #include "effect.h"
-#include "boss_map.h"
+#include "boss_haze.h"
 
 #include "set_map.h"
 
@@ -17,6 +17,7 @@
 
 static int g_count = 0;
 static float* g_a_scroll; //スクロール監視用
+static bool g_is_boos;
 
 HRESULT Init_game(void) {
 	Init_enemy();
@@ -30,16 +31,16 @@ HRESULT Init_game(void) {
 
 	g_a_scroll = Get_aScroll();
 
-	Init_boss_map();
+	Init_boss_haze();
 
-
+	g_is_boos = FALSE;
 
 	return S_OK;
 }
 void Uninit_game(void) {
 	Uninit_map();
 	Uninit_enemy();
-	Uninit_boss_map();
+	Uninit_boss_haze();
 	Uninit_player();
 	Uninit_HUD();
 	Uninit_ATK();
@@ -48,10 +49,10 @@ void Uninit_game(void) {
 void Update_game(void) {
 	Update_map();
 	Update_enemy();
-	Update_boss_map();
 	Update_player();
 	Update_ATK();
 	Update_effect();
+	Update_boss_haze();
 	Update_HUD();
 
 
@@ -70,16 +71,9 @@ void Update_game(void) {
 
 	float temp_s = *g_a_scroll * SCREEN_WIDTH;
 
-#ifdef _DEBUG
-	PrintDebugProc("スクロール：%f\n", temp_s);
-	PrintDebugProc("クリアスクロール：%d", GAME_CLEAR_POS);
-#endif // _DEBUG
-
-
-	if (temp_s > GAME_CLEAR_POS) {
-		Set_boss();
-		//temp_scr->is_clear = TRUE;
-		//SetMode(MODE_RESULT);
+	if ((temp_s > GAME_CLEAR_POS+1000)&&(!g_is_boos)) {
+		Set_Enemy(ENEMY_BOSS, XMFLOAT2(900, 400));
+		g_is_boos = TRUE;
 	}
 	
 
@@ -88,11 +82,11 @@ void Update_game(void) {
 void Draw_game(void) {
 	Draw_map();
 	Draw_enemy();
-	Draw_boss_map();
 	Draw_player();
 	Draw_ATK();
 	Draw_effect();
 
+	Draw_boss_haze();
 	Draw_HUD();
 
 
@@ -111,4 +105,8 @@ float clamp(float value, float min, float max) {
 		return max;
 	}
 	return value;
+}
+
+bool Get_isBoss(void) {
+	return g_is_boos;
 }

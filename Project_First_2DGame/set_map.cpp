@@ -211,6 +211,8 @@ void Init_set_map(void) {
 		i++;
 	}
 
+	g_map_tile[MAP_SIZE - 3] = MAP_TYPE_FLATTO;
+	g_map_tile[MAP_SIZE - 2] = MAP_TYPE_FLATTO;
 	g_map_tile[MAP_SIZE - 1] = MAP_TYPE_FLATTO;
 
 	for (int i = 0; i < MAP_SIZE; i++) {

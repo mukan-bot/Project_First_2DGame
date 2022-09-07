@@ -9,7 +9,8 @@
 #include "collision.h"
 #include "enemy.h"
 #include "atk.h"
-#include "boss_map.h"
+#include "boss_haze.h"
+#include "result_bg.h"
 
 //É}ÉNÉçíËã`
 
@@ -26,6 +27,8 @@ HRESULT Init_map(void) {
 	Init_Ground_tile();
 	Init_set_map();
 	g_scroll = 0.0f;
+
+	Init_result_bg();
 	return S_OK;
 }
 
@@ -33,6 +36,8 @@ void Uninit_map(void) {
 	UninitBG();
 	Uninit_Visual_tile();
 	Uninit_Ground_tile();
+
+	Uninit_result_bg();
 }
 
 void Update_map(void) {
@@ -40,7 +45,12 @@ void Update_map(void) {
 }
 
 void Draw_map(void) {
-	DrawBG();
+	if (Get_isBoss) {
+		DrawBG();
+	}
+	else {
+		Draw_result_bg();
+	}
 	Draw_Visual_tile();
 	Draw_Ground_tile();
 } 
@@ -57,8 +67,6 @@ bool Set_Scroll(float scroll_f){
 	Update_eMove(temp);
 	Update_Collision(temp);
 	Update_sATK(temp);
-	white_mv(temp);
-
 	return TRUE;
 }
 
