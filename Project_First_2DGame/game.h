@@ -6,7 +6,9 @@
 #include "sprite.h"
 
 // マクロ定義-------
-#define PLUS_G (0.01f);//重力の加速度
+#define PLUS_G (0.01f);//重力の加速度（プレイヤー）
+
+#define GAME_CLEAR_POS (5000)
 
 //構造体定義-------
 

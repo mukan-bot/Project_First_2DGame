@@ -55,3 +55,6 @@ float CheckDamage(COLLISION collision);
 
 //誰に当たる攻撃か,どの攻撃か,右側に対する攻撃ならtrue,発射場所
 float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos);
+
+//攻撃別のステータスの所得
+attack_status Get_Atk_status(int atk_type);

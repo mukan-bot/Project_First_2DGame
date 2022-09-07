@@ -49,6 +49,12 @@
     <Filter Include="ヘッダー ファイル\MODE_RESULT">
       <UniqueIdentifier>{6290c721-c99c-4afa-88aa-5210a40cebf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MODE_GAME\enemy\boss">
+      <UniqueIdentifier>{14586fd7-e7ba-4473-866c-e8692d8198b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MODE_GAME\enemy\boss">
+      <UniqueIdentifier>{0331dfd2-257d-445e-b128-93de0913c1da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="renderer.h">
@@ -141,6 +147,9 @@
     <ClInclude Include="result_score.h">
       <Filter>ヘッダー ファイル\MODE_RESULT</Filter>
     </ClInclude>
+    <ClInclude Include="boss_map.h">
+      <Filter>ヘッダー ファイル\MODE_GAME\enemy\boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -232,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="result_score.cpp">
       <Filter>ソース ファイル\MODE_RESULT</Filter>
+    </ClCompile>
+    <ClCompile Include="boss_map.cpp">
+      <Filter>ソース ファイル\MODE_GAME\enemy\boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

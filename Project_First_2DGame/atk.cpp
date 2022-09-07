@@ -98,7 +98,7 @@ HRESULT Init_ATK(void) {
 	}
 	int i = 0;
 	i = STANDARD_ATK;
-	g_atk_status[i].atk_power = 0.05;
+	g_atk_status[i].atk_power = 0.1;
 	g_atk_status[i].minus_mp = 0.0f;
 	g_atk_status[i].frame = 5 ;
 	g_atk_status[i].vec = XMFLOAT2(3, 0);
@@ -114,10 +114,10 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
 	g_atk_status[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.4f);
 	i = LINE_ATK;
-	g_atk_status[i].atk_power = 0.15f;
+	g_atk_status[i].atk_power = 0.20f;
 	g_atk_status[i].minus_mp = 0.1f;
 	g_atk_status[i].frame = 40;
-	g_atk_status[i].vec = XMFLOAT2(300, 0);
+	g_atk_status[i].vec = XMFLOAT2(320, 0);
 	g_atk_status[i].col.size = XMFLOAT2(50, 20);
 	g_atk_status[i].col.shape = BOX;
 	g_atk_status[i].obj.pol.w = 60;
@@ -128,7 +128,7 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].obj.tex.x = 0;
 	g_atk_status[i].obj.tex.y = 0;
 	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
-	g_atk_status[i].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	g_atk_status[i].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 0.0f);
 	i = STANDARD_ATK_ENEMY;
 	g_atk_status[i].atk_power = 0.1;
 	g_atk_status[i].minus_mp = 0.0f;
@@ -302,7 +302,6 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 			return 0;
 		}
 	}
-	PrintDebugProc("%d", i);
 	g_atk[i].obj = g_atk_status[atk_type].obj;
 	if (is_Rside) {
 		g_atk[i].obj.pos = XMFLOAT2(start_pos.x + g_atk_status[atk_type].obj.pos.x, start_pos.y + g_atk_status[atk_type].obj.pos.y);
@@ -427,4 +426,11 @@ float CheckDamage(COLLISION collision) {
 	}
 
 	return 0.0f;
+}
+
+
+
+
+attack_status Get_Atk_status(int atk_type) {
+	return g_atk_status[atk_type];
 }

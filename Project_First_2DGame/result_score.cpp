@@ -98,7 +98,7 @@ void Update_result_score(void) {
 			SetText(g_result_text[0], text0);
 		}
 		else {
-			char text0[] = "‚f‚`‚l‚d ‚n‚u‚q‚`";
+			char text0[] = "‚f‚`‚l‚d ‚n‚u‚d‚q";
 			SetText(g_result_text[0], text0);
 		}
 		char text1[] = "‚s‚h‚l‚d@‚b‚n‚t‚m‚s";

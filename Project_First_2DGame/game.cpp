@@ -9,13 +9,14 @@
 #include "HUD.h"
 #include "atk.h"
 #include "effect.h"
+#include "boss_map.h"
 
 #include "set_map.h"
 
-#define GAME_CLEAR_POS (4000)
 
 
 static int g_count = 0;
+static float* g_a_scroll; //スクロール監視用
 
 HRESULT Init_game(void) {
 	Init_enemy();
@@ -27,8 +28,9 @@ HRESULT Init_game(void) {
 
 	Init_collision();
 
+	g_a_scroll = Get_aScroll();
 
-
+	Init_boss_map();
 
 
 
@@ -37,6 +39,7 @@ HRESULT Init_game(void) {
 void Uninit_game(void) {
 	Uninit_map();
 	Uninit_enemy();
+	Uninit_boss_map();
 	Uninit_player();
 	Uninit_HUD();
 	Uninit_ATK();
@@ -45,6 +48,7 @@ void Uninit_game(void) {
 void Update_game(void) {
 	Update_map();
 	Update_enemy();
+	Update_boss_map();
 	Update_player();
 	Update_ATK();
 	Update_effect();
@@ -54,17 +58,37 @@ void Update_game(void) {
 	Anime_Update();
 
 
-	SCORE* temp = Get_score();
-	if (temp->time_count > 60) {
-		temp->time++;
-		temp->time_count = 0;
+	SCORE* temp_scr = Get_score();
+	if (temp_scr->time_count > 60) {
+		temp_scr->time++;
+		temp_scr->time_count = 0;
 	}
-	temp->time_count++;
+	temp_scr->time_count++;
+
+
+
+
+	float temp_s = *g_a_scroll * SCREEN_WIDTH;
+
+#ifdef _DEBUG
+	PrintDebugProc("スクロール：%f\n", temp_s);
+	PrintDebugProc("クリアスクロール：%d", GAME_CLEAR_POS);
+#endif // _DEBUG
+
+
+	if (temp_s > GAME_CLEAR_POS) {
+		Set_boss();
+		//temp_scr->is_clear = TRUE;
+		//SetMode(MODE_RESULT);
+	}
+	
+
 
 }
 void Draw_game(void) {
 	Draw_map();
 	Draw_enemy();
+	Draw_boss_map();
 	Draw_player();
 	Draw_ATK();
 	Draw_effect();

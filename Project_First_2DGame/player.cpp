@@ -1,4 +1,4 @@
-#include "player.h"
+ #include "player.h"
 #include "input.h"
 
 #include "MAP.h"
@@ -105,10 +105,9 @@ HRESULT Init_player(void) {
 	g_status.hp = 1.0f;
 	g_status.mp = 1.0f;
 	g_status.plus_mp = 0.005f;
-	g_status.atk = 20.0f;
 	g_status.matk = 1.5f;
 	g_status.speed = 0.003;
-	g_status.jump_speed = 3;
+	g_status.jump_speed = 4.5;
 	g_status.gravity = 3;
 	g_status.temp_gravity = 0;
 
@@ -257,7 +256,6 @@ void Update_player(void) {
 				float* temp = Get_aScroll();
 				if (*temp <= 0.0f) {
 					*temp = 0.0f;
-					PrintDebugProc("%f", temp);
 					g_Player.obj.pos.x -= g_status.speed*1000;
 					
 				}
@@ -266,6 +264,8 @@ void Update_player(void) {
 				}
 			}
 		}
+
+		//移動していない時はアイドルアニメーションを再生
 		else {
 			Set_P_Anime(IDLE_ANIME);
 		}
@@ -304,7 +304,10 @@ void Update_player(void) {
 			}
 		}
 
+
+		//攻撃
 		if (GetKeyboardTrigger(DIK_E)) {
+			
 			g_status.mp -= Set_ATK(ATK_PLAYER, STANDARD_ATK, g_is_run_R, g_Player.obj.pos);
 		}
 		if (GetKeyboardTrigger(DIK_Q)) {

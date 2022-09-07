@@ -9,6 +9,7 @@
 #include "collision.h"
 #include "enemy.h"
 #include "atk.h"
+#include "boss_map.h"
 
 //É}ÉNÉçíËã`
 
@@ -56,6 +57,7 @@ bool Set_Scroll(float scroll_f){
 	Update_eMove(temp);
 	Update_Collision(temp);
 	Update_sATK(temp);
+	white_mv(temp);
 
 	return TRUE;
 }

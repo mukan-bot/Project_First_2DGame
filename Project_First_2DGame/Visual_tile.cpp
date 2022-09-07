@@ -162,8 +162,8 @@ int SetV_tile(int tex_no, XMFLOAT3 pos_size) {
 			g_v_tile[g_count].tile_no = g_count;
 			g_v_tile[g_count].obj.use = TRUE;
 			g_v_tile[g_count].obj.pos = XMFLOAT2(pos_size.x, pos_size.y);
-			g_v_tile[g_count].obj.pol.w = pos_size.z;
-			g_v_tile[g_count].obj.pol.h = pos_size.z;
+			g_v_tile[g_count].obj.pol.w = pos_size.z - 0.01f;
+			g_v_tile[g_count].obj.pol.h = pos_size.z - 0.01f;
 
 
 

@@ -30,7 +30,6 @@ void Enemy_s_Update(ENEMY* enemy) {
 		break;
 	}
 
-	PrintDebugProc("%d\n", enemy->atk_waiting_count);
 }
 
 

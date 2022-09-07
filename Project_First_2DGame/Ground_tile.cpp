@@ -134,8 +134,6 @@ void Draw_Ground_tile(void) {
 	GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_g_tile[0].tile.obj.tex.texNo]);
 
 
-	float temp = Get_Scroll();
-	PrintDebugProc("%f\n", temp);
 
 	// •`‰æ
 	for (int i = 0; i < G_TILE_MAX; i++) {
