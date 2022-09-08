@@ -36,9 +36,20 @@ static bool g_player_sound;
 HRESULT Init_result_anime(void) {
 	Init_player();
 	Init_effect();
+
+	SCORE* temp = Get_score();
+
+
 	g_player = Get_Player();
-	g_player->obj.pos.x = -g_player->obj.pol.w;
-	g_player->obj.pos.y = (SCREEN_HEIGHT - g_player->obj.pol.h / 2);
+	if (temp->is_clear) {
+		g_player->obj.pos.x = -g_player->obj.pol.w;
+		g_player->obj.pos.y = (SCREEN_HEIGHT - g_player->obj.pol.h / 2);
+	}
+	else {
+		g_player->obj.pos.x = -200;
+		g_player->obj.pos.y = -200;
+	}
+
 	g_vec = XMFLOAT2(150.0f, 100.0f);
 	g_vec_temp = g_player->obj.pos;
 	g_scene = SCENE_MOVE_PLAYER;
@@ -53,10 +64,10 @@ HRESULT Init_result_anime(void) {
 	}
 	g_player_sound = FALSE;
 
-	SCORE* temp = Get_score();
 	if (!temp->is_clear) {
 		g_scene = SCENE_OK;
 	}
+
 
 	g_Load = TRUE;
 	return S_OK;

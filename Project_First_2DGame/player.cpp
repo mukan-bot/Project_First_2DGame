@@ -281,8 +281,10 @@ void Update_player(void) {
 				g_is_run_R = FALSE;
 				g_Player.obj.pos.x -= g_status.speed * 1000;
 			}
-
-			g_Player.obj.pos.x = clamp(g_Player.obj.pos.x, 10, SCREEN_WIDTH - 10);
+			//Ž€‚ñ‚¾Žž‚ÍA‰æ–Ê”ƒ‚¢‚É‚¾‚·‚©‚çclamp‚µ‚È‚¢
+			if (g_status.hp >= 0) {
+				g_Player.obj.pos.x = clamp(g_Player.obj.pos.x, 10, SCREEN_WIDTH - 10);
+			}
 		}
 
 

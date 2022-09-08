@@ -140,10 +140,12 @@ void boss_Update(ENEMY* enemy) {
 		case(1):
 			XMFLOAT2 pos = XMFLOAT2(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT);
 			Set_Enemy(ENEMY_HUNTRESS, pos);
+			enemy->count_atk = 0;
 			break;
 		case(2):
-			Set_ATK(ATK_ENEMY, STANDARD_ATK, enemy->is_run_R, enemy->obj.pos);
-			Set_ATK(ATK_ENEMY, STANDARD_ATK, !enemy->is_run_R, enemy->obj.pos);
+			Set_ATK(ATK_ENEMY, STANDARD_ATK_ENEMY, enemy->is_run_R, enemy->obj.pos);
+			Set_ATK(ATK_ENEMY, STANDARD_ATK_ENEMY, !enemy->is_run_R, enemy->obj.pos);
+			enemy->count_atk = 0;
 			break;
 		default:
 			break;
