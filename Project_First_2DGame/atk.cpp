@@ -23,7 +23,7 @@ static char* g_TexturName[MAX_ATK] = {
 	"data/TEXTURE/attack/standard_atk.png",
 	"data/TEXTURE/attack/line_atk.png",
 	"data/TEXTURE/attack/standard_atk.png",
-
+	"data/TEXTURE/attack/standard_atk.png",
 };
 
 
@@ -153,7 +153,7 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].minus_mp = 0.0f;
 	g_atk_status[i].frame = 50;
 	g_atk_status[i].vec = XMFLOAT2(300, 0);
-	g_atk_status[i].col.size = XMFLOAT2(20, 30);
+	g_atk_status[i].col.size = XMFLOAT2(20, 300);
 	g_atk_status[i].col.shape = BOX;
 	g_atk_status[i].obj.pol.w = 60;
 	g_atk_status[i].obj.pol.h = 300;
@@ -350,6 +350,8 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 	case(STANDARD_ATK_ENEMY):
 		PlaySound(SOUND_LABEL_SE_standard_atk);
 		break;
+	case(STANDARD_ATK_BOSS):
+		PlaySound(SOUND_LABEL_SE_standard_atk);
 	default:
 		break;
 	}

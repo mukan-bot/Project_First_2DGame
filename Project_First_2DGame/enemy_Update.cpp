@@ -123,17 +123,41 @@ void boss_Update(ENEMY* enemy) {
 	if (g_player->obj.pos.x < enemy->obj.pos.x) enemy->is_run_R = FALSE;
 	else enemy->is_run_R = TRUE;
 
+
 	if (enemy->is_hitD) {
-		enemy->obj.pos.y -= enemy->status.jump_speed;
+		//enemy->obj.pos.y -= enemy->status.jump_speed;
 	}
 	else {
 		enemy->obj.pos.y += enemy->status.jump_speed;
 	}
 
-	if (enemy->count_atk> 140) {
-		Set_ATK(ATK_ENEMY, STANDARD_ATK_BOSS, enemy->is_run_R, enemy->obj.pos);
-		enemy->count_atk = 0;
+	if (enemy->count_atk > 140) {
+		switch (rand() % 3){
+		case(0):
+			Set_ATK(ATK_ENEMY, STANDARD_ATK_BOSS, enemy->is_run_R, enemy->obj.pos);
+			enemy->count_atk = 0;
+			break;
+		case(1):
+			XMFLOAT2 pos = XMFLOAT2(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT);
+			Set_Enemy(ENEMY_HUNTRESS, pos);
+			break;
+		case(2):
+			Set_ATK(ATK_ENEMY, STANDARD_ATK, enemy->is_run_R, enemy->obj.pos);
+			Set_ATK(ATK_ENEMY, STANDARD_ATK, !enemy->is_run_R, enemy->obj.pos);
+			break;
+		default:
+			break;
+		}
+		//if ((rand() % 5) != 0) {
+		//	Set_ATK(ATK_ENEMY, STANDARD_ATK_BOSS, enemy->is_run_R, enemy->obj.pos);
+		//	enemy->count_atk = 0;
+		//}
+		//else {
+		//	XMFLOAT2 pos = XMFLOAT2(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT);
+		//	Set_Enemy(ENEMY_HUNTRESS, pos);
+		//}
 	}
+	
 
 	enemy->count_atk++;
 

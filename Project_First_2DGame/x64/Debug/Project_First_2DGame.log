@@ -4,4 +4,6 @@ C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DG
 C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(152,33): warning C4305: '=': 'double' から 'float' へ切り詰めます。
 C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(226,5): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
 C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(236,5): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+  enemy_Update.cpp
+  コードを生成中...
   Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
