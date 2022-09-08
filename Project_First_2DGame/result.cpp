@@ -3,6 +3,7 @@
 #include "result_bg.h"
 #include "result_anime.h"
 #include "result_score.h"
+#include "input.h"
 
 
 
@@ -22,6 +23,9 @@ void Update_result(void) {
 	Update_result_bg();
 	if(Update_result_anime())Set_resurt_score();
 	Update_result_score();
+	if (GetKeyboardTrigger(DIK_RETURN)) {
+		SetMode(MODE_TITLE);
+	}
 }
 void Draw_result(void) {
 	Draw_result_bg();

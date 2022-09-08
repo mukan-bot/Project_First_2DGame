@@ -13,6 +13,7 @@ SCORE* g_score;
 
 //プロトタイプ宣言
 void huntress_Update(ENEMY* enemy);
+void boss_Update(ENEMY* enemy);
 
 
 void Init_Enemy_s_Update(void) {
@@ -26,6 +27,10 @@ void Enemy_s_Update(ENEMY* enemy) {
 	{
 	case (ENEMY_HUNTRESS):
 		huntress_Update(enemy);
+		break;
+	case(ENEMY_BOSS):
+		boss_Update(enemy);
+		break;
 	default:
 		break;
 	}
@@ -95,8 +100,8 @@ void huntress_Update(ENEMY* enemy) {
 			}
 		}
 		break;
-
 	}
+
 
 
 	if (enemy->status.hp < 0.0f) {
@@ -108,4 +113,16 @@ void huntress_Update(ENEMY* enemy) {
 		enemy->obj.pos.y += 1;
 	}
 	enemy->count_atk++;
+}
+
+
+
+void boss_Update(ENEMY* enemy) {
+	if (!enemy->is_hitD) {
+		enemy->obj.pos.y -= enemy->status.jump_speed;
+	}
+	if (enemy->status.hp < 0.0f) {
+		g_score->is_clear = TRUE;
+		SetMode(MODE_RESULT);
+	}
 }

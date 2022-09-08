@@ -1,4 +1,2 @@
-﻿  enemy.cpp
-D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\enemy.cpp(125,80): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
-D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\enemy.cpp(186,80): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+﻿  result.cpp
   Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
