@@ -1,2 +1,7 @@
-﻿  result.cpp
-  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
+﻿  atk.cpp
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(101,33): warning C4305: '=': 'double' から 'float' へ切り詰めます。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(135,33): warning C4305: '=': 'double' から 'float' へ切り詰めます。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(152,33): warning C4305: '=': 'double' から 'float' へ切り詰めます。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(226,5): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\atk.cpp(236,5): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+  Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe

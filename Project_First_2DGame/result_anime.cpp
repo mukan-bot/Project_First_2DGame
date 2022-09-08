@@ -74,6 +74,7 @@ bool Update_result_anime(void) {
 	bool tbool = FALSE;
 	switch (g_scene)
 	{
+	//プレイヤーを移動させる
 	case(SCENE_MOVE_PLAYER):
 		g_player->obj.pos.x = g_vec_temp.x + (g_vec.x - g_vec_temp.x) / PLAYER_SPEED * g_count;
 		g_player->obj.pos.y = g_vec_temp.y + (g_vec.x - g_vec_temp.y) / PLAYER_SPEED * g_count;
@@ -86,6 +87,7 @@ bool Update_result_anime(void) {
 		}
 		g_count++;
 		break;
+	//プレイヤーに攻撃を送信する
 	case(SCENE_ATK_START):
 		if (g_count == ATK_SPEED) {
 			for (int i = 0; i < EFFECT_SET_MAX; i++) {
@@ -96,6 +98,7 @@ bool Update_result_anime(void) {
 		}
 		g_count++;
 		break;
+	//攻撃を移動させる
 	case(SCENE_ATK_MOVE):
 		for (int i = 0; i < EFFECT_SET_MAX; i++) {
 			g_effect_pos[i].x = g_effect_temp2_pos[i].x + (g_effect_temp_pos[i].x - g_effect_temp2_pos[i].x) / ATK_MOVE_SPEED * g_count;
@@ -111,15 +114,21 @@ bool Update_result_anime(void) {
 			}
 		}
 		break;
-
+	//アニメーションの完了
 	case (SCENE_OK):
-		for (int i = 0; i < EFFECT_SET_MAX; i++) {
-			if (g_effect_count[i] >= (rand() % ATK_MOVE_SPEED + 20)+ATK_MOVE_SPEED) {
-				Set_effect(&g_effect_pos[i], TRUE, rand() % 300, EFFECT_TYPE_FIRE_BULLET_4, FALSE, rand() % ATK_MOVE_SPEED);
-				g_effect_count[i] = 0;
+
+		SCORE* temp_s = Get_score();
+
+		if (temp_s->is_clear) {
+			for (int i = 0; i < EFFECT_SET_MAX; i++) {
+				if (g_effect_count[i] >= (rand() % ATK_MOVE_SPEED + 20) + ATK_MOVE_SPEED) {
+					Set_effect(&g_effect_pos[i], TRUE, rand() % 300, EFFECT_TYPE_FIRE_BULLET_4, FALSE, rand() % ATK_MOVE_SPEED);
+					g_effect_count[i] = 0;
+				}
+				g_effect_count[i]++;
 			}
-			g_effect_count[i]++;
 		}
+
 		if (!g_go_score) {
 			g_go_score = TRUE;
 			tbool = TRUE;

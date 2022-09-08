@@ -113,6 +113,7 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].obj.tex.y = 0;
 	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
 	g_atk_status[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.4f);
+
 	i = LINE_ATK;
 	g_atk_status[i].atk_power = 0.20f;
 	g_atk_status[i].minus_mp = 0.1f;
@@ -129,6 +130,7 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].obj.tex.y = 0;
 	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
 	g_atk_status[i].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 0.0f);
+
 	i = STANDARD_ATK_ENEMY;
 	g_atk_status[i].atk_power = 0.1;
 	g_atk_status[i].minus_mp = 0.0f;
@@ -145,6 +147,23 @@ HRESULT Init_ATK(void) {
 	g_atk_status[i].obj.tex.y = 0;
 	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
 	g_atk_status[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 0.4f);
+
+	i = STANDARD_ATK_BOSS;
+	g_atk_status[i].atk_power = 0.1;
+	g_atk_status[i].minus_mp = 0.0f;
+	g_atk_status[i].frame = 50;
+	g_atk_status[i].vec = XMFLOAT2(300, 0);
+	g_atk_status[i].col.size = XMFLOAT2(20, 30);
+	g_atk_status[i].col.shape = BOX;
+	g_atk_status[i].obj.pol.w = 60;
+	g_atk_status[i].obj.pol.h = 300;
+	g_atk_status[i].obj.tex.texNo = i;
+	g_atk_status[i].obj.tex.w = 1.0f;
+	g_atk_status[i].obj.tex.h = 1.0f;
+	g_atk_status[i].obj.tex.x = 0;
+	g_atk_status[i].obj.tex.y = 0;
+	g_atk_status[i].obj.pos = XMFLOAT2(30, 0);
+	g_atk_status[i].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 0.4f);
 
 
 	g_Load = TRUE;
@@ -269,10 +288,6 @@ void Update_ATK(void) {
 
 			Update_ATK_col(i);
 		}
-
-		else {
-			//Del_effect(g_atk[i].no);
-		}
 	}
 }
 
@@ -330,6 +345,7 @@ float Set_ATK(int hit_type, int atk_type, bool is_Rside, XMFLOAT2 start_pos) {
 		break;
 	case(LINE_ATK):
 		g_atk[i].no = Set_effect(&g_atk[i].obj.pos, is_Rside, 100, EFFECT_TYPE_ICE_SPEAR, FALSE, g_atk_status[atk_type].frame);
+		PlaySound(SOUND_LABEL_SE_line_atk);
 		break;
 	case(STANDARD_ATK_ENEMY):
 		PlaySound(SOUND_LABEL_SE_standard_atk);

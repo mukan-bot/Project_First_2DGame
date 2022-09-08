@@ -6,10 +6,10 @@
 
 //マクロ定義
 enum {
-	STANDARD_ATK,	//通常攻撃
-	LINE_ATK,		//直線上に飛んでいく攻撃
-	STANDARD_ATK_ENEMY,	//プレイヤー向かって飛んでいく攻撃
-
+	STANDARD_ATK,			//通常攻撃
+	LINE_ATK,				//直線上に飛んでいく攻撃
+	STANDARD_ATK_ENEMY,		//プレイヤー向かって飛んでいく攻撃
+	STANDARD_ATK_BOSS,		//BOSS用の攻撃
 	MAX_ATK,//攻撃の種類の最大数
 };
 

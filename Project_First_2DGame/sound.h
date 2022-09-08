@@ -20,6 +20,7 @@ enum
 	SOUND_LABEL_SE_select_ok,
 	SOUND_LABEL_SE_plakyer_result,
 	SOUND_LABEL_SE_standard_atk,
+	SOUND_LABEL_SE_line_atk,
 	SOUND_LABEL_MAX,
 };
 

@@ -10,6 +10,7 @@
 #include "atk.h"
 #include "effect.h"
 #include "boss_haze.h"
+#include "input.h"
 
 #include "set_map.h"
 
@@ -67,6 +68,24 @@ void Update_game(void) {
 	temp_scr->time_count++;
 
 
+#ifdef _DEBUG
+	STATUS* temp = Get_pStatus();
+	//MP‚ğÅ‘å‚É‚·‚é
+	if (GetKeyboardPress(DIK_0)) {
+		temp->mp = 1;
+	}
+	//HP‚ğÅ‘å‚É‚·‚é
+	if (GetKeyboardPress(DIK_9)) {
+		temp->mp = 1;
+	}
+	//ˆê”ÔÅ‰‚ÌêŠ‚©‚çƒ{ƒX‘O‚Ü‚ÅˆÚ“®(‚Q‰ñ‰Ÿ‚·‚Æ’Ê‚è”²‚¯‚é)
+	if (GetKeyboardTrigger(DIK_8)) {
+		Set_Scroll(6);
+	}
+
+
+#endif // _DEBUG
+
 
 
 	float temp_s = *g_a_scroll * SCREEN_WIDTH;
@@ -75,8 +94,6 @@ void Update_game(void) {
 		Set_Enemy(ENEMY_BOSS, XMFLOAT2(900, 400));
 		g_is_boos = TRUE;
 	}
-	
-
 
 }
 void Draw_game(void) {

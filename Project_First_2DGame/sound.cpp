@@ -39,6 +39,7 @@ SOUNDPARAM g_aParam[SOUND_LABEL_MAX] =
 	{ (char*)"data/SE/select_ok.wav", 0 },		// select_ok_SE
 	{ (char*)"data/SE/player_result.wav", 0 },		// player_èŒÇ¢_SE
 	{ (char*)"data/SE/standard_atk.wav", 0 },		// standard_atk_SE
+	{ (char*)"data/SE/line_atk.wav", 0 },		// line_atk_SE
 };
 
 //=============================================================================

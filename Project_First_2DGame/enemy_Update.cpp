@@ -118,9 +118,29 @@ void huntress_Update(ENEMY* enemy) {
 
 
 void boss_Update(ENEMY* enemy) {
-	if (!enemy->is_hitD) {
+
+	//プレイヤーのいる方を向く
+	if (g_player->obj.pos.x < enemy->obj.pos.x) enemy->is_run_R = FALSE;
+	else enemy->is_run_R = TRUE;
+
+	if (enemy->is_hitD) {
 		enemy->obj.pos.y -= enemy->status.jump_speed;
 	}
+	else {
+		enemy->obj.pos.y += enemy->status.jump_speed;
+	}
+
+	if (enemy->count_atk> 140) {
+		Set_ATK(ATK_ENEMY, STANDARD_ATK_BOSS, enemy->is_run_R, enemy->obj.pos);
+		enemy->count_atk = 0;
+	}
+
+	enemy->count_atk++;
+
+
+
+	//HPがゼロだったらリザルトへ
+	enemy->status.hp -= CheckDamage(enemy->col);
 	if (enemy->status.hp < 0.0f) {
 		g_score->is_clear = TRUE;
 		SetMode(MODE_RESULT);

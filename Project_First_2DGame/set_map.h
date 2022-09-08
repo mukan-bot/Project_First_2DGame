@@ -12,4 +12,3 @@
 
 //プロトタイプ宣言
 void Init_set_map(void);
-void Set_map(float plus);

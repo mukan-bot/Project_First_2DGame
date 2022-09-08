@@ -87,7 +87,6 @@ void Update_boss_haze(void) {
 	float temp = (Get_Scroll() * SCREEN_WIDTH) - GAME_CLEAR_POS;
 	temp /= 1000.0f;
 	clamp(temp, 0, 1);
-	PrintDebugProc("%f", temp);
 	g_alfa = temp;
 
 	if (Get_isBoss()) g_alfa = 0.00f;

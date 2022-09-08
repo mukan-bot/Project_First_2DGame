@@ -103,6 +103,7 @@ HRESULT Init_enemy(void) {
 	//個別の設定
 	//ハントレスの設定ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 	i = ENEMY_HUNTRESS;
+	//ステータスの設定
 	g_Enemy_status[i].enemy.status.hp = 1.0f;
 	g_Enemy_status[i].enemy.status.mp = 1.0f;
 	g_Enemy_status[i].enemy.status.plus_mp = 0.005f;
@@ -113,18 +114,18 @@ HRESULT Init_enemy(void) {
 	g_Enemy_status[i].enemy.status.gravity = 3;
 	g_Enemy_status[i].enemy.status.temp_gravity = 0;
 
+	//大きさ関係
 	g_Enemy_status[i].aspect = XMFLOAT2(1.0f, 0.5f);
 	g_Enemy_status[i].size = 200;
 	g_Enemy_status[i].col_size = XMFLOAT2(50, 90);
 
-
+	//アニメ系
 	g_Enemy_status[i].enemy.anime.anime_count = 8;
 	g_Enemy_status[i].enemy.anime.anime_number = 6;
 	g_Enemy_status[i].enemy.anime.anime_FPS = 15;
 	g_Enemy_status[i].enemy.anime.which_anime = E_IDLE_ANIME;
 	g_Enemy_status[i].enemy.atk_waiting = g_Enemy_status[i].enemy.anime.anime_FPS * 2.5;
 	g_Enemy_status[i].enemy.atk_waiting_count = 0;
-
 
 	g_Enemy_status[i].anime_type[0].anime_type = E_ATK1_ANIME;
 	g_Enemy_status[i].anime_type[0].frame = 5;
@@ -150,7 +151,7 @@ HRESULT Init_enemy(void) {
 	g_Enemy_status[i].anime_type[5].frame = 3;
 	g_Enemy_status[i].anime_type[5].anime_loop = FALSE;
 
-
+	//基本的な表示設定
 	g_Enemy_status[i].enemy.obj.pos = XMFLOAT2(0.0f, 0.0f);
 	g_Enemy_status[i].enemy.obj.use = FALSE;
 	g_Enemy_status[i].enemy.obj.pol.w = g_Enemy_status[i].size * g_Enemy_status[i].aspect.x;
@@ -164,7 +165,8 @@ HRESULT Init_enemy(void) {
 
 	//ボスの設定ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 	i = ENEMY_BOSS;
-	g_Enemy_status[i].enemy.status.hp = 1.0f;
+	//ステータスの設定
+	g_Enemy_status[i].enemy.status.hp = 10.0f;
 	g_Enemy_status[i].enemy.status.mp = 1.0f;
 	g_Enemy_status[i].enemy.status.plus_mp = 0.005f;
 	g_Enemy_status[i].enemy.status.atk = 20.0f;
@@ -174,11 +176,13 @@ HRESULT Init_enemy(void) {
 	g_Enemy_status[i].enemy.status.gravity = 3;
 	g_Enemy_status[i].enemy.status.temp_gravity = 0;
 
+	//大きさ関係
 	g_Enemy_status[i].aspect = XMFLOAT2(1.0f, 0.5f);
 	g_Enemy_status[i].size = 600;
 	g_Enemy_status[i].col_size = XMFLOAT2(200, 300);
 
 
+	//アニメ系
 	g_Enemy_status[i].enemy.anime.anime_count = 8;
 	g_Enemy_status[i].enemy.anime.anime_number = 6;
 	g_Enemy_status[i].enemy.anime.anime_FPS = 15;
@@ -212,6 +216,7 @@ HRESULT Init_enemy(void) {
 	g_Enemy_status[i].anime_type[5].anime_loop = FALSE;
 
 
+	//基本的な表示設定
 	g_Enemy_status[i].enemy.obj.pos = XMFLOAT2(0.0f, 0.0f);
 	g_Enemy_status[i].enemy.obj.use = FALSE;
 	g_Enemy_status[i].enemy.obj.pol.w = g_Enemy_status[i].size * g_Enemy_status[i].aspect.x;

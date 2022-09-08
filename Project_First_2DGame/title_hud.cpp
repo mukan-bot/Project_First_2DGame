@@ -17,7 +17,7 @@
 
 enum  {
 	SELECT_START,
-	SELECT_LOAD,
+	//SELECT_LOAD,
 	SELECT_OPTION,
 	SELECT_EXIT,
 	SELECT_MAX,
@@ -84,9 +84,9 @@ void Update_title_hud(void) {
 		case (SELECT_START):
 			SetMode(MODE_GAME);
 			break;
-		case (SELECT_LOAD):
-			SetMode(MODE_GAME);
-			break;
+		//case (SELECT_LOAD):
+		//	SetMode(MODE_GAME);
+		//	break;
 		case (SELECT_OPTION):
 			SetMode(MODE_MENUE);
 			break;
@@ -102,16 +102,16 @@ void Update_title_hud(void) {
 }
 void Draw_title_hud(void) {
 	char temp1[] = "‚r‚s‚`‚q‚s";
-	char temp2[] = "‚k‚n‚`‚c";
+	//char temp2[] = "‚k‚n‚`‚c";
 	char temp3[] = "‚n‚o‚s‚h‚n‚m";
 	char temp4[] = "‚d‚w‚h‚s";
 
 	int i = 0;
 	SetText(g_text[i], temp1);
 	i++;
-	SetText(g_text[i], temp2);
-	i++;
 	SetText(g_text[i], temp3);
 	i++;
 	SetText(g_text[i], temp4);
+	i++;
+	//SetText(g_text[i], temp);
 }
