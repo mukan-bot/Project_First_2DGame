@@ -19,6 +19,7 @@ static char* g_TexturName[TEXTUR_MAX] = {
 	"data/TEXTURE/HUD/bar0.png",
 	"data/TEXTURE/HUD/bar1.png",
 	"data/TEXTURE/HUD/bar2.png",
+	"data/TEXTURE/background/White.png",
 	
 };
 
@@ -30,6 +31,9 @@ static int g_count = 0;
 static main_obj g_hud_bar[BAR];
 
 static STATUS* g_pStatus;//プレイヤーのステータスを所得
+
+
+static float* g_a_scroll; //スクロール監視用
 
 //プロトタイプ宣言
 
@@ -90,6 +94,9 @@ HRESULT Init_HUD(void) {
 
 
 	g_pStatus = Get_pStatus();
+
+
+	g_a_scroll = Get_aScroll();
 
 	g_Load = TRUE;
 	return S_OK;
@@ -166,6 +173,57 @@ void Draw_HUD(void) {
 		// ポリゴン描画
 		GetDeviceContext()->Draw(4, 0);
 	}
+
+
+
+	float temp_s = *g_a_scroll * SCREEN_WIDTH;
+
+	TEXT temp;
+	temp.size = 30;
+	temp.pos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	temp.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	if (temp_s < 100) {
+		char temp_text[] = "ＷＡＤキーでいどう";
+		SetText(temp, temp_text);
+
+		// テクスチャ設定
+		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[3]);
+
+		// １枚のポリゴンの頂点とテクスチャ座標を設定
+		SetSpriteColor(g_VertexBuffer, temp.pos.x, temp.pos.y, (temp.size * 10) + 10, temp.size + 10, 0, 0, 1, 1, XMFLOAT4(0.0f, 0.0f, 0.0f, 0.5f));
+
+		// ポリゴン描画
+		GetDeviceContext()->Draw(4, 0);
+	}
+
+	if ((100 < temp_s) && (temp_s < 200)) {
+		char temp_text[] = "ＭＰにきをつけて";
+		SetText(temp, temp_text);
+
+		// テクスチャ設定
+		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[3]);
+
+		// １枚のポリゴンの頂点とテクスチャ座標を設定
+		SetSpriteColor(g_VertexBuffer, temp.pos.x, temp.pos.y, (temp.size * 10) + 10, temp.size + 10, 0, 0, 1, 1, XMFLOAT4(0.0f, 0.0f, 0.0f, 0.5f));
+
+		// ポリゴン描画
+		GetDeviceContext()->Draw(4, 0);
+	}
+
+	if ((200 < temp_s) && (temp_s < 350)) {
+		char temp_text[] = "Ｑ、Ｅキーでこうげき";
+		SetText(temp, temp_text);
+
+		// テクスチャ設定
+		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[3]);
+
+		// １枚のポリゴンの頂点とテクスチャ座標を設定
+		SetSpriteColor(g_VertexBuffer, temp.pos.x, temp.pos.y, (temp.size * 10) + 10, temp.size + 10, 0, 0, 1, 1, XMFLOAT4(0.0f, 0.0f, 0.0f, 0.5f));
+
+		// ポリゴン描画
+		GetDeviceContext()->Draw(4, 0);
+	}
+
 
 
 }

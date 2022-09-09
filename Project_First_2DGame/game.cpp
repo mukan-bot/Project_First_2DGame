@@ -13,6 +13,7 @@
 #include "effect.h"
 #include "boss_haze.h"
 #include "input.h"
+#include "text.h"
 
 #include "set_map.h"
 
@@ -96,6 +97,17 @@ void Update_game(void) {
 		Set_Enemy(ENEMY_BOSS, XMFLOAT2(900, 400));
 		g_is_boos = TRUE;
 	}
+
+
+	//if ((300 < temp_s) && (temp_s < 400)) {
+	//	TEXT temp;
+	//	temp.size = 20;
+	//	temp.pos = XMFLOAT2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	//	temp.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	//	char temp_text[] = "‚dƒL[‚Å‹ßÚUŒ‚";
+	//	SetText(temp, temp_text);
+	//}
+
 
 }
 void Draw_game(void) {
