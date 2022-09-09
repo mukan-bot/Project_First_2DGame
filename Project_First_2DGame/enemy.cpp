@@ -1,3 +1,5 @@
+//ì¬ÒF’|“à‘åãÄ
+
 #include "enemy.h"
 #include "input.h"
 

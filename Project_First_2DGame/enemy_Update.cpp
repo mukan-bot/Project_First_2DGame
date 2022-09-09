@@ -1,3 +1,5 @@
+//ì¬ÒF’|“à‘åãÄ
+
 #include "enemy_Update.h"
 #include "enemy.h"
 

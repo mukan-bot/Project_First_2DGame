@@ -1,5 +1,4 @@
-//デバッグ表示処理 [debugproc.cpp]
-//Author : 
+//作成者：竹内大翔
 
 #include <stdio.h>
 #include "debugproc.h"

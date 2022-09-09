@@ -1,5 +1,4 @@
-//sprite.h
-//Author : GP11B132 16 Т|УаСегƒ
+//????????
 
 #pragma once
 

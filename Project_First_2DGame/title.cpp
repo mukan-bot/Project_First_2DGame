@@ -1,3 +1,5 @@
+//作成者：竹内大翔
+
 #include "main.h"
 #include "title.h"
 #include "title_bg.h"

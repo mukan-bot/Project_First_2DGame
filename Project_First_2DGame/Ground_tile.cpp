@@ -1,4 +1,4 @@
-//機能のない見た目だけの物の表示
+//作成者：竹内大翔
 
 #include "MAP.h"
 #include "Ground_tile.h"

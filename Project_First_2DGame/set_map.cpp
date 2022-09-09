@@ -1,3 +1,5 @@
+//ì¬ŽÒF’|“à‘åãÄ
+
 #include "set_map.h"
 
 #include <time.h>

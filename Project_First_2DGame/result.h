@@ -1,3 +1,5 @@
+//作成者：竹内大翔
+
 #pragma once
 #include "main.h"
 

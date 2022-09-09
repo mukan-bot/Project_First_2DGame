@@ -1,3 +1,5 @@
+//ì¬ŽÒF’|“à‘åãÄ
+
 #pragma once
 #include "enemy.h"
 

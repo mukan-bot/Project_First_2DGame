@@ -1,7 +1,5 @@
-//
-//ƒŒƒ“ƒ_ƒŠƒ“ƒOˆ— [renderer.h]
-//Author : 
-//
+//ì¬ÒF’|“à‘åãÄ
+
 #pragma once
 
 

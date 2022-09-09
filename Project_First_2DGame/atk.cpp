@@ -1,3 +1,5 @@
+//ì¬ŽÒF’|“à‘åãÄ
+
 #include "atk.h"
 
 #include "game.h"

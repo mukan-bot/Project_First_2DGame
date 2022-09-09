@@ -1,8 +1,4 @@
-
-//
-// “ü—Íˆ— [input.cpp]
-// Author : 
-//
+//ì¬ÒF’|“à‘åãÄ
 
 #include "input.h"
 #include "debugproc.h"

@@ -1,3 +1,5 @@
+//ì¬ŽÒF’|“à‘åãÄ
+
 #include "MAP.h"
 #include "HUD.h"
 #include "text.h"

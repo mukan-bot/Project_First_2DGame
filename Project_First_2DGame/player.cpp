@@ -1,4 +1,6 @@
- #include "player.h"
+//ì¬ÒF’|“à‘åãÄ
+
+#include "player.h"
 #include "input.h"
 
 #include "MAP.h"

@@ -1,3 +1,5 @@
+//ì¬ŽÒF’|“à‘åãÄ
+
 #include "collision.h"
 #include "text.h"
 #include "main.h"

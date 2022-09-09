@@ -1,3 +1,5 @@
+//ì¬ŽÒF’|“à‘åãÄ
+
 #include "text.h"
 
 #include <stdio.h>

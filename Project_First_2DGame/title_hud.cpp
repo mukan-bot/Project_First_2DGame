@@ -1,3 +1,4 @@
+//ì¬ÒF’|“à‘åãÄ
 
 #include "main.h"
 #include "sound.h"
@@ -17,7 +18,6 @@
 
 enum  {
 	SELECT_START,
-	//SELECT_LOAD,
 	SELECT_OPTION,
 	SELECT_EXIT,
 	SELECT_MAX,
@@ -31,7 +31,6 @@ static BOOL	g_Load = FALSE;		// ‰Šú‰»‚ğs‚Á‚½‚©‚Ìƒtƒ‰ƒO
 static int g_select;
 static TEXT g_text[SELECT_MAX];
 static TEXT g_temp_text;
-
 
 HRESULT Init_title_hud(void) {
 
@@ -77,16 +76,13 @@ void Update_title_hud(void) {
 	g_text[g_select].size = 50;
 	g_text[g_select].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	if (GetKeyboardTrigger(DIK_SPACE)) {
+	if ((GetKeyboardTrigger(DIK_SPACE))|| (GetKeyboardTrigger(DIK_RETURN))) {
 		PlaySound(SOUND_LABEL_SE_select_ok);
 		switch (g_select)
 		{
 		case (SELECT_START):
 			SetMode(MODE_GAME);
 			break;
-		//case (SELECT_LOAD):
-		//	SetMode(MODE_GAME);
-		//	break;
 		case (SELECT_OPTION):
 			SetMode(MODE_MENUE);
 			break;
@@ -102,7 +98,6 @@ void Update_title_hud(void) {
 }
 void Draw_title_hud(void) {
 	char temp1[] = "‚r‚s‚`‚q‚s";
-	//char temp2[] = "‚k‚n‚`‚c";
 	char temp3[] = "‚n‚o‚s‚h‚n‚m";
 	char temp4[] = "‚d‚w‚h‚s";
 
@@ -113,5 +108,6 @@ void Draw_title_hud(void) {
 	i++;
 	SetText(g_text[i], temp4);
 	i++;
-	//SetText(g_text[i], temp);
+
+
 }

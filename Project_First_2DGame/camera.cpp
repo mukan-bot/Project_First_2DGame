@@ -1,8 +1,4 @@
-
-//
-//ƒJƒƒ‰ˆ— [camera.cpp]
-//Author : 
-//
+//ì¬ÒF’|“à‘åãÄ
 
 #include "main.h"
 #include "camera.h"

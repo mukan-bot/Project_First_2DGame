@@ -1,3 +1,5 @@
+//ì¬ÒF’|“à‘åãÄ
+
 #include "main.h"
 #include "renderer.h"
 

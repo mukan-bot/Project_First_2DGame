@@ -1,3 +1,5 @@
+//作成者：竹内大翔
+
 #include "main.h"
 #include "renderer.h"
 #include "camera.h"
@@ -120,20 +122,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	// ウィンドウモードかフルスクリーンモードかの処理
 	BOOL mode = TRUE;
 
-	//int id = MessageBox(NULL, "Windowモードでプレイしますか？", "起動モード", MB_YESNOCANCEL | MB_ICONQUESTION);
-	//switch (id)
-	//{
-	//case IDYES:		// YesならWindowモードで起動
-	//	mode = TRUE;
-	//	break;
-	//case IDNO:		// Noならフルスクリーンモードで起動
-	//	mode = FALSE;	// 環境によって動かない事がある
-	//	break;
-	//case IDCANCEL:	// CANCELなら終了
-	//default:
-	//	return -1;
-	//	break;
-	//}
+	int id = MessageBox(NULL, "Windowモードでプレイしますか？", "起動モード", MB_YESNOCANCEL | MB_ICONQUESTION);
+	switch (id)
+	{
+	case IDYES:		// YesならWindowモードで起動
+		mode = TRUE;
+		break;
+	case IDNO:		// Noならフルスクリーンモードで起動
+		mode = FALSE;	// 環境によって動かない事がある
+		break;
+	case IDCANCEL:	// CANCELなら終了
+	default:
+		return -1;
+		break;
+	}
 
 	// 初期化処理(ウィンドウを作成してから行う)
 	if (FAILED(Init(hInstance, hWnd, mode)))

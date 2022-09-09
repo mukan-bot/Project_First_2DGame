@@ -1,5 +1,5 @@
-//デバッグ表示処理 [debugproc.h]
-//Author :
+//作成者：竹内大翔
+
 #pragma once
 
 

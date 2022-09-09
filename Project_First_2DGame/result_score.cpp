@@ -1,3 +1,5 @@
+//????????
+
 #include "main.h"
 #include "text.h"
 #include "result_score.h"
@@ -141,6 +143,18 @@ void Draw_result_score(void) {
 		// ƒ|ƒŠƒSƒ“•`‰æ
 		GetDeviceContext()->Draw(4, 0);
 	}
+
+
+
+	//ƒGƒ“ƒ^[ƒL[‚Åi‚ß‚é‚±‚Æ‚ğ“`‚¦‚é
+	TEXT temp;
+	temp.size = 20;
+	temp.pos = XMFLOAT2(800, 520);
+	temp.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	char temp_text[] = "‚o‚Œ‚…‚‚“‚… ‚d‚m‚s‚d‚q ‚j‚…‚™";
+	SetText(temp, temp_text);
+
+
 }
 
 void Set_resurt_score(void) {

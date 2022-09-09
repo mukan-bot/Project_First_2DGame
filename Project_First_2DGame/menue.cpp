@@ -1,3 +1,5 @@
+//çÏê¨é“ÅFí|ì‡ëÂ„ƒ
+
 #include "main.h"
 #include "game.h"
 #include "input.h"
@@ -186,7 +188,7 @@ void Update_menue(void) {
 	g_op_textO[g_selectO].size = 50;
 	g_op_textO[g_selectO].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	if (GetKeyboardTrigger(DIK_SPACE)) {
+	if ((GetKeyboardTrigger(DIK_SPACE)) || (GetKeyboardTrigger(DIK_RETURN))) {
 		if (g_selectO == OPTION_OK) {
 			Set_bgmVolume(g_temp_bgm_vol);
 			Set_seVolume(g_temp_se_vol);

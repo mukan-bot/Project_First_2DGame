@@ -1,5 +1,4 @@
-//スプライト処理 [sprite.cpp]
-//Author : GP11B132 16 竹内大翔
+//作成者：竹内大翔
 
 #include "main.h"
 #include "renderer.h"
