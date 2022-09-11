@@ -1,6 +1,1 @@
-﻿  HUD.cpp
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\HUD.cpp(84,49): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\HUD.cpp(93,49): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\HUD.cpp(126,14): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\HUD.cpp(129,14): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  Project_First_2DGame.vcxproj -> C:\Users\Takeuchi Hiroto\Documents\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
+﻿  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
