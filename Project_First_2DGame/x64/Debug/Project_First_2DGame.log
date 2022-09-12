@@ -1,1 +1,10 @@
-﻿  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
+﻿  set_map.cpp
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(241,47): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(241,43): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(246,65): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(246,62): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(252,62): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(252,48): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(253,66): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\set_map.cpp(253,52): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+  Project_First_2DGame.vcxproj -> D:\document\GitHub\Project_First_2DGame\Project_First_2DGame\x64\Debug\Project_First_2DGame.exe
